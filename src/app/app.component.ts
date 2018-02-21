@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SwaggerService } from './services/swagger.service';
 import { Observable } from 'rxjs/Observable';
+import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +11,9 @@ export class AppComponent implements OnInit {
   title = 'app';
   apiData: Observable<any>;
 
-  constructor(private swaggerService: SwaggerService) {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit() {
-    this.swaggerService.getApiData()
-      .subscribe( data => console.log(data) );
   }
 
 }
