@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
+import { LocalStorageService } from './services/local-storage.service';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import {SampleView} from './views/sample.controller';
@@ -20,7 +21,7 @@ import {AppRoutingModule} from './app-routing.module';
     BsDatepickerModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [SwaggerService],
+  providers: [SwaggerService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
