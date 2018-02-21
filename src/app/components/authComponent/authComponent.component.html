@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication Header</title>
+</head>
+<body>
+
+<h5>{{this.text.header}}</h5>
+<div *ngIf="this.securityDefinitions != null">
+  <div id="fieldContainer12412" *ngFor="let sdName of this.Object.keys(this.securityDefinitions); let index = index">
+    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="{{sdName}}">
+  </div>
+
+  <div id="applyButtonContainer1257235">
+    <button id="applyButton1257235" type="button" class="btn btn-secondary">{{this.text.applyButton}}</button>
+  </div>
+</div>
+
+
+
+</body>
+</html>
