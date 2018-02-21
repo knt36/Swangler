@@ -1,6 +1,5 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {LocalStorageService} from '../../services/local-storage.service';
-import {NgModel} from '@angular/forms';
 
 
 @Component({
