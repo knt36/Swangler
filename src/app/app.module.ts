@@ -5,13 +5,16 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
 
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [SwaggerService],
   bootstrap: [AppComponent]
