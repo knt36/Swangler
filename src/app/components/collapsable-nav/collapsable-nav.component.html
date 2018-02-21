@@ -1,0 +1,14 @@
+
+<nav [ngClass]="{'expanded' : !collapsed}">
+  <div class="collapsable-nav-header">
+      <a class="nav-link" [routerLink]="tag">{{ tag }}</a>
+      <div class="toggle-collapse" (click)="toggleCollapse()">
+        <i class="fas fa-angle-down"></i>
+      </div>
+  </div>
+  <div *ngIf="!collapsed" class="collapsable-nav-body">
+    <div *ngFor="let route of Object.keys(routes)">
+      <a class="nav-link" [routerLink]="tag" [href]="routes[route].operationId" routerLinkActive="active">{{ routes[route].summary }}</a>
+    </div>
+  </div>
+</nav>
