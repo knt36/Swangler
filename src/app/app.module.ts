@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
 import {AuthComponent} from './components/authComponent/authComponent.controller';
+import { LocalStorageService } from './services/local-storage.service';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,9 +12,10 @@ import {AuthComponent} from './components/authComponent/authComponent.controller
     AuthComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
-  providers: [SwaggerService],
+  providers: [SwaggerService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
