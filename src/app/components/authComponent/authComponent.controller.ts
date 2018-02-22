@@ -3,11 +3,9 @@ import {LocalStorageService} from '../../services/local-storage.service';
 
 
 @Component({
-  selector: 'auth-component',
+  selector: 'app-auth-component',
   templateUrl : './authComponent.component.html',
   styleUrls: ['./authComponent.component.scss'],
-  encapsulation: ViewEncapsulation.None
-
 })
 
 
