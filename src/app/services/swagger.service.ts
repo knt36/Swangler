@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SwaggerService {
-  specUrl = 'http://petstore.swagger.io/v2/swagger.json';
-  apiDataSubject: BehaviorSubject<any>;
-  endpointsSubject: BehaviorSubject<any>;
+  private specUrl = 'http://petstore.swagger.io/v2/swagger.json';
+  private apiDataSubject: BehaviorSubject<any>;
+  private endpointsSubject: BehaviorSubject<any>;
 
   constructor() {
     this.apiDataSubject = new BehaviorSubject(undefined);
@@ -24,7 +24,7 @@ export class SwaggerService {
 
         for (let index = 0; index < apiTags.length; index++) {
           const tag = apiTags[index].name;
-          sortedEndpoints[tag] = this.getApiEndpointsByTag(endpoints, tag);
+          sortedEndpoints[tag] = this.sortApiEndpointsByTag(endpoints, tag);
         }
 
         this.setSortedEndpoints(sortedEndpoints);
@@ -35,15 +35,15 @@ export class SwaggerService {
       .catch(err => console.error(err));
   }
 
-  setApiData(apiData) {
+  private setApiData(apiData) {
     this.apiDataSubject.next(apiData);
   }
 
-  setSortedEndpoints(sortedEndpoints) {
+  private setSortedEndpoints(sortedEndpoints) {
     this.endpointsSubject.next(sortedEndpoints);
   }
 
-  getEndpointsSortedByTags() {
+  getEndpointsSortedByTags(): Observable<any> {
     return this.endpointsSubject.asObservable();
   }
 
@@ -56,7 +56,7 @@ export class SwaggerService {
       .map(data => data.spec.tags);
   }
 
-  getApiEndpointsByTag(endpoints, tag): Array<any> {
+  private sortApiEndpointsByTag(endpoints, tag): Array<any> {
     const taggedEndpoints: Array<any> = [];
 
     for (const pathKey in endpoints) {
@@ -81,7 +81,7 @@ export class SwaggerService {
     return taggedEndpoints;
   }
 
-  initSwagger(): Promise<any> {
+  private initSwagger(): Promise<any> {
     return Swagger(this.specUrl);
   }
 
