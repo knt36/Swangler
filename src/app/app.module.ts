@@ -9,12 +9,14 @@ import { LocalStorageService } from './services/local-storage.service';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import {SampleView} from './views/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SampleView
+    SampleView,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
