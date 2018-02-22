@@ -8,12 +8,15 @@ import {FormsModule} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import {SampleView} from './views/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
+import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
+import {NgClass} from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    SampleView
+    SampleView,
+    HttpResModal
   ],
   imports: [
     BrowserModule,
