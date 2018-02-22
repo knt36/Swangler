@@ -8,17 +8,16 @@ import {FormsModule} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import {SampleView} from './views/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
-
 import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
-import {NgClass} from '@angular/common';
 
 @NgModule({
   declarations: [
     ContactComponent,
     AuthComponent,
     SampleView,
-    HttpResModal
+    HttpResModal,
+    AppComponent
   ],
   imports: [
     BrowserModule,
