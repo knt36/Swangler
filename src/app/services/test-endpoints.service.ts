@@ -22,7 +22,10 @@ export class TestEndpointsService {
           name: 'test',
           value: 1
         }
-      ]
+      ],
+      payload: {
+        'nicePayload': 'test'
+      }
     };
 
     this.testEndpoint(test)
@@ -49,7 +52,12 @@ export class TestEndpointsService {
       }
     }
 
-    return this.http[callData.method](callData.url, options);
+    if (callData.payload && (callData.method === 'put' || 'patch' || 'post')) {
+      return this.http[callData.method](callData.url, callData.payload, options);
+    } else {
+      return this.http[callData.method](callData.url, options);
+    }
+
   }
 
 }
