@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
 /* Method Badge Colors */
 $methodGetColor: green;
 $methodPostColor: blue;
@@ -7,3 +13,4 @@ $methodPatchColor: pink;
 $methodDeleteColor: red;
 $methodOptionColor: magenta;
 $methodOtherColor: orange;
+
