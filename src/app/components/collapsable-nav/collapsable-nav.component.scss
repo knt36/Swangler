@@ -1,5 +1,7 @@
+
 nav{
     width: 100%;
+    color: #212529;
 }
 
 .collapsable-nav-header{
@@ -36,5 +38,15 @@ nav{
         widows: 100%;
         border-top: 1px solid rgba(0,0,0,0.125);
         padding-left: 30px;
+    }
+}
+
+a{
+    color: #212529;
+    &.active{
+        font-weight: bold;
+    }
+    &:hover{
+        color: #55606f;
     }
 }
