@@ -1,0 +1,14 @@
+
+<nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !collapsed}">
+  <nav class="collapsable-nav-header" routerLinkActive="active">
+      <a class="nav-link text-capitalize" [routerLink]="tag" >{{ tag }}</a>
+      <div class="toggle-collapse" (click)="toggleCollapse()">
+        <i class="fas fa-angle-down"></i>
+      </div>
+  </nav>
+  <nav *ngIf="!collapsed" class="collapsable-nav-body nav flex-column sub_menu">
+    <div *ngFor="let route of Object.keys(routes)">
+      <a class="nav-link" [routerLink]="tag" [href]="routes[route].operationId" routerLinkActive="active">{{ routes[route].summary }}</a>
+    </div>
+  </nav>
+</nav>
