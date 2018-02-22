@@ -23,6 +23,13 @@
         "../node_modules/highlight.js/styles/default.css",
         "styles.scss"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          ".",
+          "../node_modules/bootstrap/scss",
+          "./assets/scss"
+        ]
+      },
       "scripts": [
         "../node_modules/highlight.js/lib/highlight.js"
       ],
