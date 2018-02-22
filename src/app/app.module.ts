@@ -6,7 +6,7 @@ import {AuthComponent} from './components/authComponent/authComponent.controller
 import { LocalStorageService } from './services/local-storage.service';
 import {FormsModule} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
-import {SampleView} from './views/sample.controller';
+import {SampleViewComponent} from './views/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
 import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
@@ -15,7 +15,7 @@ import {HttpResModal} from './components/httpResModalComponent/httpResModal.cont
   declarations: [
     ContactComponent,
     AuthComponent,
-    SampleView,
+    SampleViewComponent,
     HttpResModal,
     AppComponent
   ],
