@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 
 
 @Component({
-  selector: 'sample-view',
+  selector: 'app-sample-view',
   templateUrl : './sample.view.html'
 })
 
-export class SampleView {
+export class SampleViewComponent {
 }
