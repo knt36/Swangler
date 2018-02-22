@@ -1,0 +1,13 @@
+
+
+<h5>{{this.text.header}}</h5>
+<div *ngIf="this.securityDefinitions != null">
+  <div id="fieldContainer12412" *ngFor="let sdName of Object.keys(this.securityDefinitions);">
+    <input [(ngModel)]="inputFields[sdName]" type="text" class="form-control" aria-describedby="auth" placeholder="{{sdName}}">
+  </div>
+
+  <div id="applyButtonContainer1257235">
+    <button (click)="this.clickApplyButton()" id="applyButton1257235" type="button" class="btn btn-secondary">{{this.text.applyButton}}</button>
+  </div>
+</div>
+

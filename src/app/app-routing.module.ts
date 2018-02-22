@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SampleView} from './views/sample.controller';
+import { SampleViewComponent} from './views/sample.controller';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'sampleView', pathMatch : 'full'},
-  { path: 'sampleView', component: SampleView, pathMatch : 'full'}
+  { path: 'sampleView', component: SampleViewComponent, pathMatch : 'full'}
 ];
 
 @NgModule({
