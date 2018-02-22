@@ -1,0 +1,18 @@
+<div id="headerContainer73174">
+  <h5 id="modalHeader79817">{{this.data.title}}</h5>
+  <span id="badgeContainer73107">
+      <h6 id="badge883071"><span [ngClass]="this.data.methodType.toLowerCase()" class="badge badge-default">{{this.data.methodType}}</span></h6>
+  </span>
+</div>
+<hr>
+<div id="fieldsContainer863871">
+  <div *ngFor="let field of this.data.fields">
+    <h6 id="fieldName73209">{{field.fieldName}}</h6>
+    <div id="textBox561">
+      {{field.fieldValue}}
+    </div>
+  </div>
+</div>
+
+
+
