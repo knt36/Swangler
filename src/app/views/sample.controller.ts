@@ -5,6 +5,7 @@ import {
 import {
   SwaggerService
 } from '../services/swagger.service';
+import { TestEndpointsService } from '../services/test-endpoints.service';
 
 
 @Component({
@@ -13,6 +14,9 @@ import {
 })
 
 export class SampleViewComponent {
+
+  constructor( private testEndpointsService: TestEndpointsService ) {
+  }
 
   accounts = {
     'post': {

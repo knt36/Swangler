@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
 
@@ -15,6 +16,7 @@ import { CollapsableNavComponent } from './components/collapsable-nav/collapsabl
 
 import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
+import { TestEndpointsService } from './services/test-endpoints.service';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,10 @@ import {HttpResModal} from './components/httpResModalComponent/httpResModal.cont
     BrowserModule,
     BsDatepickerModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [SwaggerService, LocalStorageService],
+  providers: [SwaggerService, LocalStorageService, TestEndpointsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
