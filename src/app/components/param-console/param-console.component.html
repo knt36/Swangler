@@ -14,8 +14,11 @@
               <code>
                 {{val}}
               </code>
+              <!-- The first comma only if there is more than one item -->
               <span *ngIf="f.validValues.length > 1 && i == 0">,</span>
+              <!-- The last comma and an 'or' -->
               <span *ngIf="f.validValues.length - 2 == i">, or </span>
+              <!-- A comma everywhere else in the middle -->
               <span *ngIf="i != 0 && f.validValues.length - 2 != i && i != f.validValues.length - 1">,</span>
             </span>
           </div>
