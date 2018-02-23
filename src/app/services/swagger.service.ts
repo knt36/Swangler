@@ -20,9 +20,13 @@ export class SwaggerService {
     // this.getApiData().subscribe( a => console.log(a));
 
     // const request = {
-    //   operationId: 'Accounts_create_account2',
-    //   parameters: { 'page_number': 1, 'page_size': 20 },
-    //   securities: { 'slyce-account-id': 'slyce' },
+    //   url: 'http://forge.local/accounts/',
+    //   method: 'post',
+    //   headers: { 'slyce-account-id': 'slyce' },
+    //   body: {
+    //     'id': '123',
+    //     'name': 's,123123Inc.'
+    //   }
     // };
 
     // this.executeRequest(request)
@@ -36,36 +40,15 @@ export class SwaggerService {
   }
 
   executeRequest(requestData) {
-    const request = {
-      operationId: requestData.operationId,
-      parameters: requestData.parameters,
-      securities: requestData.securities,
-      requestInterceptor: (req) => {
-
-        const headers = new Headers();
-
-        for (const key in requestData.securities) {
-          if (requestData.securities.hasOwnProperty(key)) {
-            const element = requestData.securities[key];
-            headers.append( key, element );
-          }
-        }
-
-        req.headers = headers;
-      }
-    };
-
     const requestResponse = new Promise( (resolve, reject) => {
       this.getApiData()
         .first()
         .subscribe( apiData => {
-          if (apiData) {
-            apiData.execute({
-              ...request
-            })
-            .then( response => resolve(response) )
-            .catch( err => reject(err) );
-          }
+          apiData.http({
+            ...requestData
+          })
+          .then( response => resolve(response) )
+          .catch( err => reject(err) );
         });
     });
 
