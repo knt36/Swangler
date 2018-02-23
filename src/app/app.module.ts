@@ -26,7 +26,7 @@ import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.compon
     HttpResModal,
     AppComponent,
     CollapsableNavComponent,
-    ParamConsoleComponent
+    ParamConsoleComponent,
     SidebarNavComponent,
   ],
   imports: [
