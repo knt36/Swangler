@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SwaggerService {
-  specUrl = 'http://petstore.swagger.io/v2/swagger.json';
+  specUrl = 'http://forge.local/openapi/spec.json';
   apiDataSubject: BehaviorSubject<any>;
 
   constructor() {
@@ -17,29 +17,60 @@ export class SwaggerService {
 
         console.log(apiData);
 
-        const request = {
-          operationId: 'findPetsByStatus',
-          parameters: { 'status': 'available'},
-          securities: { 'petstore_auth': 'slyce'},
-          requestInterceptor: (res) => {
-            const headers = new Headers();
-            headers.append( 'petstore_auth', 'slyce' );
-            // res.headers = headers;
-            console.log(headers);
-            console.log(res.headers)
-          }
-        };
-
-
-        apiData.execute({
-          ...request
-        })
-          .then( d => d );
-
-
-
       })
       .catch(err => console.error(err));
+
+
+      const request = {
+        operationId: 'Accounts_create_account2',
+        parameters: { 'page_number': 1, 'page_size': 20},
+        securities: { 'slyce-account-id': 'slyce'},
+        requestInterceptor: (res) => {
+          const headers = new Headers();
+          headers.append( 'slyce-account-id', 'slyce' );
+          res.headers = headers;
+        }
+      };
+
+      this.executeRequest(request)
+        .then( a => console.log(a));
+  }
+
+  executeRequest(requestData) {
+    const request = {
+      operationId: requestData.operationId,
+      parameters: requestData.parameters,
+      securities: requestData.securities,
+      requestInterceptor: (req) => {
+
+        const headers = new Headers();
+
+        for (const key in requestData.securities) {
+          if (requestData.securities.hasOwnProperty(key)) {
+            const element = requestData.securities[key];
+            headers.append( key, element );
+          }
+        }
+
+        req.headers = headers;
+      }
+    };
+
+    const promise = new Promise( (resolve, reject) => {
+      this.getApiData()
+        .subscribe( apiData => {
+          if (apiData) {
+            apiData.execute({
+              ...request
+            })
+            .then( response => resolve(response) )
+            .catch( err => reject(err) );
+          }
+        });
+    });
+
+    return promise;
+
   }
 
   setApiData(apiData) {
