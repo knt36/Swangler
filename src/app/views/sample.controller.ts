@@ -14,7 +14,9 @@ import {
 
 export class SampleViewComponent {
 
-  constructor( private swaggerService: SwaggerService ) {}
+  constructor() {
+
+  }
 
   data = {
     'accounts': {
