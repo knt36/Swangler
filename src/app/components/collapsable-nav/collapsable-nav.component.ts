@@ -19,10 +19,4 @@ export class CollapsableNavComponent implements OnInit {
     this.Object = Object;
   }
 
-  collapsed(event: any): void {
-  }
-
-  expanded(event: any): void {
-  }
-
 }
