@@ -20,11 +20,9 @@ export class CollapsableNavComponent implements OnInit {
   }
 
   collapsed(event: any): void {
-    console.log(event);
   }
 
   expanded(event: any): void {
-    console.log(event);
   }
 
 }
