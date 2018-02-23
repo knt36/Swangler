@@ -16,7 +16,6 @@ import { CollapsableNavComponent } from './components/collapsable-nav/collapsabl
 
 import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
-import { TestEndpointsService } from './services/test-endpoints.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,7 @@ import { TestEndpointsService } from './services/test-endpoints.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SwaggerService, LocalStorageService, TestEndpointsService],
+  providers: [SwaggerService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
