@@ -8,6 +8,9 @@ import { LocalStorageService } from './services/local-storage.service';
 import {FormsModule} from '@angular/forms';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
+
 import {SampleViewComponent} from './views/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
 
@@ -34,6 +37,7 @@ import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.compon
   imports: [
     BrowserModule,
     BsDatepickerModule.forRoot(),
+    CollapseModule.forRoot(),
     AppRoutingModule,
     FormsModule
   ],

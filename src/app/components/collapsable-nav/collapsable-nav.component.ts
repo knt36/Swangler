@@ -11,16 +11,12 @@ export class CollapsableNavComponent implements OnInit {
   @Input() routes: Object;
   @Input() tag: string;
   Object = null;
-  collapsed = false;
+  isCollapsed = false;
 
   constructor(private swaggerService: SwaggerService) { }
 
   ngOnInit() {
     this.Object = Object;
-  }
-
-  toggleCollapse() {
-    this.collapsed = !this.collapsed;
   }
 
 }
