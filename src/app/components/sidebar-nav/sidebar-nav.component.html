@@ -1,0 +1,5 @@
+<div class="col-12 d-none d-lg-block">
+  <label class="text-uppercase mt-3 mb-0">API Reference</label>
+</div>
+
+<app-collapsable-nav *ngFor="let tag of Object.keys(tags)" [routes]='tags[tag]' [tag]="tag"></app-collapsable-nav>

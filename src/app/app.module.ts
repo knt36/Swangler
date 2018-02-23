@@ -16,6 +16,7 @@ import { CollapsableNavComponent } from './components/collapsable-nav/collapsabl
 import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
 import {ParamConsoleComponent} from "./components/param-console/param-console.component";
+import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {ParamConsoleComponent} from "./components/param-console/param-console.co
     AppComponent,
     CollapsableNavComponent,
     ParamConsoleComponent
+    SidebarNavComponent,
   ],
   imports: [
     BrowserModule,
