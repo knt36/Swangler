@@ -1,5 +1,4 @@
 
-@import "./bootstrap";
 
 .propLabels{
   padding:0px 0px 0px 0px;
@@ -15,6 +14,13 @@
   }
 }
 
+.schema-description .objectName, .sample-snippet .objectName {
+  margin-left:0px;
+  margin-right:0px;
+}
 
+.schema-description[_ngcontent-c2] .objectName[_ngcontent-c2], .sample-snippet[_ngcontent-c2] .objectName[_ngcontent-c2]{
+  border-radius:0.25rem !important;
+}
 
 
