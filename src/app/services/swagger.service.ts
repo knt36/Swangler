@@ -5,9 +5,11 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SwaggerService {
-  private specUrl = 'http://petstore.swagger.io/v2/swagger.json';
+  private specUrl = 'http://forge.local/openapi/spec.json';
   private apiDataSubject: BehaviorSubject<any>;
   private endpointsSubject: BehaviorSubject<any>;
+
+  private tags: Object = {};
 
   constructor() {
     this.apiDataSubject = new BehaviorSubject(undefined);
@@ -17,15 +19,9 @@ export class SwaggerService {
       .then(apiData => {
         this.setApiData(apiData);
 
-        const apiTags = apiData.spec.tags;
         const endpoints = apiData.spec.paths;
 
-        const sortedEndpoints = {};
-
-        for (let index = 0; index < apiTags.length; index++) {
-          const tag = apiTags[index].name;
-          sortedEndpoints[tag] = this.sortApiEndpointsByTag(endpoints, tag);
-        }
+        const sortedEndpoints = this.sortApiEndpointsByTags(endpoints);
 
         this.setSortedEndpoints(sortedEndpoints);
 
@@ -56,8 +52,8 @@ export class SwaggerService {
       .map(data => data.spec.tags);
   }
 
-  private sortApiEndpointsByTag(endpoints, tag): Array<any> {
-    const taggedEndpoints: Array<any> = [];
+  private sortApiEndpointsByTags(endpoints): Array<Array<Object>> {
+    const result = [];
 
     for (const pathKey in endpoints) {
       if (endpoints.hasOwnProperty(pathKey)) {
@@ -67,18 +63,25 @@ export class SwaggerService {
           if (path.hasOwnProperty(methodKey)) {
             const method = path[methodKey];
 
-            if (method.tags.filter( elem => elem === tag ).length) {
+            method.tags.filter( tag => {
+
+              if (!result[tag]) {
+                result[tag] = [];
+              }
+
               method.url = pathKey;
               method.method = methodKey;
-              taggedEndpoints.push(method);
-            }
+              result[tag].push(method);
+
+            });
+
           }
         }
 
       }
     }
 
-    return taggedEndpoints;
+    return result;
   }
 
   private initSwagger(): Promise<any> {

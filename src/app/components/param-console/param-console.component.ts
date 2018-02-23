@@ -61,7 +61,6 @@ export class ParamConsoleComponent implements OnInit {
 
   constructor() {
     this.Object = Object;
-    console.log(this.mockData);
   }
 
   ngOnInit() {
