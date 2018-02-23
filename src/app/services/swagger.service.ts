@@ -51,7 +51,7 @@ export class SwaggerService {
       }
     };
 
-    const promise = new Promise( (resolve, reject) => {
+    const requestResponse = new Promise( (resolve, reject) => {
       this.getApiData()
         .subscribe( apiData => {
           if (apiData) {
@@ -64,7 +64,7 @@ export class SwaggerService {
         });
     });
 
-    return promise;
+    return requestResponse;
 
   }
 
