@@ -14,7 +14,69 @@ import {
 
 export class SampleViewComponent {
 
-  constructor( private swaggerService: SwaggerService ) {}
+  constructor() {
+
+  }
+
+  public sampleContent2 = {
+    type:'schema',
+    data: {
+      header: 'Monster Pets',
+      fields: [
+        {
+          fieldName: 'id',
+          type: 'integer',
+          required: 'true',
+          details: 'pet status in store',
+          validValues: [
+            'available'
+          ]
+        },
+        {
+          fieldName: 'petType',
+          type: 'string',
+          required: 'true',
+          details: 'pet status in store',
+          validValues: [
+            'available',
+            'pending',
+            'dead',
+            'abandoned',
+            'crippled for life',
+            'sold'
+          ]
+        },
+        {
+          fieldName: 'petName',
+          type: 'boolean',
+          required: 'false',
+          details: 'pet status in store',
+          validValues: [
+            'available',
+            'pending',
+            'sold'
+          ]
+        },
+        {
+          fieldName: 'combatLevel',
+          type: 'integer',
+          required: 'false',
+          details: 'pet status in store',
+          validValues: null
+        }
+      ]
+    }
+  };
+
+
+  public sampleContent1 = {
+    type:'sample',
+    data: "" +
+    "{" +
+    "'type':'hello'" +
+    "}" +
+    ""
+  }
 
   data = {
     'accounts': {
