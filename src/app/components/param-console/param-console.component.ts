@@ -14,7 +14,7 @@ export class ParamConsoleComponent implements OnInit {
       {
         fieldName: 'id',
         type: 'integer',
-        required:'true',
+        required: 'true',
         details: 'pet status in store',
         validValues: [
           'available'
@@ -23,7 +23,7 @@ export class ParamConsoleComponent implements OnInit {
       {
         fieldName: 'petType',
         type: 'string',
-        required:'true',
+        required: 'true',
         details: 'pet status in store',
         validValues: [
           'available',
@@ -37,7 +37,7 @@ export class ParamConsoleComponent implements OnInit {
       {
         fieldName: 'petName',
         type: 'boolean',
-        required:'false',
+        required: 'false',
         details: 'pet status in store',
         validValues: [
           'available',
@@ -48,14 +48,14 @@ export class ParamConsoleComponent implements OnInit {
       {
         fieldName: 'combatLevel',
         type: 'integer',
-        required:'false',
+        required: 'false',
         details: 'pet status in store',
         validValues: null
       }
     ]
   };
 
-  public test = "test";
+  public test = 'test';
 
   @Input('data') data = this.mockData;
 
@@ -67,10 +67,10 @@ export class ParamConsoleComponent implements OnInit {
   ngOnInit() {
   }
 
-  public getRequiredText(bool: string): string{
-    if(bool.toLowerCase() == 'false'){
+  public getRequiredText(bool: string): string {
+    if (bool.toLowerCase() === 'false') {
       return('optional');
-    }else{
+    } else {
       return('required');
     }
   }
