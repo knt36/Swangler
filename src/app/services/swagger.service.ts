@@ -2,33 +2,37 @@ import { Injectable } from '@angular/core';
 const Swagger = require('swagger-client');
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/first';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class SwaggerService {
-  specUrl = 'http://forge.local/openapi/spec.json';
-  apiDataSubject: BehaviorSubject<any>;
+  private apiDataSubject: Subject<any>;
 
   constructor() {
-    this.apiDataSubject = new BehaviorSubject(undefined);
+    this.apiDataSubject = new Subject();
 
-    this.initSwagger()
-      .then(apiData => {
-        this.setApiData(apiData);
+    const specUrl = 'http://forge.local/openapi/spec.json';
+    this.initSwagger(specUrl);
 
-        console.log(apiData);
+    // for testing purposes
 
-      })
-      .catch(err => console.error(err));
+    // this.getApiData().subscribe( a => console.log(a));
 
+    // const request = {
+    //   operationId: 'Accounts_create_account2',
+    //   parameters: { 'page_number': 1, 'page_size': 20 },
+    //   securities: { 'slyce-account-id': 'slyce' },
+    // };
 
-      const request = {
-        operationId: 'Accounts_create_account2',
-        parameters: { 'page_number': 1, 'page_size': 20},
-        securities: { 'slyce-account-id': 'slyce'},
-      };
+    // this.executeRequest(request)
+    //   .then( a => console.log(a));
 
-      this.executeRequest(request)
-        .then( a => console.log(a));
+    // setTimeout( () => {
+    //   this.setSpecUrl('http://petstore.swagger.io/v2/swagger.json');
+    // }, 3000);
+
+    // end for testing purposes
   }
 
   executeRequest(requestData) {
@@ -53,6 +57,7 @@ export class SwaggerService {
 
     const requestResponse = new Promise( (resolve, reject) => {
       this.getApiData()
+        .first()
         .subscribe( apiData => {
           if (apiData) {
             apiData.execute({
@@ -68,7 +73,7 @@ export class SwaggerService {
 
   }
 
-  setApiData(apiData) {
+  private setApiData(apiData) {
     this.apiDataSubject.next(apiData);
   }
 
@@ -76,8 +81,13 @@ export class SwaggerService {
     return this.apiDataSubject.asObservable();
   }
 
-  initSwagger(): Promise<any> {
-    return Swagger(this.specUrl);
+  setSpecUrl(url) {
+    this.initSwagger(url);
   }
 
+  private initSwagger(specUrl): Promise<any> {
+    return Swagger(specUrl)
+      .then( apiData => this.setApiData(apiData) )
+      .catch( err => console.error(err) );
+  }
 }
