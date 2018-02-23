@@ -1,0 +1,36 @@
+<div style="padding: 0px 20px 0px 20px">
+  <hr>
+  <nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !collapsed}">
+    <nav (click)="toggleCollapse()" class="collapsable-nav-header" routerLinkActive="active">
+      <h4>{{this?.text?.header}}</h4>
+      <div class="toggle-collapse">
+        <i class="fas fa-angle-down"></i>
+      </div>
+    </nav>
+    <nav [ngStyle]="{display:this.collapsed ? 'none' : 'block'}" class="collapsable-nav-body nav flex-column sub_menu">
+
+      <div *ngIf="this?.content?.type == 'sample'">
+        <pre>
+          <code class="sample79815">
+            {{this?.content?.data}}
+          </code>
+        </pre>
+      </div>
+
+      <div *ngIf="this?.content?.type == 'schema'">
+        <app-param-console [data]="this?.content?.data"></app-param-console>
+      </div>
+
+      <div *ngIf="this.content == null">
+        <pre>
+          <code class="sample79815">
+            No Content Data...
+          </code>
+        </pre>
+      </div>
+
+    </nav>
+  </nav>
+</div>
+
+

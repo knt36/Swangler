@@ -1,0 +1,37 @@
+<div class="schema-description rounded">
+  <span class="strong objectName"><span class="bracketsIcon"></span> <span
+    class="objectNameText">{{this.data.header}}</span></span>
+  <div style="margin:15px;" *ngFor="let f of this.data.fields">
+    <span class="propLabels">
+      <span class="propName propOpt">
+        {{f.fieldName}}
+      </span>
+      <span class="propType" title="{{f.type}}">
+        {{f.type}}
+      </span>
+      <span class="propOptKey">
+        ({{this.getRequiredText(f.required)}})
+      </span>
+    </span>
+
+    <span class="propDesc">{{f.details}}
+      <div *ngIf="f.validValues != null" class="propVals">
+        Can be
+        <span *ngFor="let val of f.validValues; index as i">
+          <code>
+            {{val}}
+          </code>
+          <!-- The first comma only if there is more than one item -->
+          <span *ngIf="f.validValues.length > 1 && i == 0">,</span>
+          <!-- The last comma and an 'or' -->
+          <span *ngIf="f.validValues.length - 2 == i">, or </span>
+          <!-- A comma everywhere else in the middle -->
+          <span *ngIf="i != 0 && f.validValues.length - 2 != i && i != f.validValues.length - 1">,</span>
+        </span>
+      </div>
+    </span>
+
+
+
+  </div>
+</div>
