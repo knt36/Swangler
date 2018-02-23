@@ -25,11 +25,6 @@ export class SwaggerService {
         operationId: 'Accounts_create_account2',
         parameters: { 'page_number': 1, 'page_size': 20},
         securities: { 'slyce-account-id': 'slyce'},
-        requestInterceptor: (res) => {
-          const headers = new Headers();
-          headers.append( 'slyce-account-id', 'slyce' );
-          res.headers = headers;
-        }
       };
 
       this.executeRequest(request)
