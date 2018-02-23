@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SwaggerService {
-  specUrl = 'http://forge.local/openapi/spec.json';
+  specUrl = 'http://petstore.swagger.io/v2/swagger.json';
   apiDataSubject: BehaviorSubject<any>;
 
   constructor() {
@@ -14,6 +14,30 @@ export class SwaggerService {
     this.initSwagger()
       .then(apiData => {
         this.setApiData(apiData);
+
+        console.log(apiData);
+
+        const request = {
+          operationId: 'findPetsByStatus',
+          parameters: { 'status': 'available'},
+          securities: { 'petstore_auth': 'slyce'},
+          requestInterceptor: (res) => {
+            const headers = new Headers();
+            headers.append( 'petstore_auth', 'slyce' );
+            // res.headers = headers;
+            console.log(headers);
+            console.log(res.headers)
+          }
+        };
+
+
+        apiData.execute({
+          ...request
+        })
+          .then( d => d );
+
+
+
       })
       .catch(err => console.error(err));
   }

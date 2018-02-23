@@ -28,8 +28,8 @@ export class TestEndpointsService {
       }
     };
 
-    this.testEndpoint(test)
-      .subscribe( d => console.log(d));
+    // this.testEndpoint(test)
+    //   .subscribe( d => console.log(d));
   }
 
   testEndpoint(callData) {
