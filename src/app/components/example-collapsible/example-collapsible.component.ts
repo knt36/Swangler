@@ -8,26 +8,24 @@ import {SwaggerService} from "../../services/swagger.service";
 })
 export class ExampleCollapsibleComponent implements OnInit {
 
-  public mockData = {
-    bodySample:"" +
-     + "{\n" +
-    "        fieldName: 'id',\n" +
-    "        type: 'integer',\n" +
-    "        required:'true',\n" +
-    "        details: 'pet status in store',\n" +
-    "        validValues: [\n" +
-    "          'available'\n" +
-    "        ]\n" +
-    "      }" +
-    "",
-    bodySchema: [
-      {
-      header: 'Pets',
-      fields : [
+  public mockData1 = {
+    type:'sample',
+    data: "" +
+    "{" +
+    "'type':'hello'" +
+    "}" +
+    ""
+  };
+
+  public mockData2 = {
+    type:'schema',
+    data: {
+      header: 'Monster Pets',
+      fields: [
         {
           fieldName: 'id',
           type: 'integer',
-          required:'true',
+          required: 'true',
           details: 'pet status in store',
           validValues: [
             'available'
@@ -36,7 +34,7 @@ export class ExampleCollapsibleComponent implements OnInit {
         {
           fieldName: 'petType',
           type: 'string',
-          required:'true',
+          required: 'true',
           details: 'pet status in store',
           validValues: [
             'available',
@@ -50,7 +48,7 @@ export class ExampleCollapsibleComponent implements OnInit {
         {
           fieldName: 'petName',
           type: 'boolean',
-          required:'false',
+          required: 'false',
           details: 'pet status in store',
           validValues: [
             'available',
@@ -61,62 +59,25 @@ export class ExampleCollapsibleComponent implements OnInit {
         {
           fieldName: 'combatLevel',
           type: 'integer',
-          required:'false',
+          required: 'false',
           details: 'pet status in store',
           validValues: null
         }
       ]
     }
-    ],
-    responseSample: "" +
-    "{\n" +
-    "          fieldName: 'combatLevel',\n" +
-    "          type: 'integer',\n" +
-    "          required:'false',\n" +
-    "          details: 'pet status in store',\n" +
-    "          validValues: null\n" +
-    "        }" +
-    "",
-    responseSchema:[
-      {
-        header: 'Pets',
-        fields : [
-          {
-            fieldName: 'id',
-            type: 'integer',
-            required:'true',
-            details: 'pet status in store',
-            validValues: [
-              'available'
-            ]
-          }
-        ]
-      },
-      {
-        header: 'Pets',
-        fields : [
-          {
-            fieldName: 'id',
-            type: 'integer',
-            required:'true',
-            details: 'pet status in store',
-            validValues: [
-              'available'
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  };
 
   public mockText = {
     header : "Pets"
   }
 
-  @Input('text') text = this.mockText;
+  @Input('text') text = null;
+  @Input('content') content = null;
+
   public collapsed = false;
 
   constructor() {
+    console.log(this.mockData1);
   }
 
   ngOnInit() {
@@ -124,6 +85,7 @@ export class ExampleCollapsibleComponent implements OnInit {
 
   toggleCollapse() {
     this.collapsed = !this.collapsed;
+
   }
 
 }

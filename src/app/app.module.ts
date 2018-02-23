@@ -8,6 +8,9 @@ import { LocalStorageService } from './services/local-storage.service';
 import {FormsModule} from '@angular/forms';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
+
 import {SampleViewComponent} from './views/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
 
@@ -15,7 +18,7 @@ import { CollapsableNavComponent } from './components/collapsable-nav/collapsabl
 
 import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
-import {ParamConsoleComponent} from "./components/param-console/param-console.component";
+import {ParamConsoleComponent} from './components/param-console/param-console.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import {ExampleCollapsibleComponent} from "./components/example-collapsible/example-collapsible.component";
 
@@ -27,13 +30,16 @@ import {ExampleCollapsibleComponent} from "./components/example-collapsible/exam
     HttpResModal,
     AppComponent,
     CollapsableNavComponent,
+    SidebarNavComponent,
+    ExampleCollapsibleComponent,
     ParamConsoleComponent,
     SidebarNavComponent,
-    ExampleCollapsibleComponent
+    CollapsableNavComponent
   ],
   imports: [
     BrowserModule,
     BsDatepickerModule.forRoot(),
+    CollapseModule.forRoot(),
     AppRoutingModule,
     FormsModule
   ],
