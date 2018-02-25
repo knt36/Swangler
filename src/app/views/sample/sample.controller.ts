@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
   SwaggerService
-} from '../services/swagger.service';
+} from '../../services/swagger.service';
 
 
 @Component({

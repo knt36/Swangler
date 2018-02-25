@@ -11,7 +11,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
-import {SampleViewComponent} from './views/sample.controller';
+import {SampleViewComponent} from './views/sample/sample.controller';
 import {AppRoutingModule} from './app-routing.module';
 
 import { CollapsableNavComponent } from './components/collapsable-nav/collapsable-nav.component';
