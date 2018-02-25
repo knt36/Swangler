@@ -5,6 +5,7 @@ import {
 import {
   SwaggerService
 } from '../services/swagger.service';
+import {AppEndPoint} from "../models/endpoint/endpoint.model";
 
 
 @Component({
@@ -14,8 +15,9 @@ import {
 
 export class SampleViewComponent {
 
-  constructor() {
+  public appEndPoint:AppEndPoint = AppEndPoint.MOCK_DATA;
 
+  constructor() {
   }
 
   public sampleContent2 = {
@@ -326,6 +328,8 @@ export class SampleViewComponent {
       }
     }
   };
+
+
 
   public clickTest(test){
     console.log(test)

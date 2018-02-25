@@ -34,8 +34,6 @@
 
 <div data-content="" class="operation-params card card-body pb-1 bg-light mb-3"><div class="parameter-item"><div class="form-group row">
   <div style="padding:10px;width:100%;" *ngFor="let parm of this.endpointData?.parameters">
-
-
     <div class="row">
       <div class="col-sm-2">
         <label class="param-property text-nowrap col-form-label">
@@ -45,7 +43,7 @@
       </div>
       <div class="col-sm-10">
         <div *ngIf="parm.type.toLowerCase() == 'object'">
-          <textarea [(ngModel)]='this.parameterFields[parm.name]' class="form-control" id="exampleTextarea" rows="3"></textarea>
+          <textarea [(ngModel)]='this.parameterFields[parm.name].value' class="form-control" id="exampleTextarea" rows="3"></textarea>
           <div *ngIf="this.parm?.contentType != null || this.parm?.contentType.length != 0">
             <label class="align-self-center mb-0 mr-3">Content Type:</label>
             <div class="media-body">
@@ -56,7 +54,7 @@
           </div>
         </div>
         <div *ngIf="parm?.type.toLowerCase() != 'object'">
-          <input class="parameter form-control " minlength="0" value="{{parm?.value}}" placeholder="{{parm.required == true ? 'required' : ''}}" [(ngModel)]='this.parameterFields[parm.name]' type="string" >
+          <input class="parameter form-control " minlength="0" value="{{parm?.value}}" placeholder="{{parm.required == true ? 'required' : ''}}" [(ngModel)]='this.parameterFields[parm.name].value' type="string" >
         </div>
         <div class="parameter-content-type"></div>
         <div class="small-description media mt-2">

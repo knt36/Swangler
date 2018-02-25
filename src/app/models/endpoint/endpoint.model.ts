@@ -14,8 +14,6 @@ export class AppEndPoint{
         name: "page_number",
         httpPart:'query',
         type: "integer",
-        required: true,
-        desc: "The page number to get",
         value: "20"
       },
       {
@@ -41,7 +39,7 @@ export class AppEndPoint{
       }
     ],
     responseTypes: [
-      "application/json",
+      "application/jsons",
       "soap/xml"
     ],
     statusCodes:[
@@ -60,13 +58,13 @@ export class AppEndPoint{
     ]
   };
 
-  public name:string;
+  public name?:string;
   public methodType:string;
   public path:string;
-  public desc:string;
-  public responseTypes: string[];
-  public parameters:AppParameter [];
-  public statusCode: AppStatusCode [];
+  public desc?:string;
+  public responseTypes?: string[];
+  public parameters?:AppParameter [];
+  public statusCodes?: AppStatusCode [];
 }
 
 
