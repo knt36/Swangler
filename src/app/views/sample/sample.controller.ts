@@ -2,9 +2,7 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import {
-  SwaggerService
-} from '../../services/swagger.service';
+
 
 
 @Component({
