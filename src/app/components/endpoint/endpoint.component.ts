@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppEndPoint} from "./models/endpoint.model";
-import {AppParameter} from "./models/parameter.model";
+import {AppClickedSampleRes} from "./models/clicked-sample-res";
+import {AppClickedTestRes} from "./models/clicked-test-res";
 
 
 @Component({
@@ -9,75 +10,19 @@ import {AppParameter} from "./models/parameter.model";
   styleUrls: ['./endpoint.component.scss']
 })
 export class EndpointComponent implements OnInit {
-
-  public mockEndPointData = {
-    name: 'List The Account',
-    methodType: "get",
-    path: "/accounts/",
-    desc: "Get a list of all accounts in the system",
-    paramters: [
-      {
-        name: "page_number",
-        httpPart:'query',
-        type: "integer",
-        required: true,
-        desc: "The page number to get",
-        value: "20"
-      },
-      {
-        name: "page_line",
-        httpPart:'path',
-        type: "integer",
-        required: true,
-        desc: "The page number to get",
-        value: "25"
-      },
-      {
-        name: "word_number",
-        httpPart:'body',
-        type: "integer",
-        required: true,
-        desc: "The page number to get",
-        value: "26"
-      }
-    ],
-    responseTypes: [
-      "application/json",
-      "soap/xml"
-    ],
-    statusCodes:[
-      {
-        code:200,
-        desc: 'Success'
-      },
-      {
-        code:400,
-        desc: 'No Auth'
-      },
-      {
-        code:500,
-        desc: 'Server sided problem?'
-      }
-    ]
-  };
-
-
-
-
-
+  /* Sample toggle on button click is hidden*/
   public isHidden:boolean = true;
 
-  public mockData: AppEndPoint =
-    new AppEndPoint('List The Account',
-      'get', '/accounts/',
-      'Get a list of all accounts in the system',
-      [], []);
+  /* Accepts AppEndPoint object */
+  @Input('endpointData') endpointData: AppEndPoint = AppEndPoint.MOCK_DATA as AppEndPoint;
+  /* Call back on sample toggle */
+  @Output('samplesClicked') sampleClicked: EventEmitter<AppClickedSampleRes> = new EventEmitter();
+  /* Call back on test button click */
+  @Output('testEndPointClicked') testEndPointClicked: EventEmitter<AppClickedTestRes> = new EventEmitter<any>();
 
-  @Input('endpointData') endpointData = this.mockEndPointData;
-  @Output('samplesClicked') sampleClicked: EventEmitter<any> = new EventEmitter();
-  @Output('testEndPointClicked') testEndPointClicked: EventEmitter<any> = new EventEmitter<any>();
-
-  public selectedResponse = this.endpointData.responseTypes.length != 0 ? this.endpointData.responseTypes[0] : "none";
+  /* Selected wanted response format from endpoint */
+  public selectedResponse = this.endpointData.responseTypes.length != 0 ? this.endpointData.responseTypes[0] : null;
+  /* Inputed values from user for each parameter otherwise go default */
   public parameterFields = {};
 
   constructor() {
@@ -87,15 +32,11 @@ export class EndpointComponent implements OnInit {
   ngOnInit() {
   }
 
+  /* Init the default parameters to the parameter fields */
   private initParameterFields(){
-    const params = this.endpointData.paramters;
+    const params = this.endpointData.parameters;
     for( const p in params){
       this.parameterFields[params[p].name] = params[p].value;
     }
   }
-
-  public clickedTestEndPointBut(){
-
-  }
-
 }

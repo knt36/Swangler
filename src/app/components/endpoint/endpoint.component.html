@@ -12,7 +12,7 @@
     </h5>
   </div>
   <div style="float:right;">
-    <small  (click)="this.isHidden = !this.isHidden; this.sampleClicked.emit(this.isHidden);" class="text">
+    <small  (click)="this.isHidden = !this.isHidden; this.sampleClicked.emit({showSamples:!this.isHidden});" class="text">
       <span *ngIf="this.isHidden">Show Samples</span>
       <span *ngIf="!this.isHidden">Hide Samples</span>
     </small>
@@ -25,7 +25,7 @@
 </h6>
 
 <div class="alert" role="alert">
-  {{this.endpointData.desc}}
+  {{this?.endpointData?.desc}}
 </div>
 
 <h6 style="top-padding:1em; bottom-padding:1em;">
@@ -33,49 +33,40 @@
 </h6>
 
 <div data-content="" class="operation-params card card-body pb-1 bg-light mb-3"><div class="parameter-item"><div class="form-group row">
-  <div style="padding:10px;width:100%;" *ngFor="let parm of this.endpointData.paramters">
+  <div style="padding:10px;width:100%;" *ngFor="let parm of this.endpointData?.parameters">
 
 
     <div class="row">
       <div class="col-sm-2">
         <label class="param-property text-nowrap col-form-label">
           {{parm.name}}:<br>
-          <small class="text-muted"><em>({{parm.httpPart}})</em></small>
+          <small class="text-muted"><em>{{parm?.httpPart}}</em></small>
         </label>
       </div>
       <div class="col-sm-10">
-        <div *ngIf="parm.httpPart.toLowerCase() == 'body'">
-          <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-
-          <label class="align-self-center mb-0 mr-3">Content Type:</label>
-          <div class="media-body">
-            <select class="parameter form-control form-control-sm" name="responseContentType">
-              <option [(ngValue)] = "this.selectedResponse" *ngFor="let option of this.endpointData.responseTypes" value="application/json">{{option}}</option>
-            </select>
+        <div *ngIf="parm.type.toLowerCase() == 'object'">
+          <textarea [(ngModel)]='this.parameterFields[parm.name]' class="form-control" id="exampleTextarea" rows="3"></textarea>
+          <div *ngIf="this.parm?.contentType != null || this.parm?.contentType.length != 0">
+            <label class="align-self-center mb-0 mr-3">Content Type:</label>
+            <div class="media-body">
+              <select class="parameter form-control form-control-sm" name="responseContentType">
+                <option [(ngValue)] = "this.parameterFields[parm.name]['contentType']" *ngFor="let option of parm?.contentType" value="option">{{option}}</option>
+              </select>
+            </div>
           </div>
         </div>
-
-        <div *ngIf="parm.httpPart.toLowerCase() != 'body'">
-          <input class="parameter form-control " minlength="0" value="{{parm.value}}" placeholder="{{parm.required == true ? 'required' : ''}}" [(ngModel)]='this.parameterFields[parm.name]' type="string" >
+        <div *ngIf="parm?.type.toLowerCase() != 'object'">
+          <input class="parameter form-control " minlength="0" value="{{parm?.value}}" placeholder="{{parm.required == true ? 'required' : ''}}" [(ngModel)]='this.parameterFields[parm.name]' type="string" >
         </div>
-
-
-
-
         <div class="parameter-content-type"></div>
         <div class="small-description media mt-2">
-          <small><pre class="mb-0 mr-2"><code class="code-signature hljs rounded">{{parm.type}}</code></pre></small>
+          <small><pre *ngIf="parm.type != null || parm.type.trim() != ''" class="mb-0 mr-2"><code class="code-signature hljs rounded">{{parm.type}}</code></pre></small>
           <div class="media-body">
-            <small class="text-muted">{{parm.desc}}</small>
+            <small class="text-muted">{{parm?.desc}}</small>
           </div>
         </div>
       </div>
     </div>
-
-
-  
-
-
   </div>
 </div></div>
 </div>
@@ -111,7 +102,7 @@
 
 
   <div id="testEndpointButContainer924">
-    <button (click)="clickedTestEndPointBut(); this.testEndPointClicked.emit({'selectedResponse':this.selectedResponse, 'parameterFields':this.parameterFields})" id="testEndpointBut799" type="button" class="btn btn-primary">Test EndPoint</button>
+    <button (click)="this.testEndPointClicked.emit({'selectedResponse':this.selectedResponse, 'parameterFields':this.parameterFields})" id="testEndpointBut799" type="button" class="btn btn-primary">Test EndPoint</button>
   </div>
 </div>
 
