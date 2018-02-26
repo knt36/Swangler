@@ -16,8 +16,12 @@ import {AppEndPoint} from '../models/endpoint/endpoint.model';
 export class SampleViewComponent {
 
   public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
-
-  constructor() {
+  public swaggerData;
+  constructor(swagger: SwaggerService ) {
+    swagger.getApiData().subscribe(res => {
+      this.swaggerData = res;
+      console.log(this.swaggerData);
+    });
   }
 
   accounts = {
