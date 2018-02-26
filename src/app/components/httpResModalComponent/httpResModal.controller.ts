@@ -3,7 +3,7 @@ import {LocalStorageService} from '../../services/local-storage.service';
 
 
 @Component({
-  selector: 'http-res-modal',
+  selector: 'app-http-res-modal',
   templateUrl : './httpResModal.component.html',
   styleUrls: ['./httpResModal.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -13,7 +13,7 @@ import {LocalStorageService} from '../../services/local-storage.service';
 
 
 
-export class HttpResModal{
+export class HttpResModalComponent {
   public mockTextData = {
     title: 'Update an account',
     methodType: 'Post',
@@ -34,11 +34,11 @@ export class HttpResModal{
       }
     ]
   };
-  @Input ('data') data = this.mockTextData
+  @Input ('data') data = this.mockTextData;
 
   public mockObject = {
     header: 'content'
-  }
+  };
 
 
    constructor() {
