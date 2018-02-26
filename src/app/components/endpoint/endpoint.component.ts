@@ -16,7 +16,7 @@ export class EndpointComponent implements OnInit {
   /* Accepts AppEndPoint object */
   @Input('endpointData') endpointData: AppEndPoint;
   /* Call back on sample toggle */
-  @Output() sampleClicked: EventEmitter<AppClickedSampleRes> = new EventEmitter();
+  @Output('sampleClicked') sampleClicked: EventEmitter<AppClickedSampleRes> = new EventEmitter();
   /* Call back on test button click */
   @Output('testEndPointClicked') testEndPointClicked: EventEmitter<AppClickedTestRes> = new EventEmitter<any>();
 
