@@ -30,7 +30,9 @@ export class AuthComponent {
   }
   public clickApplyButton() {
     for (const i in this.inputFields) {
-      this.localStorageService.setStorageVar(i, this.inputFields[i]);
+      if (this.inputFields.hasOwnProperty(i)) {
+        this.localStorageService.setStorageVar(i, this.inputFields[i]);
+      }
     }
   }
 

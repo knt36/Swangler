@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SwaggerService} from "../../services/swagger.service";
+import {SwaggerService} from '../../services/swagger.service';
 
 @Component({
   selector: 'app-example-collapsible',
@@ -9,16 +9,12 @@ import {SwaggerService} from "../../services/swagger.service";
 export class ExampleCollapsibleComponent implements OnInit {
 
   public mockData1 = {
-    type:'sample',
-    data: "" +
-    "{" +
-    "'type':'hello'" +
-    "}" +
-    ""
+    type: 'sample',
+    data: `{'type':'hello'}`
   };
 
   public mockData2 = {
-    type:'schema',
+    type: 'schema',
     data: {
       header: 'Monster Pets',
       fields: [
@@ -68,8 +64,8 @@ export class ExampleCollapsibleComponent implements OnInit {
   };
 
   public mockText = {
-    header : "Pets"
-  }
+    header : 'Pets'
+  };
 
   @Input('text') text = null;
   @Input('content') content = null;

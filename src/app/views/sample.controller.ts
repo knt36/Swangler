@@ -5,7 +5,7 @@ import {
 import {
   SwaggerService
 } from '../services/swagger.service';
-import {AppEndPoint} from "../models/endpoint/endpoint.model";
+import {AppEndPoint} from '../models/endpoint/endpoint.model';
 
 
 @Component({
@@ -15,13 +15,50 @@ import {AppEndPoint} from "../models/endpoint/endpoint.model";
 
 export class SampleViewComponent {
 
-  public appEndPoint:AppEndPoint = AppEndPoint.MOCK_DATA;
-
+  public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
   constructor() {
   }
 
+  accounts = {
+    'post': {
+      'operationId': 'Accounts.create_account',
+      'summary': 'Create a new account',
+      'description': 'Create a new account.',
+      'consumes': [
+        'application/json'
+      ],
+      'produces': [
+        'application/json'
+      ],
+      'tags': [
+        'Accounts'
+      ],
+      'parameters': [{
+        'type': 'object',
+        'name': 'body',
+        'required': true,
+        'in': 'body',
+        'schema': {
+          '$ref': '#/definitions/NewAccountDoc'
+        }
+      }],
+      'responses': {
+        '200': {
+          'description': 'Successful Operation',
+          'schema': {
+            'type': 'object',
+            '$ref': '#/definitions/NewJobDoc'
+          }
+        },
+        '202': {
+          'description': 'Processing request.'
+        }
+      }
+    }
+  };
+
   public sampleContent2 = {
-    type:'schema',
+    type: 'schema',
     data: {
       header: 'Monster Pets',
       fields: [
@@ -72,13 +109,9 @@ export class SampleViewComponent {
 
 
   public sampleContent1 = {
-    type:'sample',
-    data: "" +
-    "{" +
-    "'type':'hello'" +
-    "}" +
-    ""
-  }
+    type: 'sample',
+    data: `{'type':'hello'}`
+  };
 
   data = {
     'accounts': {
@@ -331,8 +364,8 @@ export class SampleViewComponent {
 
 
 
-  public clickTest(test){
-    console.log(test)
+  public clickTest(test) {
+    console.log(test);
   }
 
 }
