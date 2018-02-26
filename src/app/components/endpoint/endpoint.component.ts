@@ -47,4 +47,7 @@ export class EndpointComponent implements OnInit {
   private initSelectedResponse(){
     this.selectedResponse = this.endpointData.responseTypes.length !== 0 ? this.endpointData.responseTypes[0] : null;;
   }
+  public clickTestEndPointButton() {
+    return({'selectedResponse': this.selectedResponse, 'parameterFields': this.parameterFields});
+  }
 }
