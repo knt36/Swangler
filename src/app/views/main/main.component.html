@@ -22,9 +22,8 @@
   <div class="row">
     <div id='sideBarArea' class="col-lg-4">
 
-
-
-      <app-contact></app-contact>
+      <app-auth-component [securityDefinitions]='apiData?.spec.securityDefinitions'></app-auth-component>
+      <app-sidebar-nav [tags]='sortedApiData | async'></app-sidebar-nav>
 
     </div>
     <div class="col-lg-8">

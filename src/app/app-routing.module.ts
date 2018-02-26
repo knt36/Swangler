@@ -5,7 +5,7 @@ import {MainViewComponent} from './views/main/main.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'sampleView', pathMatch : 'full'},
+  { path: '', redirectTo: 'main', pathMatch : 'full'},
   { path: 'sampleView', component: SampleViewComponent, pathMatch : 'full'},
   { path: 'main', component: MainViewComponent, pathMatch: 'full'}
 ];

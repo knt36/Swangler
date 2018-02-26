@@ -15,10 +15,6 @@ export class AuthComponent {
 
   public inputFields = {};
 
-  @Input('text') text = {
-    header: 'AUTHENTICATION HEADERS:',
-    applyButton: 'Apply'
-  };
   // Contains the name of the security definition as the key
   @Input('securityDefinitions') securityDefinitions = {};
 
