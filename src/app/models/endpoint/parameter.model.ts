@@ -10,7 +10,7 @@ export class AppParameter {
     required: true,
     desc: 'The page number to get',
     value: '20'
-  }
+  };
 
 
   public name: string;

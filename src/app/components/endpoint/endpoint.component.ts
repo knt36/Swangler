@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppEndPoint} from "../../models/endpoint/endpoint.model";
-import {AppClickedSampleRes} from "../../models/endpoint/clicked-sample-res";
-import {AppClickedTestRes} from "../../models/endpoint/clicked-test-res";
+import {AppEndPoint} from '../../models/endpoint/endpoint.model';
+import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
+import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class EndpointComponent implements OnInit {
   /* Accepts AppEndPoint object */
   @Input('endpointData') endpointData: AppEndPoint;
   /* Call back on sample toggle */
-  @Output('samplesClicked') sampleClicked: EventEmitter<AppClickedSampleRes> = new EventEmitter();
+  @Output('sampleClicked') sampleClicked: EventEmitter<AppClickedSampleRes> = new EventEmitter();
   /* Call back on test button click */
   @Output('testEndPointClicked') testEndPointClicked: EventEmitter<AppClickedTestRes> = new EventEmitter<any>();
 
@@ -44,8 +44,8 @@ export class EndpointComponent implements OnInit {
     }
   }
 
-  private initSelectedResponse(){
-    this.selectedResponse = this.endpointData.responseTypes.length !== 0 ? this.endpointData.responseTypes[0] : null;;
+  private initSelectedResponse() {
+    this.selectedResponse = this.endpointData.responseTypes.length !== 0 ? this.endpointData.responseTypes[0] : null;
   }
   public clickTestEndPointButton() {
     return({'selectedResponse': this.selectedResponse, 'parameterFields': this.parameterFields});

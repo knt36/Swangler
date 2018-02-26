@@ -5,7 +5,7 @@ import {
 import {
   SwaggerService
 } from '../services/swagger.service';
-import {AppEndPoint} from "../models/endpoint/endpoint.model";
+import {AppEndPoint} from '../models/endpoint/endpoint.model';
 
 
 @Component({
@@ -15,7 +15,8 @@ import {AppEndPoint} from "../models/endpoint/endpoint.model";
 
 export class SampleViewComponent {
 
-  public appEndPoint:AppEndPoint = AppEndPoint.MOCK_DATA;
+  public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
+
   constructor() {
   }
 
@@ -110,11 +111,7 @@ export class SampleViewComponent {
 
   public sampleContent1 = {
     type: 'sample',
-    data: "" +
-    "{" +
-    "'type':'hello'" +
-    "}" +
-    ""
+    data: `{'type':'hello'}`
   };
 
   data = {
@@ -368,8 +365,8 @@ export class SampleViewComponent {
 
 
 
-  public clickTest(test){
-    console.log(test)
+  public clickTest(test) {
+    console.log(test);
   }
 
 }
