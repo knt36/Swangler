@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppEndPoint} from "../../models/endpoint/endpoint.model";
+import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +8,7 @@ import {AppEndPoint} from "../../models/endpoint/endpoint.model";
 })
 export class MainViewComponent implements OnInit {
 
-  public appEndPoint:AppEndPoint = AppEndPoint.MOCK_DATA;
+  public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
   constructor() { }
 
   ngOnInit() {

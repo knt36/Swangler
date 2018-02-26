@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
 
-import {AuthComponent} from './components/authComponent/authComponent.controller';
+import { AuthComponent } from './components/authComponent/authComponent.controller';
 import { LocalStorageService } from './services/local-storage.service';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 
 
 import {SampleViewComponent} from './views/sample/sample.controller';
@@ -17,19 +19,19 @@ import {AppRoutingModule} from './app-routing.module';
 import { CollapsableNavComponent } from './components/collapsable-nav/collapsable-nav.component';
 
 import { ContactComponent } from './components/contact/contact.component';
-import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
-import {ParamConsoleComponent} from './components/param-console/param-console.component';
+import { HttpResModalComponent } from './components/httpResModalComponent/httpResModal.controller';
+import { ParamConsoleComponent } from './components/param-console/param-console.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
-import {ExampleCollapsibleComponent} from "./components/example-collapsible/example-collapsible.component";
 import {MainViewComponent} from './views/main/main.component';
-import {EndpointComponent} from "./components/endpoint/endpoint.component";
+import { ExampleCollapsibleComponent } from './components/example-collapsible/example-collapsible.component';
+import { EndpointComponent } from './components/endpoint/endpoint.component';
 
 @NgModule({
   declarations: [
     ContactComponent,
     AuthComponent,
     SampleViewComponent,
-    HttpResModal,
+    HttpResModalComponent,
     AppComponent,
     CollapsableNavComponent,
     SidebarNavComponent,
@@ -45,7 +47,8 @@ import {EndpointComponent} from "./components/endpoint/endpoint.component";
     BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [SwaggerService, LocalStorageService],
   bootstrap: [AppComponent]

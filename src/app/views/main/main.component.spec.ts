@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {MainViewComponent} from "./main.component";
+import {MainViewComponent} from './main.component';
 
 
 describe('MainComponent', () => {

@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<h6 style="top-padding:1em; bottom-padding:1em;">
+<h6>
   Description:
 </h6>
 
@@ -28,7 +28,7 @@
   {{this?.endpointData?.desc}}
 </div>
 
-<h6 style="top-padding:1em; bottom-padding:1em;">
+<h6>
   Parameters
 </h6>
 
@@ -80,7 +80,7 @@
     </div>
   </div></div></div>
 
-  <h6 style="top-padding:1em; bottom-padding:1em;">
+  <h6>
     Status Codes
   </h6>
   <div class="card">
@@ -100,7 +100,7 @@
 
 
   <div id="testEndpointButContainer924">
-    <button (click)="this.testEndPointClicked.emit({'selectedResponse':this.selectedResponse, 'parameterFields':this.parameterFields})" id="testEndpointBut799" type="button" class="btn btn-primary">Test EndPoint</button>
+    <button (click)="this.testEndPointClicked.emit(this.clickTestEndPointButton())" id="testEndpointBut799" type="button" class="btn btn-primary">Test EndPoint</button>
   </div>
 </div>
 
