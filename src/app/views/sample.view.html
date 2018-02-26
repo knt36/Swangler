@@ -6,6 +6,7 @@
 <app-endpoint [endpointData]="this.appEndPoint"  (testEndPointClicked)="this.clickTest($event)" (samplesClicked)="this.clickTest($event);" ></app-endpoint>
 
 
+<app-sidebar-nav [tags]='swawggerData | async'></app-sidebar-nav>
 
 
 

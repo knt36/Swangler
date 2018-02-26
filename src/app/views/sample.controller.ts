@@ -13,11 +13,13 @@ import {AppEndPoint} from '../models/endpoint/endpoint.model';
   templateUrl: './sample.view.html'
 })
 
-export class SampleViewComponent {
+export class SampleViewComponent implements OnInit {
 
   public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
 
-  constructor() {
+  constructor(
+    public swaggerService: SwaggerService
+  ) {
   }
 
   accounts = {
@@ -363,7 +365,64 @@ export class SampleViewComponent {
     }
   };
 
+  sideNav = {
+    'Accounts': [
+      {
+        'operationId': 'Accounts.create_account',
+        'summary': 'Create a new account',
+        'description': 'Create a new account.',
+        'consumes': [
+        'application/json'
+        ],
+        'produces': [
+        'application/json'
+        ],
+        'tags': [
+        'Accounts'
+        ],
+        'parameters': [
+        {
+        'type': 'object',
+        'name': 'body',
+        'required': true,
+        'in': 'body',
+        'schema': {
+        '$ref': '#/definitions/NewAccountDoc'
+        }
+        }
+        ],
+        'responses': {
+        '200': {
+        'description': 'Successful Operation',
+        'schema': {
+        'type': 'object',
+        '$ref': '#/definitions/NewJobDoc'
+        }
+        },
+        '202': {
+        'description': 'Processing request.'
+        },
+        '400': {
+        'description': 'Bad request.'
+        },
+        '409': {
+        'description': 'An account with that name already exists.'
+        }
+        },
+        'security': []
+      }
+    ]
+  };
 
+  swawggerData = this.swaggerService.getEndpointsSortedByTags();
+
+  ngOnInit() {
+    this.swaggerService.getEndpointsSortedByTags()
+      .subscribe( data => {
+        console.log(data);
+
+      } );
+  }
 
   public clickTest(test) {
     console.log(test);
