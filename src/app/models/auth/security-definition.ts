@@ -2,7 +2,7 @@
 
 
 export class SecurityDefinition {
-  public MOCK_DATA = {
+  public static MOCK_DATA = {
     'slyce-account-id': {
       type: 'apiKey',
       name: 'slyce-account-id',
@@ -18,3 +18,5 @@ export class SecurityEntity {
   public name: string;
   public type: string;
 }
+
+
