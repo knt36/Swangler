@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
 
@@ -43,7 +44,8 @@ import { EndpointComponent } from './components/endpoint/endpoint.component';
     BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [SwaggerService, LocalStorageService],
   bootstrap: [AppComponent]

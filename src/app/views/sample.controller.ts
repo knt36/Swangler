@@ -16,6 +16,7 @@ import {AppEndPoint} from '../models/endpoint/endpoint.model';
 export class SampleViewComponent {
 
   public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
+
   constructor() {
   }
 
