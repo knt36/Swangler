@@ -31,8 +31,8 @@ export class SwaggerService {
     //     'Content-Type': 'application/json'
     //   },
     //   body: {
-    //     'id': '123122',
-    //     'name': 'test2.'
+    //     'id': '3212312',
+    //     'name': '31231.'
     //   }
     // };
 
@@ -60,23 +60,6 @@ export class SwaggerService {
     // }, 3000);
 
     // end for testing purposes
-  }
-
-  executeRequest(requestData) {
-    const requestResponse = new Promise( (resolve, reject) => {
-      this.getApiData()
-        .first()
-        .subscribe( apiData => {
-          apiData.http({
-            ...requestData
-          })
-          .then( response => resolve(response) )
-          .catch( err => reject(err) );
-        });
-    });
-
-    return requestResponse;
-
   }
 
   testEndpoint(callData) {

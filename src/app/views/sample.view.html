@@ -1,8 +1,26 @@
 
 
-<app-example-collapsible [content]="this.sampleContent2" [text]="{header:'Response Schema'}"></app-example-collapsible>
-<app-example-collapsible [content]="this.sampleContent1" [text]="{header:'Response Sample'}"></app-example-collapsible>
-<app-example-collapsible [text]="{header:'Response Sample'}"></app-example-collapsible>
+
+
+
+<app-endpoint [endpointData]="this.appEndPoint"  (testEndPointClicked)="this.clickTest($event)" (samplesClicked)="this.clickTest($event);" ></app-endpoint>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<app-example-collapsible [content]="this.sampleContent2" [text]="{header:'Response Schema'}"></app-example-collapsible>-->
+<!--<app-example-collapsible [content]="this.sampleContent1" [text]="{header:'Response Sample'}"></app-example-collapsible>-->
+<!--<app-example-collapsible [text]="{header:'Response Sample'}"></app-example-collapsible>-->
 
 
 

@@ -21,7 +21,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import {HttpResModal} from './components/httpResModalComponent/httpResModal.controller';
 import {ParamConsoleComponent} from './components/param-console/param-console.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
-import {ExampleCollapsibleComponent} from './components/example-collapsible/example-collapsible.component';
+import {ExampleCollapsibleComponent} from "./components/example-collapsible/example-collapsible.component";
+import {EndpointComponent} from "./components/endpoint/endpoint.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {ExampleCollapsibleComponent} from './components/example-collapsible/exam
     ExampleCollapsibleComponent,
     ParamConsoleComponent,
     SidebarNavComponent,
-    CollapsableNavComponent
+    CollapsableNavComponent,
+    EndpointComponent
   ],
   imports: [
     BrowserModule,
