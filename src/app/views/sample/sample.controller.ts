@@ -2,7 +2,14 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+<<<<<<< HEAD:src/app/views/sample/sample.controller.ts
 
+=======
+import {
+  SwaggerService
+} from '../services/swagger.service';
+import {AppEndPoint} from "../models/endpoint/endpoint.model";
+>>>>>>> 4ffe268d86978c99b9f88f7731371ef1857d3b6d:src/app/views/sample.controller.ts
 
 
 @Component({
@@ -12,8 +19,9 @@ import {
 
 export class SampleViewComponent {
 
-  constructor() {
+  public appEndPoint:AppEndPoint = AppEndPoint.MOCK_DATA;
 
+  constructor() {
   }
 
   public sampleContent2 = {
@@ -324,5 +332,11 @@ export class SampleViewComponent {
       }
     }
   };
+
+
+
+  public clickTest(test){
+    console.log(test)
+  }
 
 }

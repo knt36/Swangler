@@ -22,6 +22,7 @@ import {ParamConsoleComponent} from './components/param-console/param-console.co
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import {ExampleCollapsibleComponent} from "./components/example-collapsible/example-collapsible.component";
 import {MainViewComponent} from './views/main/main.component';
+import {EndpointComponent} from "./components/endpoint/endpoint.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MainViewComponent} from './views/main/main.component';
     ParamConsoleComponent,
     SidebarNavComponent,
     CollapsableNavComponent,
-    MainViewComponent
+    MainViewComponent,
+    EndpointComponent
   ],
   imports: [
     BrowserModule,
