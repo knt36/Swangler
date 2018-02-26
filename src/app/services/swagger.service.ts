@@ -10,20 +10,22 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable()
 export class SwaggerService {
   private apiDataSubject: Subject<any>;
+  private endpointsSubject: Subject<any>;
 
   constructor(
     private http: HttpClient
   ) {
     this.apiDataSubject = new Subject();
+    this.endpointsSubject = new Subject();
 
     const specUrl = 'http://forge.local/openapi/spec.json';
     this.initSwagger(specUrl);
 
     // for testing purposes
 
-    this.getApiData().subscribe( a => {
-      console.log(this.sortApiEndpointsByTags(a.spec.paths));
-    });
+    // this.getApiData().subscribe( a => {
+    //   console.log(this.sortApiEndpointsByTags(a.spec.paths));
+    // });
 
     // const postRequest = {
     //   url: 'http://forge.local/accounts/',
@@ -101,6 +103,14 @@ export class SwaggerService {
     this.apiDataSubject.next(apiData);
   }
 
+  private setSortedEndpoints(sortedEndpoints) {
+    this.endpointsSubject.next(sortedEndpoints);
+  }
+
+  getEndpointsSortedByTags(): Observable<any> {
+    return this.endpointsSubject.asObservable();
+  }
+
   getApiData(): Observable<any> {
     return this.apiDataSubject.asObservable();
   }
@@ -143,7 +153,10 @@ export class SwaggerService {
 
   private initSwagger(specUrl): Promise<any> {
     return Swagger(specUrl)
-      .then( apiData => this.setApiData(apiData) )
+      .then( apiData => {
+        this.setApiData(apiData);
+        this.setSortedEndpoints(this.sortApiEndpointsByTags(apiData.spec.paths));
+      })
       .catch( err => console.error(err) );
   }
 }
