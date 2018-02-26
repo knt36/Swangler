@@ -4,12 +4,12 @@
 export class AppParameter {
 
   public static MOCK_DATA = {
-    name: "page_number",
+    name: 'page_number',
     httpPart: 'query',
-    type: "integer",
+    type: 'integer',
     required: true,
-    desc: "The page number to get",
-    value: "20"
+    desc: 'The page number to get',
+    value: '20'
   }
 
 

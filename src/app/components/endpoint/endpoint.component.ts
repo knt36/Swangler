@@ -11,7 +11,7 @@ import {AppClickedTestRes} from "../../models/endpoint/clicked-test-res";
 })
 export class EndpointComponent implements OnInit {
   /* Sample toggle on button click is hidden*/
-  public isHidden:boolean = true;
+  public isHidden: Boolean = true;
 
   /* Accepts AppEndPoint object */
   @Input('endpointData') endpointData: AppEndPoint;
@@ -35,14 +35,16 @@ export class EndpointComponent implements OnInit {
   }
 
   /* Init the default parameters to the parameter fields */
-  private initParameterFields(){
+  private initParameterFields() {
     const params = this.endpointData.parameters;
-    for( const p in params){
-      this.parameterFields[params[p].name] = params[p];
+    for ( const p in params) {
+      if (params[p].hasOwnProperty('name')) {
+        this.parameterFields[params[p].name] = params[p];
+      }
     }
   }
 
   private initSelectedResponse(){
-    this.selectedResponse = this.endpointData.responseTypes.length != 0 ? this.endpointData.responseTypes[0] : null;;
+    this.selectedResponse = this.endpointData.responseTypes.length !== 0 ? this.endpointData.responseTypes[0] : null;;
   }
 }
