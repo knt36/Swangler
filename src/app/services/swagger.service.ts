@@ -57,9 +57,9 @@ export class SwaggerService {
     // this.testEndpoint(getRequest)
     //   .subscribe( a => console.log(a));
 
-    setTimeout( () => {
-      this.setSpecUrl('http://petstore.swagger.io/v2/swagger.json');
-    }, 3000);
+    // setTimeout( () => {
+    //   this.setSpecUrl('http://petstore.swagger.io/v2/swagger.json');
+    // }, 3000);
 
     // end for testing purposes
   }
