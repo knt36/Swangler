@@ -24,7 +24,7 @@ export class AuthComponent {
   constructor(public localStorageService: LocalStorageService) {
     this.Object = Object;
     this.localStorageService.securityDefinitions.subscribe(res => {
-      this.securityDefinitions = res;
+      this.securityDefinitions = res as SecurityDefinition;
       console.log(res);
     });
   }
