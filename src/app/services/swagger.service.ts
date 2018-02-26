@@ -21,7 +21,9 @@ export class SwaggerService {
 
     // for testing purposes
 
-    // this.getApiData().subscribe( a => console.log(a));
+    this.getApiData().subscribe( a => {
+      console.log(this.sortApiEndpointsByTags(a.spec.paths));
+    });
 
     // const postRequest = {
     //   url: 'http://forge.local/accounts/',
@@ -55,9 +57,9 @@ export class SwaggerService {
     // this.testEndpoint(getRequest)
     //   .subscribe( a => console.log(a));
 
-    // setTimeout( () => {
-    //   this.setSpecUrl('http://petstore.swagger.io/v2/swagger.json');
-    // }, 3000);
+    setTimeout( () => {
+      this.setSpecUrl('http://petstore.swagger.io/v2/swagger.json');
+    }, 3000);
 
     // end for testing purposes
   }
@@ -105,6 +107,38 @@ export class SwaggerService {
 
   setSpecUrl(url) {
     this.initSwagger(url);
+  }
+
+  private sortApiEndpointsByTags(endpoints): Array<Array<Object>> {
+    const result = [];
+
+    for (const pathKey in endpoints) {
+      if (endpoints.hasOwnProperty(pathKey)) {
+        const path = endpoints[pathKey];
+
+        for (const methodKey in path) {
+          if (path.hasOwnProperty(methodKey)) {
+            const method = path[methodKey];
+
+            method.tags.filter( tag => {
+
+              if (!result[tag]) {
+                result[tag] = [];
+              }
+
+              method.url = pathKey;
+              method.method = methodKey;
+              result[tag].push(method);
+
+            });
+
+          }
+        }
+
+      }
+    }
+
+    return result;
   }
 
   private initSwagger(specUrl): Promise<any> {
