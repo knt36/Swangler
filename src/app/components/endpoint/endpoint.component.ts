@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked, AfterViewInit} from '@angular/core';
 import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
 import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
@@ -9,7 +9,7 @@ import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
   templateUrl: './endpoint.component.html',
   styleUrls: ['./endpoint.component.scss']
 })
-export class EndpointComponent implements OnInit, AfterViewChecked {
+export class EndpointComponent implements OnInit, AfterViewInit {
   /* Sample toggle on button click is hidden*/
   public isHidden: Boolean = true;
 
@@ -38,7 +38,7 @@ export class EndpointComponent implements OnInit, AfterViewChecked {
 
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     if ( this.endpointData.operationId === this.scrollToId ) {
       this.scrollToElem(this.scrollToId);
     }
@@ -57,7 +57,6 @@ export class EndpointComponent implements OnInit, AfterViewChecked {
 
   private scrollToElem(id: string) {
     const elem = document.getElementById(id);
-    console.log('scrollin');
     if (elem) {
 
       window.scrollTo(elem.offsetLeft, elem.offsetTop);
