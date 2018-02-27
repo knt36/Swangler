@@ -12,8 +12,8 @@
     [collapse]="isCollapsed"
     class="card card-block card-header"
   >
-    <div *ngFor="let route of Object.keys(routes)">
-      <a class="nav-link" [routerLink]="tag" [href]="routes[route].operationId" routerLinkActive="active">{{ routes[route].summary }}</a>
+    <div *ngFor="let endpoint of Object.keys(endpoints)">
+      <a class="nav-link" [routerLink]="tag" [href]="endpoints[endpoint].operationId" routerLinkActive="active">{{ endpoints[endpoint].summary }}</a>
     </div>
   </nav>
 </nav>

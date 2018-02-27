@@ -2,4 +2,4 @@
   <label class="text-uppercase mt-3 mb-0">API Reference</label>
 </div>
 
-<app-collapsable-nav *ngFor="let tag of Object.keys(tags)" [routes]='tags[tag]' [tag]="tag"></app-collapsable-nav>
+<app-collapsable-nav *ngFor="let tag of arrayOfTags" [endpoints]='tag.tagValue' [tag]="tag.tagName"></app-collapsable-nav>
