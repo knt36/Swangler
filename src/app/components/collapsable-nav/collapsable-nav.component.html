@@ -8,8 +8,7 @@
   </nav>
   <nav class="collapsable-nav-body nav flex-column sub_menu"
     [collapse]="isCollapsed"
-    class="card card-block card-header"
-  >
+    class="card card-block card-header">
     <div *ngFor="let endpoint of Object.keys(endpoints)">
       <a class="nav-link" [routerLink]="tag" [href]="endpoints[endpoint].operationId" routerLinkActive="active">{{ endpoints[endpoint].summary }}</a>
     </div>
