@@ -10,10 +10,16 @@ nav{
 
 .collapsable-nav-header{
     position: relative;
+    cursor: pointer;
 }
 
 .nav-link{
     padding: .5rem 1rem;
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
 }
 
 .toggle-collapse{
@@ -53,4 +59,10 @@ a{
     &:hover{
         color: #55606f;
     }
+}
+
+.card-header{
+  border-radius: 0;
+  border-right: none;
+  border-left: none;
 }
