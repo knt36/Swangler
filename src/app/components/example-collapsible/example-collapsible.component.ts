@@ -13,7 +13,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   @Input('header') header;
   @Input('type') type: string; // sample or schema
   @Input('schema') schema: Schema;
-  public collapsed = false;
+  public collapsed = true;
 
   ngOnInit() {
     console.log(this.type);

@@ -23,6 +23,7 @@ import { ParamConsoleComponent } from './components/param-console/param-console.
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import { ExampleCollapsibleComponent } from './components/example-collapsible/example-collapsible.component';
 import { EndpointComponent } from './components/endpoint/endpoint.component';
+import { ExampleSideBarComponent } from './components/example-side-bar/example-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EndpointComponent } from './components/endpoint/endpoint.component';
     ParamConsoleComponent,
     SidebarNavComponent,
     CollapsableNavComponent,
-    EndpointComponent
+    EndpointComponent,
+    ExampleSideBarComponent
   ],
   imports: [
     BrowserModule,
