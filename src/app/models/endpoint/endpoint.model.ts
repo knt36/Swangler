@@ -129,6 +129,7 @@ export class AppEndPoint {
       'url': '/accounts/{account_id}/api-keys/',
       'method': 'post'
     };
+
   public consumes: string[];
   public description: string;
   public method: string;
@@ -163,10 +164,10 @@ export class Schema {
 }
 
 /* APP_END_POINT */
+
 export class SecurityRequirement {
   [name: string]: Array<any>;
 }
-
 /* REQUEST */
 export class RequestSchema extends Schema {
   public name: string;
@@ -212,6 +213,3 @@ export class ResponseProperty {
 export class ResponseProperties {
   [name: string]: ResponseProperty | Schema;
 }
-
-
-
