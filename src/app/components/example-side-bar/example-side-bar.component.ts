@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppEndPoint, RequestSchema, ResponseSchema} from '../../models/endpoint/endpoint.model';
 
 @Component({
@@ -8,6 +8,7 @@ import {AppEndPoint, RequestSchema, ResponseSchema} from '../../models/endpoint/
 })
 export class ExampleSideBarComponent implements OnInit {
   @Input('endpoint') endpoint: AppEndPoint;
+  @Output('clickedBodySample') clickedBodySample: EventEmitter = new EventEmitter();
 
   public bodySchema: RequestSchema;
   public responseSchema: ResponseSchema;

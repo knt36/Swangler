@@ -13,7 +13,7 @@
         <app-param-console [schema]="this.schema"></app-param-console>
       </div>
 
-      <div *ngIf="this.type?.toLowerCase() == 'sample'">
+      <div (click)="this.clickedSample.emit(this.generateSampleFromSchema(this.schema))" *ngIf="this.type?.toLowerCase() == 'sample'">
          <pre>
           <code class="sample79815">
             {{this.generateSampleFromSchema(this.schema)}}

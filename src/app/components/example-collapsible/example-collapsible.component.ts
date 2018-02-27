@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   AppEndPoint, ResponseProperty,
   Schema
@@ -13,6 +13,8 @@ export class ExampleCollapsibleComponent implements OnInit {
   @Input('header') header;
   @Input('type') type: string; // sample or schema
   @Input('schema') schema: Schema;
+  /* Returns JSON of Sample*/
+  @Output('clickedSample') clickedSample: EventEmitter = new EventEmitter();
   public collapsed = true;
 
   ngOnInit() {
