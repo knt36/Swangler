@@ -130,9 +130,6 @@ export class AppEndPoint {
       'method': 'post'
     };
 
-
-
-
   public consumes: string[];
   public description: string;
   public method: string;
@@ -146,62 +143,8 @@ export class AppEndPoint {
   public url: string;
 }
 
-
-/* AppEndPoint */
-export class SecurityRequirement {
-  [name: string]: Array<any>;
-}
-
-
-/* REQUEST */
-export class RequestSchema {
-  public name: string;
-  public properties: RequestProperties;
-  public required: string[];
-  public type: string;
-}
-
-export class RequestProperty {
-  public description?: string;
-  public type: string;
-  public example?: any;
-  public required?: boolean;
-}
-
-export class RequestProperties {
-  [name: string]: RequestProperty;
-}
-
-
-/* RESPONSE */
-export class Responses {
-  [code: string]: Response;
-}
-
-export class Response {
-  public description: string;
-  public schema?: ResponseSchema;
-}
-
-export class ResponseSchema {
-  public properties?: ResponseProperties;
-  public required?: boolean[];
-  public type?: string;
-}
-
-export class ResponseProperties {
-  [name: string]: ResponseProperty;
-}
-
-export class ResponseProperty {
-  public description?: string;
-  public type: string;
-  public example?: any;
-  public required?: boolean[];
-}
-
-
 /* SHARED */
+
 export class Parameter {
   public in: string;
   public name: string;
@@ -213,4 +156,60 @@ export class Parameter {
   public description?: string;
   public format?: string;
   public value?: any;
+}
+
+export class Schema {
+  public type: string;
+  public $$ref: string;
+}
+
+/* APP_END_POINT */
+
+export class SecurityRequirement {
+  [name: string]: Array<any>;
+}
+/* REQUEST */
+export class RequestSchema extends Schema {
+  public name: string;
+  public required: string[];
+  public properties: RequestProperties;
+}
+
+export class RequestProperty {
+  public description?: string;
+  public type: string;
+  public example?: any;
+  public required?: boolean;
+}
+
+export class RequestProperties {
+  [name: string]: RequestProperty | Schema;
+}
+
+/* RESPONSE */
+export class Responses {
+  [code: string]: Response;
+}
+
+export class Response {
+  public description: string;
+  public schema?: ResponseSchema;
+}
+
+export class ResponseSchema extends Schema {
+  public required?: boolean[];
+  public properties: ResponseProperties;
+
+}
+
+export class ResponseProperty {
+  public description?: string;
+  public type: string;
+  public example?: any;
+  public required?: any [];
+}
+
+
+export class ResponseProperties {
+  [name: string]: ResponseProperty | Schema;
 }

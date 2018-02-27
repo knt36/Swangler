@@ -15,7 +15,7 @@ import {AppEndPoint} from '../models/endpoint/endpoint.model';
 
 export class SampleViewComponent {
   public swaggerData = [];
-  public endPointData: AppEndPoint = AppEndPoint.MOCK_DATA;
+  public endPointData: AppEndPoint = AppEndPoint.MOCK_DATA as AppEndPoint;
   constructor(public swagger: SwaggerService) {
     this.swagger.getEndpointsSortedByTags().subscribe(res => {
       console.log(res);
