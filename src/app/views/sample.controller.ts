@@ -22,7 +22,6 @@ export class SampleViewComponent {
       this.swaggerData = res;
     });
   }
-
   public clickTest(test) {
     console.log(test);
   }

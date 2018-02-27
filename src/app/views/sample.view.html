@@ -1,4 +1,4 @@
 
-
-
-<app-endpoint *ngFor="let s of this.swaggerData['API Keys']" (clickedTestEndPoint)="this.clickTest($event)" (clickedSample)="this.clickTest($event)" [endpointData]="s"></app-endpoint>
+<app-example-collapsible [text]="{header:'Body Sample'}"></app-example-collapsible>
+<app-example-collapsible [text]="{header:'Body Schema'}"></app-example-collapsible>
+<app-example-collapsible [text]="{header:'Response Schema'}"></app-example-collapsible>-->
