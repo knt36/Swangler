@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { SwaggerService } from '../../services/swagger.service';
+import { CollapsableNavEndpointsModel } from '../../models/sidebar/collapsable-nav.model';
 
 @Component({
   selector: 'app-collapsable-nav',
@@ -8,8 +9,9 @@ import { SwaggerService } from '../../services/swagger.service';
 })
 export class CollapsableNavComponent implements OnInit {
 
-  @Input() routes: Object;
   @Input() tag: string;
+  @Input() endpoints: Array<CollapsableNavEndpointsModel>;
+
   Object = null;
   isCollapsed = false;
 
