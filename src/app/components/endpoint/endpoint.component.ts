@@ -62,8 +62,32 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   private scrollToElem(id: string) {
     const elem = document.getElementById(id);
     if (elem) {
-      window.scrollTo(elem.offsetLeft, elem.offsetTop);
+      this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
     }
+  }
+
+  smoothScroll (currentPosition, targetPosition) {
+
+    if (currentPosition < targetPosition) {
+
+      let i = currentPosition;
+      const interval = setInterval(() => {
+        window.scrollTo(0, i);
+        i += 100;
+        if ( i >= targetPosition ) {clearInterval(interval); }
+      }, 15);
+
+    } else {
+
+      let i = currentPosition;
+      const interval = setInterval(() => {
+        window.scrollTo(0, i);
+        i -= 100;
+        if ( i <= targetPosition ) {clearInterval(interval); }
+      }, 15);
+
+    }
+
   }
 
   private initSelectedResponse() {
