@@ -10,7 +10,7 @@ import { CollapsableNavEndpointsModel } from '../../models/sidebar/collapsable-n
 export class CollapsableNavComponent implements OnInit {
 
   @Input() tag: string;
-  @Input() endpoionts: Array<CollapsableNavEndpointsModel>;
+  @Input() endpoints: Array<CollapsableNavEndpointsModel>;
 
   Object = null;
   isCollapsed = false;
