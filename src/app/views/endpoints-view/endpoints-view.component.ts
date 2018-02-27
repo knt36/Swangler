@@ -11,6 +11,7 @@ import { SwaggerService } from '../../services/swagger.service';
 export class EndpointsViewComponent implements OnInit, OnDestroy {
   endpointTag: string;
   endpoints;
+  scrollToId: string = null;
   private paramSubscription: Subscription;
 
 
@@ -23,6 +24,11 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.paramSubscription = this.route.params.subscribe(params => {
       this.endpointTag = params['endpointTag'];
+
+      if ( params['endpointId'] ) {
+        this.scrollToId = params['endpointId'];
+      }
+
       this.updateEndpoints();
    });
   }

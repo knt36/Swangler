@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked} from '@angular/core';
 import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
 import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
@@ -9,10 +9,12 @@ import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
   templateUrl: './endpoint.component.html',
   styleUrls: ['./endpoint.component.scss']
 })
-export class EndpointComponent implements OnInit {
+export class EndpointComponent implements OnInit, AfterViewChecked {
   /* Sample toggle on button click is hidden*/
   public isHidden: Boolean = true;
 
+
+  @Input() scrollToId: string;
   /* Accepts AppEndPoint object */
   @Input('endpointData') endpointData: AppEndPoint;
   /* Call back on sample toggle */
@@ -33,6 +35,13 @@ export class EndpointComponent implements OnInit {
   ngOnInit() {
     this.initParameterFields();
     this.initSelectedResponse();
+
+  }
+
+  ngAfterViewChecked() {
+    if ( this.endpointData.operationId === this.scrollToId ) {
+      this.scrollToElem(this.scrollToId);
+    }
   }
 
   /* Init the default parameters to the parameter fields */
@@ -43,6 +52,15 @@ export class EndpointComponent implements OnInit {
         params[p].value = params[p].default;
         this.parameterFields[params[p].name] = params[p];
       }
+    }
+  }
+
+  private scrollToElem(id: string) {
+    const elem = document.getElementById(id);
+    console.log('scrollin');
+    if (elem) {
+
+      window.scrollTo(elem.offsetLeft, elem.offsetTop);
     }
   }
 
