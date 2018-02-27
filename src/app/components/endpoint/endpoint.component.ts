@@ -62,8 +62,6 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   private scrollToElem(id: string) {
     const elem = document.getElementById(id);
     if (elem) {
-      console.log('scrollin');
-
       window.scrollTo(elem.offsetLeft, elem.offsetTop);
     }
   }

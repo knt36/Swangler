@@ -1,1 +1,48 @@
-<app-endpoint *ngFor="let endpoint of endpoints" [endpointData]="endpoint" [scrollToId]='scrollToId'></app-endpoint>
+
+<main role="main" class="container-fluid">
+  <div id="swagger-ui-container" class="row">
+
+    <div id="swagger_sidebar" class="col-lg-3 col-xl-2 sps sps--blw">
+
+      <div id="auth_main_container" class="collapse ">
+        <div class="row">
+          <div class="col-12">
+
+              <app-auth-component [securityDefinitions]='apiData?.spec.securityDefinitions'></app-auth-component>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="sticky_nav_wrapper" class="sticky-top collapse mb-3">
+        <div id="sticky_nav" class="pt-2 pb-2">
+          <div class="row" data-navigator="">
+
+              <app-sidebar-nav [tags]='sortedApiData | async' [sectionToExpand]='endpointTag'></app-sidebar-nav>
+
+          </div>
+        </div>
+
+        <app-contact class="card d-block" [contactData]='apiData?.spec.info'></app-contact>
+      </div>
+
+
+    </div>
+
+    <div id="resources_container" class="col-lg-9 col-xl-10">
+      <div id="resources" class="">
+        <div id="resource_Accounts" class="resource">
+          <div class="endpoints" id="Accounts_endpoint_list">
+
+            <app-endpoint *ngFor="let endpoint of endpoints" [endpointData]="endpoint" [scrollToId]='scrollToId'></app-endpoint>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+

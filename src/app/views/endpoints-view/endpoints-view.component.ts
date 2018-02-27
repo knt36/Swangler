@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { SwaggerService } from '../../services/swagger.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-endpoints-view',
@@ -13,7 +14,8 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   endpoints;
   scrollToId: string = null;
   private paramSubscription: Subscription;
-
+  sortedApiData: Observable<any> = this.swaggerService.getEndpointsSortedByTags();
+  apiData;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +33,13 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
 
       this.updateEndpoints();
    });
+
+   this.swaggerService.getApiData().subscribe( data => {
+
+    this.apiData = data;
+  });
   }
+
 
   updateEndpoints() {
     this.swaggerService.getEndpointsSortedByTags().subscribe( data => {
@@ -39,7 +47,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
         if (this.endpointTag) {
           this.endpoints = data[this.endpointTag];
         } else {
-          this.endpoints = data[0];
+          this.endpoints = data[Object.keys(data)[0]];
         }
       }
     });
@@ -48,5 +56,4 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paramSubscription.unsubscribe();
   }
-
 }

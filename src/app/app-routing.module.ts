@@ -12,7 +12,7 @@ const routes: Routes = [
   // { path: 'main', component: MainViewComponent, pathMatch: 'full'}
   { path: ':endpointTag', component: EndpointsViewComponent, },
   { path: ':endpointTag/:endpointId', component: EndpointsViewComponent, },
-  { path: '**', component: AppComponent }
+  { path: '**', component: EndpointsViewComponent }
 ];
 
 @NgModule({
