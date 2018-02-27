@@ -7,7 +7,7 @@ import { CollapsableNavEndpointsModel } from '../../models/sidebar/collapsable-n
   templateUrl: './collapsable-nav.component.html',
   styleUrls: ['./collapsable-nav.component.scss']
 })
-export class CollapsableNavComponent implements OnInit, AfterContentInit {
+export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChanges {
 
   @Input() tag: string;
   @Input() sectionToExpand: string = null;
@@ -26,6 +26,12 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit {
     if ( this.tag === this.sectionToExpand ) {
       this.isCollapsed = false;
     } else {
+      this.isCollapsed = true;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.sectionToExpand) {
       this.isCollapsed = true;
     }
   }
