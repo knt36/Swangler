@@ -1,3 +1,1 @@
-<app-example-side-bar (clickedBodySample)="this.clickTest($event)" [endpoint]="this.endPointData"></app-example-side-bar>
-
-
+<app-example-side-bar *ngFor="let endpoint of this.swaggerData['API Keys']" (clickedBodySample)="this.clickTest($event)" [endpoint]="endpoint"></app-example-side-bar>

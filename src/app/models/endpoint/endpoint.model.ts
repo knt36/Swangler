@@ -160,7 +160,7 @@ export class Parameter {
 
 export class Schema {
   public type: string;
-  public $$ref: string;
+  public $$ref?: string;
 }
 
 /* APP_END_POINT */

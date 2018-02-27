@@ -1,6 +1,12 @@
 <div class="schema-description rounded">
-  <span class="strong objectName"><span class="bracketsIcon"></span> <span
-    class="objectNameText">{{this.schema?.$$ref.toUpperCase()}}</span></span>
+  <span class="strong objectName"><span class="bracketsIcon"></span>
+    <span
+      class="objectNameText" *ngIf="this.schema.$$ref != null">{{this.schema?.$$ref?.toUpperCase()}}
+    </span>
+    <span
+      class="objectNameText" *ngIf="this.schema.$$ref == null">NO REFERENCE NAME
+    </span>
+  </span>
   <div style="margin:15px;" *ngFor="let p of this.Object.keys(this.schema.properties)">
     <span class="propLabels">
       <span class="propName propOpt">

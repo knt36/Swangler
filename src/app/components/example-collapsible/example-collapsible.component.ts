@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {
-  AppEndPoint, ResponseProperty,
+import { ResponseProperty,
   Schema
 } from '../../models/endpoint/endpoint.model';
 
@@ -18,7 +17,6 @@ export class ExampleCollapsibleComponent implements OnInit {
   public collapsed = true;
 
   ngOnInit() {
-    console.log(this.type);
   }
 
 
