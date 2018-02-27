@@ -1,3 +1,4 @@
+
 <div style="padding: 0px 20px 0px 20px">
   <hr>
   <nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !collapsed}">
@@ -8,15 +9,14 @@
       </div>
     </nav>
     <nav [ngStyle]="{display:this.collapsed ? 'none' : 'block'}" class="collapsable-nav-body nav flex-column sub_menu">
-
-      <div *ngIf="this.type.toLowerCase() == 'schema'">
+      <div *ngIf="this.type?.toLowerCase() == 'schema'">
         <app-param-console [schema]="this.schema"></app-param-console>
       </div>
 
-      <div *ngIf="this.type.toLowerCase() == 'sample'">
+      <div *ngIf="this.type?.toLowerCase() == 'sample'">
          <pre>
           <code class="sample79815">
-            No Content Data...
+            {{this.generateSampleFromSchema(this.schema)}}
           </code>
         </pre>
       </div>

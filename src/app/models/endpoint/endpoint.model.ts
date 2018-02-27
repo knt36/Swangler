@@ -172,7 +172,9 @@ export class SecurityRequirement {
 export class RequestSchema extends Schema {
   public name: string;
   public required: string[];
-  public properties: RequestProperties | Schema;
+  public properties: RequestProperties;
+  public description?: string;
+  public example?: object;
 }
 
 export class RequestProperty {
