@@ -208,4 +208,9 @@ export class Parameter {
   public required: boolean;
   public type: string;
   public schema?: RequestSchema;
+  public default?: any;
+  public example?: any;
+  public description?: string;
+  public format?: string;
+  public value?: any;
 }

@@ -40,6 +40,7 @@ export class EndpointComponent implements OnInit {
     const params = this.endpointData.parameters;
     for ( const p in params) {
       if (params[p].hasOwnProperty('name')) {
+        params[p].value = params[p].default;
         this.parameterFields[params[p].name] = params[p];
       }
     }
