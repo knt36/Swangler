@@ -1,5 +1,5 @@
 
-<nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !isCollapsed}">
+<nav class="nav flex-column parent_menu" [ngClass]="{'expanded' : !isCollapsed}">
   <nav class="collapsable-nav-header" routerLinkActive="active">
       <a class="nav-link text-capitalize" [routerLink]="tag" >{{ tag }}</a>
       <div class="toggle-collapse"  (click)="isCollapsed = !isCollapsed">

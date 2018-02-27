@@ -11,7 +11,7 @@ export class CollapsableNavComponent implements OnInit {
   @Input() routes: Object;
   @Input() tag: string;
   Object = null;
-  isCollapsed = false;
+  isCollapsed = true;
 
   constructor(private swaggerService: SwaggerService) { }
 

@@ -4,6 +4,10 @@ nav{
     color: #212529;
 }
 
+.parent_menu{
+  width: 100%;
+}
+
 .collapsable-nav-header{
     position: relative;
 }
@@ -33,7 +37,7 @@ nav{
 
 
 .collapsable-nav-body{
-    a{  
+    a{
         display: block;
         widows: 100%;
         border-top: 1px solid rgba(0,0,0,0.125);
