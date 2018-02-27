@@ -25,6 +25,7 @@ import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.compon
 import {MainViewComponent} from './views/main/main.component';
 import { ExampleCollapsibleComponent } from './components/example-collapsible/example-collapsible.component';
 import { EndpointComponent } from './components/endpoint/endpoint.component';
+import { EndpointsViewComponent } from './views/endpoints-view/endpoints-view.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EndpointComponent } from './components/endpoint/endpoint.component';
     SidebarNavComponent,
     CollapsableNavComponent,
     MainViewComponent,
-    EndpointComponent
+    EndpointComponent,
+    EndpointsViewComponent
   ],
   imports: [
     BrowserModule,
