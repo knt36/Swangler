@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked, AfterViewInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core';
 import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
 import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
@@ -9,7 +9,7 @@ import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
   templateUrl: './endpoint.component.html',
   styleUrls: ['./endpoint.component.scss']
 })
-export class EndpointComponent implements OnInit, AfterViewInit {
+export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   /* Sample toggle on button click is hidden*/
   public isHidden: Boolean = true;
 
@@ -29,18 +29,22 @@ export class EndpointComponent implements OnInit, AfterViewInit {
   public Object = Object;
 
   constructor() {
-
   }
 
   ngOnInit() {
     this.initParameterFields();
     this.initSelectedResponse();
-
   }
 
   ngAfterViewInit() {
     if ( this.endpointData.operationId === this.scrollToId ) {
       this.scrollToElem(this.scrollToId);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ( changes.scrollToId.currentValue && this.endpointData.operationId === changes.scrollToId.currentValue ) {
+      this.scrollToElem(changes.scrollToId.currentValue);
     }
   }
 
@@ -58,6 +62,7 @@ export class EndpointComponent implements OnInit, AfterViewInit {
   private scrollToElem(id: string) {
     const elem = document.getElementById(id);
     if (elem) {
+      console.log('scrollin');
 
       window.scrollTo(elem.offsetLeft, elem.offsetTop);
     }
