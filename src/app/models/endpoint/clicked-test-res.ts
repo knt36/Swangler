@@ -1,4 +1,4 @@
-import {AppParameter} from './parameter.model';
+import {Parameter} from "./endpoint.model";
 
 export class AppClickedTestRes {
   public static MOCK_DATA = {
@@ -14,5 +14,5 @@ export class AppClickedTestRes {
   };
 
   public selectedResponse?: string;
-  public parameterFields?: AppParameter [];
+  public parameterFields?: Parameter [];
 }

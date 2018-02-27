@@ -16,14 +16,15 @@ export class EndpointComponent implements OnInit {
   /* Accepts AppEndPoint object */
   @Input('endpointData') endpointData: AppEndPoint;
   /* Call back on sample toggle */
-  @Output('sampleClicked') sampleClicked: EventEmitter<AppClickedSampleRes> = new EventEmitter();
+  @Output('clickedSample') clickedSample: EventEmitter<AppClickedSampleRes> = new EventEmitter();
   /* Call back on test button click */
-  @Output('testEndPointClicked') testEndPointClicked: EventEmitter<AppClickedTestRes> = new EventEmitter<any>();
+  @Output('clickedTestEndPoint') clickedTestEndPoint: EventEmitter<AppClickedTestRes> = new EventEmitter<any>();
 
   /* Selected wanted response format from endpoint */
   public selectedResponse;
   /* Inputed values from user for each parameter otherwise go default */
   public parameterFields = {};
+  public Object = Object;
 
   constructor() {
 
@@ -45,7 +46,7 @@ export class EndpointComponent implements OnInit {
   }
 
   private initSelectedResponse() {
-    this.selectedResponse = this.endpointData.responseTypes.length !== 0 ? this.endpointData.responseTypes[0] : null;
+    this.selectedResponse = this.endpointData.produces.length !== 0 ? this.endpointData.produces[0] : null;
   }
   public clickTestEndPointButton() {
     return({'selectedResponse': this.selectedResponse, 'parameterFields': this.parameterFields});

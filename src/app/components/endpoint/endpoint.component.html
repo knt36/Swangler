@@ -1,18 +1,18 @@
 <h4>
   <a href="#">
-    {{this.endpointData.name}}
+    {{this.endpointData.summary}}
   </a>
 </h4>
 
 <div style="height:3em;">
   <div style="float:left;">
     <h5 class="text-truncate">
-      <span class="http_method badge badge-primary">{{this.endpointData.methodType}}</span>
-      <span class="path text-muted">{{this.endpointData.path}}</span>
+      <span class="http_method badge badge-primary">{{this.endpointData.method}}</span>
+      <span class="path text-muted">{{this.endpointData.url}}</span>
     </h5>
   </div>
   <div style="float:right;">
-    <small  (click)="this.isHidden = !this.isHidden; this.sampleClicked.emit({showSamples:!this.isHidden});" class="text">
+    <small  (click)="this.isHidden = !this.isHidden; this.clickedSample.emit({showSamples:!this.isHidden});" class="text">
       <span *ngIf="this.isHidden">Show Samples</span>
       <span *ngIf="!this.isHidden">Hide Samples</span>
     </small>
@@ -25,7 +25,7 @@
 </h6>
 
 <div class="alert" role="alert">
-  {{this?.endpointData?.desc}}
+  {{this?.endpointData?.description}}
 </div>
 
 <h6>
@@ -38,29 +38,29 @@
       <div class="col-sm-2">
         <label class="param-property text-nowrap col-form-label">
           {{parm.name}}:<br>
-          <small class="text-muted"><em>{{parm?.httpPart}}</em></small>
+          <small class="text-muted"><em>{{parm?.in}}</em></small>
         </label>
       </div>
       <div class="col-sm-10">
-        <div *ngIf="parm.type.toLowerCase() == 'object'">
-          <textarea [(ngModel)]='this.parameterFields[parm.name].value' class="form-control" id="exampleTextarea" rows="3"></textarea>
-          <div *ngIf="this.parm?.contentType != null || this.parm?.contentType.length != 0">
+        <div *ngIf="parm['in'].toLowerCase() == 'body'">
+          <textarea placeholder="{{parm.required == true ? '(required)' : ''}}" [(ngModel)]='this.parameterFields[parm.name].value' class="form-control" id="exampleTextarea" rows="3"></textarea>
+          <div *ngIf="this.parm?.schema != null || this.Object.keys(this.parm?.schema).length != 0">
             <label class="align-self-center mb-0 mr-3">Content Type:</label>
             <div class="media-body">
               <select class="parameter form-control form-control-sm" name="responseContentType">
-                <option [(ngValue)] = "this.parameterFields[parm.name]['contentType']" *ngFor="let option of parm?.contentType" value="option">{{option}}</option>
+                <option [(ngValue)] = "this.parameterFields[parm.name]['contentType']" *ngFor="let option of this.endpointData.consumes" value="option">{{option}}</option>
               </select>
             </div>
           </div>
         </div>
-        <div *ngIf="parm?.type.toLowerCase() != 'object'">
-          <input class="parameter form-control " minlength="0" value="{{parm?.value}}" placeholder="{{parm.required == true ? 'required' : ''}}" [(ngModel)]='this.parameterFields[parm.name].value' type="string" >
+        <div *ngIf="parm['in'].toLowerCase() != 'body'">
+          <input class="parameter form-control " minlength="0" placeholder="{{parm.required == true ? '(required)' : ''}}" [(ngModel)]='this.parameterFields[parm.name].value' type="string" >
         </div>
         <div class="parameter-content-type"></div>
         <div class="small-description media mt-2">
           <small><pre *ngIf="parm.type != null || parm.type.trim() != ''" class="mb-0 mr-2"><code class="code-signature hljs rounded">{{parm.type}}</code></pre></small>
           <div class="media-body">
-            <small class="text-muted">{{parm?.desc}}</small>
+            <small class="text-muted">{{parm?.name}}</small>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@
     <label class="align-self-center mb-0 mr-3">Response Type:</label>
     <div class="media-body">
       <select class="parameter form-control form-control-sm" name="responseContentType">
-        <option [(ngValue)] = "this.selectedResponse" *ngFor="let option of this.endpointData.responseTypes" value="application/json">{{option}}</option>
+        <option [(ngValue)] = "this.selectedResponse" *ngFor="let option of this.endpointData?.produces" value="application/json">{{option}}</option>
       </select>
     </div>
   </div></div></div>
@@ -85,13 +85,13 @@
   </h6>
   <div class="card">
     <ul class="list-group list-group-flush">
-      <li *ngFor="let s of this.endpointData.statusCodes" class="list-group-item">
+      <li *ngFor="let s of this.Object.keys(this.endpointData.responses)" class="list-group-item">
         <div>
           <span style="padding-right:2em;">
-            {{s.code}}
+            {{s}}
           </span>
           <span>
-            {{s.desc}}
+            {{this.endpointData.responses[s].description}}
           </span>
         </div>
       </li>
@@ -100,7 +100,7 @@
 
 
   <div id="testEndpointButContainer924">
-    <button (click)="this.testEndPointClicked.emit(this.clickTestEndPointButton())" id="testEndpointBut799" type="button" class="btn btn-primary">Test EndPoint</button>
+    <button (click)="this.clickedTestEndPoint.emit(this.clickTestEndPointButton())" id="testEndpointBut799" type="button" class="btn btn-primary">Test EndPoint</button>
   </div>
 </div>
 
