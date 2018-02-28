@@ -32,13 +32,13 @@ export class ExampleCollapsibleComponent implements OnInit {
       const keys = Object.keys(schema.properties);
       for (let i = 0 ; i < keys.length; i ++) {
         if (schema.properties.hasOwnProperty(keys[i])) {
-          temp = temp + spacingAttr + keys[i];
+          temp = `${temp}${spacingAttr}"${keys[i]}"`;
           if (schema.properties[keys[i]].type.toLowerCase() === 'object') {
             const schema2 = schema.properties[keys[i]];
             temp = temp + ' : ' + this.generateSampleFromSchema(schema2, level + 2);
           } else {
             const property: ResponseProperty = schema.properties[keys[i]];
-            temp = `${temp}: '${property.example}'`;
+            temp = `${temp}: "${property.example}"`;
           }
           if ( i < keys.length - 1 ) {
             temp = temp + ',';
@@ -47,6 +47,7 @@ export class ExampleCollapsibleComponent implements OnInit {
         }
       }
       temp = temp + spacing + '}';
+      console.log(temp);
       return (temp);
     }
   }
