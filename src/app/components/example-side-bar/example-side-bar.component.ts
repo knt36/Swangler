@@ -8,7 +8,7 @@ import {AppEndPoint, RequestSchema, ResponseSchema} from '../../models/endpoint/
 })
 export class ExampleSideBarComponent implements OnInit {
   @Input('endpoint') endpoint: AppEndPoint;
-  @Output('clickedBodySample') clickedBodySample: EventEmitter = new EventEmitter();
+  @Output('clickedBodySample') clickedBodySample: EventEmitter<any> = new EventEmitter();
 
   public bodySchema: RequestSchema;
   public responseSchema: ResponseSchema;
