@@ -29,7 +29,7 @@ export class ExampleCollapsibleComponent implements OnInit {
     const spacingAttr = spacing + ' '.repeat(5);
     if (schema.properties && Object.keys(schema.properties).length === 0) {
       if (schema.example != null ) {
-        Object.keys(schema.example).map( exampleName => {
+        Object.keys(schema.example).forEach( exampleName => {
           schema.properties[exampleName] = {
             'example': schema.example[exampleName]
           };
