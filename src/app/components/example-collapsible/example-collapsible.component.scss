@@ -5,6 +5,10 @@ nav{
   color: $navArrowColor;
 }
 
+h5, i{
+  color: white
+}
+
 .collapsable-nav-header{
   position: relative;
 }
@@ -34,4 +38,11 @@ nav{
 
 #sample79815{
   border-radius:5px;
+}
+
+pre{
+  font-size: 0;
+  code{
+    font-size: 1rem;
+  }
 }
