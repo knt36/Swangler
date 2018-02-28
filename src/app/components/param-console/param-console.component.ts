@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Schema} from '../../models/endpoint/endpoint.model';
+import {Schema, ResponseSchema, RequestSchema} from '../../models/endpoint/endpoint.model';
 
 @Component({
   selector: 'app-param-console',
@@ -10,7 +10,7 @@ export class ParamConsoleComponent implements OnInit {
   public readonly OPTIONAL = '(optional)';
   public readonly REQUIRED = '(required)';
   public Object = Object;
-  @Input('schema') schema: Schema;
+  @Input('schema') schema: ResponseSchema | RequestSchema;
   public getFieldRequirementText(isRequired: Boolean) {
     return(isRequired ? this.REQUIRED : this.OPTIONAL);
   }
