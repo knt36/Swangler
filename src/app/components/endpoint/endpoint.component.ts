@@ -43,8 +43,12 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ( changes.scrollToId.currentValue && this.endpointData.operationId === changes.scrollToId.currentValue ) {
-      this.scrollToElem(changes.scrollToId.currentValue);
+    if ( changes.scrollToId.currentValue ) {
+      if ( this.endpointData.operationId === changes.scrollToId.currentValue ) {
+        this.scrollToElem(changes.scrollToId.currentValue);
+      }
+    } else if ( changes.scrollToId.currentValue === null ) {
+      this.scrollToElem();
     }
   }
 
@@ -59,10 +63,14 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  private scrollToElem(id: string) {
-    const elem = document.getElementById(id);
-    if (elem) {
-      this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
+  private scrollToElem(id?: string) {
+    if ( id ) {
+      const elem = document.getElementById(id);
+      if (elem) {
+        this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
+      }
+    } else {
+      this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, 0);
     }
   }
 

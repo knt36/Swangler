@@ -18,7 +18,7 @@ export class SwaggerService {
     this.apiDataSubject = new BehaviorSubject(null);
     this.endpointsSubject = new BehaviorSubject(null);
 
-    const specUrl = 'http://forge.local/openapi/spec.json';
+    const specUrl = 'http://petstore.swagger.io/v2/swagger.json';
     this.initSwagger(specUrl);
 
     // for testing purposes
