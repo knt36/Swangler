@@ -77,21 +77,27 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   smoothScroll (currentPosition, targetPosition) {
 
     if (currentPosition < targetPosition) {
-
+      // scroll down
       let i = currentPosition;
       const interval = setInterval(() => {
         window.scrollTo(0, i);
         i += 100;
-        if ( i >= targetPosition ) {clearInterval(interval); }
+        if ( i >= targetPosition ) {
+          window.scrollTo(0, targetPosition + 56);
+          clearInterval(interval);
+        }
       }, 15);
 
     } else {
-
+      // scoll up
       let i = currentPosition;
       const interval = setInterval(() => {
         window.scrollTo(0, i);
         i -= 100;
-        if ( i <= targetPosition ) {clearInterval(interval); }
+        if ( i <= targetPosition ) {
+          window.scrollTo(0, targetPosition + 56);
+          clearInterval(interval);
+        }
       }, 15);
 
     }

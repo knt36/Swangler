@@ -33,6 +33,9 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChan
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sectionToExpand) {
       this.isCollapsed = true;
+      if (this.tag === this.sectionToExpand) {
+        this.isCollapsed = false;
+      }
     }
   }
 }
