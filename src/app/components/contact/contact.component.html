@@ -1,15 +1,15 @@
-<div class="card d-block">
+
   <div class="card-body">
     <h5 class="card-title">Slyce API</h5>
     <p class="card-text"></p>
     <p class="card-text">
       <strong>Contact</strong>:
-      <a href="mailto:{{text.email}}?subject=Slyce API">{{text.email}}</a>
+      <a href="mailto:{{contactData?.contact.email}}?subject=Slyce API">{{contactData?.contact?.email}}</a>
     </p>
     <p class="card-text">
       <span class="text-muted text-uppercase">
-        <small>api version:</small> {{text.apiVersion}}
+        <small>api version:</small> {{contactData?.version}}
       </span>
     </p>
   </div>
-</div>
+

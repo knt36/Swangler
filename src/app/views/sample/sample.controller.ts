@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 import {
   SwaggerService
-} from '../services/swagger.service';
-import {AppEndPoint} from '../models/endpoint/endpoint.model';
+} from '../../services/swagger.service';
+import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 
 
 @Component({

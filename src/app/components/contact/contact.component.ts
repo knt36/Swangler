@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ContactModel } from '../../models/contact.model';
 
 @Component({
   selector: 'app-contact',
@@ -7,10 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  text = {
-    email: 'admin@slyce.it',
-    apiVersion: '1.0.0'
-  };
+  @Input() contactData: ContactModel;
 
   constructor() { }
 

@@ -13,7 +13,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   @Input('type') type: string; // sample or schema
   @Input('schema') schema: Schema;
   /* Returns JSON of Sample*/
-  @Output('clickedSample') clickedSample: EventEmitter = new EventEmitter();
+  @Output('clickedSample') clickedSample: EventEmitter<any> = new EventEmitter();
   public collapsed = true;
 
   ngOnInit() {

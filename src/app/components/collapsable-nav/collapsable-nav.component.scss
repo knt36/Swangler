@@ -4,12 +4,26 @@ nav{
     color: #212529;
 }
 
+.parent_menu{
+  width: 100%;
+}
+
 .collapsable-nav-header{
     position: relative;
+    cursor: pointer;
+
+    &.active{
+      font-weight: bold;
+    }
 }
 
 .nav-link{
     padding: .5rem 1rem;
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
 }
 
 .toggle-collapse{
@@ -33,7 +47,7 @@ nav{
 
 
 .collapsable-nav-body{
-    a{  
+    a{
         display: block;
         widows: 100%;
         border-top: 1px solid rgba(0,0,0,0.125);
@@ -49,4 +63,10 @@ a{
     &:hover{
         color: #55606f;
     }
+}
+
+.card-header{
+  border-radius: 0;
+  border-right: none;
+  border-left: none;
 }

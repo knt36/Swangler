@@ -12,8 +12,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
-import { SampleViewComponent } from './views/sample.controller';
-import { AppRoutingModule } from './app-routing.module';
+
+import {SampleViewComponent} from './views/sample/sample.controller';
+import {AppRoutingModule} from './app-routing.module';
 
 import { CollapsableNavComponent } from './components/collapsable-nav/collapsable-nav.component';
 
@@ -21,9 +22,11 @@ import { ContactComponent } from './components/contact/contact.component';
 import { HttpResModalComponent } from './components/httpResModalComponent/httpResModal.controller';
 import { ParamConsoleComponent } from './components/param-console/param-console.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
+import {MainViewComponent} from './views/main/main.component';
 import { ExampleCollapsibleComponent } from './components/example-collapsible/example-collapsible.component';
 import { EndpointComponent } from './components/endpoint/endpoint.component';
-import { ExampleSideBarComponent } from './components/example-side-bar/example-side-bar.component';
+import {ExampleSideBarComponent} from './components/example-side-bar/example-side-bar.component';
+import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +41,10 @@ import { ExampleSideBarComponent } from './components/example-side-bar/example-s
     ParamConsoleComponent,
     SidebarNavComponent,
     CollapsableNavComponent,
+    ExampleSideBarComponent,
+    MainViewComponent,
     EndpointComponent,
-    ExampleSideBarComponent
+    EndpointsViewComponent
   ],
   imports: [
     BrowserModule,
