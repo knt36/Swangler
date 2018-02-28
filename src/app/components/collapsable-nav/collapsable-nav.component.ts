@@ -13,7 +13,7 @@ export class CollapsableNavComponent implements OnInit {
   @Input() endpoints: Array<CollapsableNavEndpointsModel>;
 
   Object = null;
-  isCollapsed = false;
+  isCollapsed = true;
 
   constructor(private swaggerService: SwaggerService) { }
 
