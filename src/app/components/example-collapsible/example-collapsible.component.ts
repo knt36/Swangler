@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AppEndPoint} from '../../models/endpoint/endpoint.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ResponseProperty,
+  Schema
+} from '../../models/endpoint/endpoint.model';
 
 @Component({
   selector: 'app-example-collapsible',
@@ -7,17 +9,49 @@ import {AppEndPoint} from '../../models/endpoint/endpoint.model';
   styleUrls: ['./example-collapsible.component.scss']
 })
 export class ExampleCollapsibleComponent implements OnInit {
-  @Input('text') text = null;
-  @Input('content') content = null;
-  @Input('endpoint') endpoint: AppEndPoint = null;
-
-  public collapsed = false;
+  @Input('header') header;
+  @Input('type') type: string; // sample or schema
+  @Input('schema') schema: Schema;
+  /* Returns JSON of Sample*/
+  @Output('clickedSample') clickedSample: EventEmitter<any> = new EventEmitter();
+  public collapsed = true;
 
   ngOnInit() {
   }
+
 
   toggleCollapse() {
     this.collapsed = !this.collapsed;
   }
 
+  generateSampleFromSchema(schema, level: number = 0) {
+    const spacing = ' '.repeat(level);
+    const spacingAttr = spacing + ' '.repeat(5);
+    if (schema.properties != null) {
+      let temp = spacing + '{ \n';
+      const keys = Object.keys(schema.properties);
+      for (let i = 0 ; i < keys.length; i ++) {
+        if (schema.properties.hasOwnProperty(keys[i])) {
+          temp = `${temp}${spacingAttr}"${keys[i]}"`;
+          if (schema.properties[keys[i]].type.toLowerCase() === 'object') {
+            const schema2 = schema.properties[keys[i]];
+            temp = temp + ' : ' + this.generateSampleFromSchema(schema2, level + 2);
+          } else {
+            const property: ResponseProperty = schema.properties[keys[i]];
+            temp = `${temp}: "${property.example}"`;
+          }
+          if ( i < keys.length - 1 ) {
+            temp = temp + ',';
+          }
+          temp = temp + '\n';
+        }
+      }
+      temp = temp + spacing + '}';
+      return (temp);
+    }
+  }
 }
+
+
+
+

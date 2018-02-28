@@ -160,7 +160,7 @@ export class Parameter {
 
 export class Schema {
   public type: string;
-  public $$ref: string;
+  public $$ref?: string;
 }
 
 /* APP_END_POINT */
@@ -173,6 +173,8 @@ export class RequestSchema extends Schema {
   public name: string;
   public required: string[];
   public properties: RequestProperties;
+  public description?: string;
+  public example?: object;
 }
 
 export class RequestProperty {

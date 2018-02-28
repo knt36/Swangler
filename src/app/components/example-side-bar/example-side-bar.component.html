@@ -1,0 +1,5 @@
+<app-example-collapsible (clickedSample)="this.clickedBodySample.emit($event)" *ngIf="this.bodySchema" [header]="'Body Sample'" [type]="'sample'" [schema]="this.bodySchema"></app-example-collapsible>
+<app-example-collapsible *ngIf="this.bodySchema" [header]="'Body Schema'" [type]="'schema'" [schema]="this.bodySchema"></app-example-collapsible>
+
+<app-example-collapsible *ngIf="this.responseSchema" [header]="'Response Sample'" [type]="'sample'" [schema]="this.responseSchema"></app-example-collapsible>
+<app-example-collapsible *ngIf="this.responseSchema" [header]="'Response Schema'" [type]="'schema'" [schema]="this.responseSchema"></app-example-collapsible>
