@@ -47,7 +47,6 @@ export class ExampleCollapsibleComponent implements OnInit {
         }
       }
       temp = temp + spacing + '}';
-      console.log(temp);
       return (temp);
     }
   }
