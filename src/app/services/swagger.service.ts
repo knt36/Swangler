@@ -9,14 +9,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class SwaggerService {
-  private apiDataSubject: Subject<any>;
-  private endpointsSubject: Subject<any>;
+  private apiDataSubject: BehaviorSubject<any>;
+  private endpointsSubject: BehaviorSubject<any>;
 
   constructor(
     private http: HttpClient
   ) {
-    this.apiDataSubject = new Subject();
-    this.endpointsSubject = new Subject();
+    this.apiDataSubject = new BehaviorSubject(null);
+    this.endpointsSubject = new BehaviorSubject(null);
 
     const specUrl = 'http://forge.local/openapi/spec.json';
     this.initSwagger(specUrl);

@@ -10,20 +10,11 @@ import { Observable } from 'rxjs/Observable';
 })
 export class MainViewComponent implements OnInit {
 
-  sortedApiData: Observable<any> = this.swaggerService.getEndpointsSortedByTags();
-  apiData;
-
-  public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
   constructor(
-    private swaggerService: SwaggerService
    ) {}
 
   ngOnInit() {
-    this.swaggerService.getApiData().subscribe( data => {
-      console.log(data);
 
-      this.apiData = data;
-    });
   }
 
 }

@@ -11,6 +11,10 @@ nav{
 .collapsable-nav-header{
     position: relative;
     cursor: pointer;
+
+    &.active{
+      font-weight: bold;
+    }
 }
 
 .nav-link{

@@ -9,6 +9,7 @@ import { SidebarNavModel } from '../../models/sidebar/sidebar-nav.model';
 export class SidebarNavComponent implements OnInit, OnChanges {
 
   @Input() tags: SidebarNavModel[];
+  @Input() sectionToExpand: string = null;
 
   arrayOfTags: Array<any> = [];
 
@@ -18,7 +19,7 @@ export class SidebarNavComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.tags.currentValue) {
+    if (changes.tags && changes.tags.currentValue) {
       this.arrayOfTags = Object.keys(changes.tags.currentValue).map(function (key) {
          return {
            'tagName': key,
