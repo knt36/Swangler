@@ -27,6 +27,7 @@ import { ExampleCollapsibleComponent } from './components/example-collapsible/ex
 import { EndpointComponent } from './components/endpoint/endpoint.component';
 import {ExampleSideBarComponent} from './components/example-side-bar/example-side-bar.component';
 import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.component';
+import { EndpointsSharedService } from './services/endpoints-shared.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.comp
     FormsModule,
     HttpClientModule
   ],
-  providers: [SwaggerService, LocalStorageService],
+  providers: [SwaggerService, LocalStorageService, EndpointsSharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
