@@ -3,8 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {SwaggerService} from '../../services/swagger.service';
 import {Observable} from 'rxjs/Observable';
-import {BsModalService} from "ngx-bootstrap";
-import {HttpResModalComponent} from "../../components/httpResModalComponent/httpResModal.controller";
+import {BsModalService} from 'ngx-bootstrap';
+import {HttpResModalComponent} from '../../components/httpResModalComponent/httpResModal.controller';
 
 @Component({
   selector: 'app-endpoints-view',

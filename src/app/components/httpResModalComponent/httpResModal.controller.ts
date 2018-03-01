@@ -29,12 +29,6 @@ export class HttpResModalComponent {
     ]
   };
   @Input ('data') data = this.mockTextData;
-
-  public mockObject = {
-    header: 'content'
-  };
-
-
    constructor() {
 
   }
