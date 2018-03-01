@@ -27,6 +27,8 @@ import { ExampleCollapsibleComponent } from './components/example-collapsible/ex
 import { EndpointComponent } from './components/endpoint/endpoint.component';
 import {ExampleSideBarComponent} from './components/example-side-bar/example-side-bar.component';
 import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.component';
+import {SimpleNotificationsModule} from 'angular2-notifications';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.comp
     CollapseModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SimpleNotificationsModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [SwaggerService, LocalStorageService],
   bootstrap: [AppComponent]
