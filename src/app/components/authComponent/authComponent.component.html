@@ -4,7 +4,7 @@
 
     <label class="auth_label text-uppercase">Authentication Header:</label>
 
-    <div class="input-group input-group-sm" *ngIf="this.securityDefinitions != null">
+    <div *ngIf="this.securityDefinitions != null">
       <input *ngFor="let sdName of Object.keys(this.securityDefinitions);" [(ngModel)]="inputFields[sdName]" type="text" class="form-control" aria-describedby="auth" placeholder="{{sdName}}">
       <div class="input-group-append">
         <button (click)="this.clickApplyButton()" id="applyButton1257235" type="button" class="btn btn-secondary">Apply</button>

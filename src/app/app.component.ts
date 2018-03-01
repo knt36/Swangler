@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { LocalStorageService } from './services/local-storage.service';
-import { AppEndPoint } from './models/endpoint/endpoint.model';
-import { SwaggerService } from './services/swagger.service';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {LocalStorageService} from './services/local-storage.service';
+import {AppEndPoint} from './models/endpoint/endpoint.model';
+import {SwaggerService} from './services/swagger.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +16,20 @@ export class AppComponent implements OnInit {
   apiData;
 
   public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
-  constructor(
-    private swaggerService: SwaggerService
-   ) {}
+  public options = {
+    timeOut: 1000,
+    showProgressBar: false,
+    pauseOnHover: false,
+    clickToClose: false,
+    position: ['bottom', 'left']
+};
+
+  constructor(private swaggerService: SwaggerService) {
+  }
 
   ngOnInit() {
-    this.swaggerService.getApiData().subscribe( data => {
+    this.swaggerService.getApiData().subscribe(data => {
       console.log(data);
-
       this.apiData = data;
     });
   }
