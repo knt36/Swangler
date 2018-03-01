@@ -1,17 +1,11 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {LocalStorageService} from '../../services/local-storage.service';
+import {Component, Input} from '@angular/core';
 
 
 @Component({
   selector: 'app-http-res-modal',
   templateUrl : './httpResModal.component.html',
   styleUrls: ['./httpResModal.component.scss'],
-  encapsulation: ViewEncapsulation.None
-
 })
-
-
-
 
 export class HttpResModalComponent {
   public mockTextData = {

@@ -8,7 +8,7 @@ import { AuthComponent } from './components/authComponent/authComponent.controll
 import { LocalStorageService } from './services/local-storage.service';
 import { FormsModule } from '@angular/forms';
 
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import {BsDatepickerModule, ModalModule} from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
@@ -52,9 +52,11 @@ import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.comp
     CollapseModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot()
   ],
   providers: [SwaggerService, LocalStorageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [HttpResModalComponent]
 })
 export class AppModule { }

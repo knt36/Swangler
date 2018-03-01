@@ -34,7 +34,7 @@
         <div id="resource_Accounts" class="resource">
           <div class="endpoints" id="Accounts_endpoint_list">
 
-            <app-endpoint *ngFor="let endpoint of endpoints" [endpointData]="endpoint" [scrollToId]='scrollToId'></app-endpoint>
+            <app-endpoint (clickedTestEndPoint)="this.openTestModal()" *ngFor="let endpoint of endpoints" [endpointData]="endpoint" [scrollToId]='scrollToId'></app-endpoint>
 
           </div>
         </div>
