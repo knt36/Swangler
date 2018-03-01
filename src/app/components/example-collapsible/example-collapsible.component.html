@@ -3,7 +3,7 @@
   <hr>
   <nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !collapsed}">
     <nav (click)="toggleCollapse()" class="collapsable-nav-header" routerLinkActive="active">
-      <h5>{{this.header}}</h5>
+      <h5 class="nav-header">{{this.header}}</h5>
       <div class="toggle-collapse">
         <i class="fas fa-angle-down"></i>
       </div>
@@ -20,6 +20,7 @@
       </div>
     </nav>
   </nav>
+  <hr>
 </div>
 
 
