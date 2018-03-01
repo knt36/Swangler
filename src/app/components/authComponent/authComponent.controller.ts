@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {SecurityDefinition} from '../../models/auth/security-definition';
-import {NotificationsService} from "angular2-notifications";
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-auth-component',

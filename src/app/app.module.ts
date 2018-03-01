@@ -28,7 +28,7 @@ import { EndpointComponent } from './components/endpoint/endpoint.component';
 import {ExampleSideBarComponent} from './components/example-side-bar/example-side-bar.component';
 import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.component';
 import {SimpleNotificationsModule} from 'angular2-notifications';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
