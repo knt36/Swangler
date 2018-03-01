@@ -27,12 +27,9 @@ import { ExampleCollapsibleComponent } from './components/example-collapsible/ex
 import { EndpointComponent } from './components/endpoint/endpoint.component';
 import {ExampleSideBarComponent} from './components/example-side-bar/example-side-bar.component';
 import {EndpointsViewComponent} from './views/endpoints-view/endpoints-view.component';
-<<<<<<< HEAD
 import { EndpointsSharedService } from './services/endpoints-shared.service';
-=======
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
->>>>>>> develop
 
 @NgModule({
   declarations: [
