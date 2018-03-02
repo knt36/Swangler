@@ -1,37 +1,61 @@
 @import './variables';
-
-nav{
+nav {
   width: 100%;
   color: $navArrowColor;
 }
 
-.collapsable-nav-header{
-  position: relative;
+h5,
+i {
+  color: white
 }
 
-.nav-link{
+.collapsable-nav-header {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-link {
   padding: .5rem 1rem;
 }
 
-.toggle-collapse{
+.toggle-collapse {
   width: 20px;
   text-align: center;
   position: absolute;
-  top: 8px;
-  right: 20px;
-  i{
+  top: 0;
+  right: 0;
+  i {
     transition: transform .3s;
   }
 }
 
-.expanded{
-  .toggle-collapse{
-    i{
+.expanded {
+  .toggle-collapse {
+    i {
       transform: rotate(180deg);
     }
   }
 }
 
-#sample79815{
-  border-radius:5px;
+#sample79815 {
+  border-radius: 5px;
+}
+
+pre {
+  font-size: 0;
+  code {
+    font-size: 1rem;
+  }
+}
+
+.nav-header{
+  margin-bottom: 0;
+}
+
+.collapsable-nav-body{
+  margin-top: 1rem
+}
+
+.schema-property{
+  margin: 0 15px;
 }

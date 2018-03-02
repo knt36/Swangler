@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked, AfterV
 import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
 import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
+import { EndpointsSharedService } from '../../services/endpoints-shared.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
 })
 export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   /* Sample toggle on button click is hidden*/
-  public isHidden: Boolean = true;
+  public isHidden: Boolean;
 
 
   @Input() scrollToId: string;
@@ -28,12 +29,21 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   public parameterFields = {};
   public Object = Object;
 
-  constructor() {
+  isExamplesHidden;
+
+  constructor(
+    public endpointsSharedService: EndpointsSharedService
+  ) {
   }
 
   ngOnInit() {
     this.initParameterFields();
     this.initSelectedResponse();
+
+    // this.endpointsSharedService.onEndpointsExamplesToggle()
+    //   .subscribe( value => {
+    //     this.isExamplesHidden = value;
+    //   });
   }
 
   ngAfterViewInit() {

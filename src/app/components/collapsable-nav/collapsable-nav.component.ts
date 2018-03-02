@@ -22,9 +22,16 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChan
     this.Object = Object;
   }
 
+  toggleExpand(event) {
+    if (!event.target.classList.value.includes('navigate-to-tag')) {
+      this.isCollapsed = !this.isCollapsed;
+    }
+  }
+
   ngAfterContentInit() {
     if ( this.tag === this.sectionToExpand ) {
       this.isCollapsed = false;
+
     } else {
       this.isCollapsed = true;
     }
@@ -33,6 +40,7 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChan
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sectionToExpand) {
       this.isCollapsed = true;
+
       if (this.tag === this.sectionToExpand) {
         this.isCollapsed = false;
       }

@@ -2,3 +2,16 @@
   padding-left:2em;
   padding-right:2em;
 }
+
+.toggle-examples{
+  float: right;
+  cursor: pointer;
+  color: #868e96;
+  &:hover{
+    color: darken($color: #868e96, $amount: 10%)
+  }
+}
+
+.samples, .content{
+  transition: unset !important;
+}
