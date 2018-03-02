@@ -34,7 +34,7 @@ export class SwaggerService {
     //   method: 'post',
     //   headers: {
     //     'slyce-account-id': 'slyce',
-    //     'Content-Type': 'application/json'
+    //     'Content-Type': 'application/json'ng lin
     //   },
     //   body: {
     //     'id': '3212312',
@@ -150,6 +150,15 @@ export class SwaggerService {
     }
 
     return result;
+  }
+  private setHostUrl(apiData) {
+    if ( apiData) {
+      if (apiData.host) {
+        this.specHost = apiData.host;
+      } else if (apiData.url) {
+        this.specHost = this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*\\/)')[0];
+      }
+    }
   }
 
   private initSwagger(specUrl): Promise<any> {
