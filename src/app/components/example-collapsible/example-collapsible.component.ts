@@ -16,6 +16,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   /* Returns JSON of Sample*/
   @Output('clickedSample') clickedSample: EventEmitter<any> = new EventEmitter();
   public collapsed = true;
+  public Object = Object;
 
   ngOnInit() {
     const samples = document.querySelectorAll('.samples pre code');
