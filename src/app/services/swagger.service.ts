@@ -3,14 +3,16 @@ const Swagger = require('swagger-client');
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
-import { Subject } from 'rxjs/Subject';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {RequestInitiator} from '../models/endpoint/endpoint.model';
 
 @Injectable()
 export class SwaggerService {
   private apiDataSubject: BehaviorSubject<any>;
   private endpointsSubject: BehaviorSubject<any>;
+  private specUrl = 'http://forge.local/openapi/spec.json';
+  private specHost = 'http://forge.local';
 
   constructor(
     private http: HttpClient
@@ -18,8 +20,8 @@ export class SwaggerService {
     this.apiDataSubject = new BehaviorSubject(null);
     this.endpointsSubject = new BehaviorSubject(null);
 
-    const specUrl = 'http://forge.local/openapi/spec.json';
-    this.initSwagger(specUrl);
+
+    this.initSwagger(this.specUrl);
 
     // for testing purposes
 
@@ -66,7 +68,7 @@ export class SwaggerService {
     // end for testing purposes
   }
 
-  testEndpoint(callData) {
+  testEndpoint(callData: RequestInitiator): Observable<any> {
     const options = {};
 
     if (callData.headers) {
@@ -80,21 +82,20 @@ export class SwaggerService {
       }
     }
 
-    if (callData.params) {
+    if (callData.query) {
       options['params'] = new HttpParams();
-
-      for (const paramName in callData.params) {
-        if (callData.params.hasOwnProperty(paramName)) {
-          const paramValue = callData.params[paramName];
-          options['params'] = options['params'].append(paramName, paramValue);
+      for (const queryName in callData.query) {
+        if (callData.query.hasOwnProperty(queryName)) {
+          const queryValue = callData.query[queryName];
+          options['params'] = options['params'].append(queryName, queryValue);
         }
       }
     }
 
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
-      return this.http[callData.method](callData.url, callData.body, options);
+      return this.http[callData.method](this.specHost + callData.url, callData.body, options);
     } else {
-      return this.http[callData.method](callData.url, options);
+      return this.http[callData.method](this.specHost + callData.url, options);
     }
 
   }
