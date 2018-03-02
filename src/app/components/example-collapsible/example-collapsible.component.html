@@ -1,9 +1,8 @@
-
 <div style="padding: 0px 20px 0px 20px">
   <hr>
   <nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !collapsed}">
     <nav (click)="toggleCollapse()" class="collapsable-nav-header" routerLinkActive="active">
-      <h4>{{this.header}}</h4>
+      <h5 class="nav-header">{{this.header}}</h5>
       <div class="toggle-collapse">
         <i class="fas fa-angle-down"></i>
       </div>
@@ -14,12 +13,11 @@
       </div>
 
       <div *ngIf="this.type?.toLowerCase() == 'sample'">
-         <pre (click)="this.clickedSample.emit(this.generateSampleFromSchema(this.schema))">
+        <pre (click)="this.clickedSample.emit(this.generateSampleFromSchema(this.schema))">
           <code class="hljs json" id="sample79815">{{this.generateSampleFromSchema(this.schema)}}</code>
         </pre>
       </div>
     </nav>
   </nav>
+  <hr>
 </div>
-
-

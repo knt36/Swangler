@@ -18,30 +18,32 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   endpoints;
   scrollToId: string = null;
   private paramSubscription: Subscription;
-  sortedApiData: Observable<any> = this.swaggerService.getEndpointsSortedByTags();
+  private queryParamSubscription: Subscription;
+  sortedApiData: Observable < any > = this.swaggerService.getEndpointsSortedByTags();
   apiData;
   private modalRef = null;
   public result = {};
 
-  constructor(private route: ActivatedRoute,
-              private swaggerService: SwaggerService,
-              private modalService: BsModalService,
-              private localDataService: LocalStorageService) {
-  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private swaggerService: SwaggerService,
+    private localDataService: LocalStorageService,
+    private modalService: BsModalService
+  ) {}
 
   ngOnInit() {
-    this.paramSubscription = this.route.params.subscribe(params => {
-      this.endpointTag = params['endpointTag'];
-
-      if (params['endpointId']) {
-        this.scrollToId = params['endpointId'];
+    this.queryParamSubscription = this.route.queryParams.subscribe(queryParams => {
+      if (queryParams.enpt) {
+        this.scrollToId = queryParams.enpt;
       }
-
-      this.updateEndpoints();
     });
 
+    this.paramSubscription = this.route.params.subscribe(params => {
+      this.endpointTag = params['endpointTag'];
+      this.updateEndpoints();
+    });
     this.swaggerService.getApiData().subscribe(data => {
-
       this.apiData = data;
     });
   }
@@ -49,7 +51,6 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
 
   updateEndpoints() {
     this.swaggerService.getEndpointsSortedByTags().subscribe(data => {
-      console.log(data);
       if (data) {
         if (this.endpointTag) {
           this.endpoints = data[this.endpointTag];
@@ -61,60 +62,9 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.queryParamSubscription.unsubscribe();
     this.paramSubscription.unsubscribe();
   }
-/*{
-  "account_id": {
-    "type": "string",
-    "required": true,
-    "in": "path",
-    "name": "account_id"
-  },
-  "space_id": {
-    "type": "string",
-    "required": true,
-    "in": "path",
-    "name": "space_id"
-  },
-  "body": {
-    "type": "object",
-    "name": "body",
-    "required": true,
-    "in": "body",
-    "schema": {
-      "type": "object",
-      "required": [
-        "name"
-        ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the dataset.",
-          "required": true,
-          "example": "DemoDataset"
-        },
-        "image_url_keys": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "imageURL"
-          },
-          "description": "The keys of the fields containing image_urls for the dataset.",
-          "required": null
-        },
-        "copy_from": {
-          "type": "string",
-          "description": "The name of another dataset from which settings and items should be copied (if necessary).",
-          "required": false,
-          "example": "none"
-        }
-      },
-      "name": "body",
-      "$$ref": "#/definitions/NewDatasetDoc"
-    }
-  }
-}*/
-
 
   clickTest(request, template) {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);

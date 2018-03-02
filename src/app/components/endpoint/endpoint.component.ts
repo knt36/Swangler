@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core';
-import {AppEndPoint, RequestInitiator} from '../../models/endpoint/endpoint.model';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core';
+import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
 import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {SwaggerService} from '../../services/swagger.service';
+import { EndpointsSharedService } from '../../services/endpoints-shared.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import {SwaggerService} from '../../services/swagger.service';
 })
 export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   /* Sample toggle on button click is hidden*/
-  public isHidden: Boolean = true;
+  public isHidden: Boolean;
 
 
   @Input() scrollToId: string;
@@ -29,13 +30,21 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   /* Inputed values from user for each parameter otherwise go default */
   public parameterFields = {};
   public Object = Object;
+  isExamplesHidden;
 
-  constructor(public sw: SwaggerService, public localDataService: LocalStorageService) {
+  constructor(
+    public endpointsSharedService: EndpointsSharedService
+  ) {
   }
 
   ngOnInit() {
     this.initParameterFields();
     this.initSelectedResponse();
+
+    // this.endpointsSharedService.onEndpointsExamplesToggle()
+    //   .subscribe( value => {
+    //     this.isExamplesHidden = value;
+    //   });
   }
 
   ngAfterViewInit() {
@@ -69,10 +78,12 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     if ( id ) {
       const elem = document.getElementById(id);
       if (elem) {
-        this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
+        window.scrollTo(0, elem.offsetTop + 56);
+        // this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
       }
     } else {
-      this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, 0);
+      window.scrollTo(0, 0 + 56);
+      // this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, 0);
     }
   }
 
@@ -103,7 +114,10 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
       }, 15);
 
     }
+  }
 
+  populateBody(event) {
+    this.parameterFields['body'].value = event;
   }
 
   private initSelectedResponse() {

@@ -7,7 +7,7 @@
       class="objectNameText" *ngIf="this.schema.$$ref == null">NO REFERENCE NAME
     </span>
   </span>
-  <div style="margin:15px;" *ngFor="let p of this.Object.keys(this.schema.properties)">
+  <div class="schema-property" *ngFor="let p of this.Object.keys(this.schema.properties)">
     <span class="propLabels">
       <span class="propName propOpt">
         {{p}}
