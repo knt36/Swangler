@@ -19,6 +19,10 @@
   margin-right:0px;
 }
 
+.schema-description > div, .sample-snippet > div{
+  margin: 0;
+}
+
 .schema-description[_ngcontent-c2] .objectName[_ngcontent-c2], .sample-snippet[_ngcontent-c2] .objectName[_ngcontent-c2]{
   border-radius:0.25rem !important;
 }
