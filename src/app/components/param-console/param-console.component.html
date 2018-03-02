@@ -25,3 +25,8 @@
 </div>
 
 
+<div *ngFor="let p of this.Object.keys(this.schema.properties)">
+  <app-param-console *ngIf="this.schema.properties[p].type == 'object'" [schema]="this.schema.properties[p]"></app-param-console>
+</div>
+
+
