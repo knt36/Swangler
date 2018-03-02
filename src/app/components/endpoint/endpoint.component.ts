@@ -111,7 +111,10 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
       }, 15);
 
     }
+  }
 
+  populateBody(event) {
+    this.parameterFields['body'].value = event;
   }
 
   private initSelectedResponse() {

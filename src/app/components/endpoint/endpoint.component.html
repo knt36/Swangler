@@ -132,7 +132,7 @@
         </div>
 
         <div class="samples" [ngClass]="endpointsSharedService.isExamplesHidden ? 'col-lg-3 col-xl-3 d-none' : 'col-lg-6 col-xl-6'">
-          <app-example-side-bar [endpoint]="this.endpointData"></app-example-side-bar>
+          <app-example-side-bar [endpoint]="this.endpointData" (clickedBodySample)="populateBody($event)"></app-example-side-bar>
         </div>
       </div>
     </div>
