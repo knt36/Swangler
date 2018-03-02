@@ -10,7 +10,7 @@
 
           <div class="d-lg-flex align-items-center">
             <div class="mr-auto">
-              <h5 class="text-truncate">
+              <h5>
                 <span class="http_method badge badge-primary">{{this.endpointData.method}}</span>
                 <span class="path text-muted">{{this.endpointData.url}}</span>
               </h5>
@@ -42,7 +42,7 @@
               <div class="form-group row">
                 <div style="padding:10px;width:100%;" *ngFor="let parm of this.endpointData?.parameters">
                   <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-lg-3 col-xl-2">
                       <label class="param-property text-nowrap col-form-label">
                         {{parm.name}}:
                         <br>
@@ -52,7 +52,7 @@
                       </label>
                     </div>
 
-                    <div class="col-sm-10">
+                    <div class="col-lg-9 col-xl-10">
                       <div *ngIf="parm['in'].toLowerCase() == 'body'">
                         <textarea placeholder="{{parm.required == true ? '(required)' : ''}}" [(ngModel)]='this.parameterFields[parm.name].value'
                           class="form-control" id="exampleTextarea" rows="3"></textarea>
