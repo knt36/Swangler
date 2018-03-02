@@ -7,6 +7,8 @@ import {BsModalService} from 'ngx-bootstrap';
 import {HttpResModalComponent} from '../../components/httpResModalComponent/httpResModal.controller';
 import {RequestInitiator} from '../../models/endpoint/endpoint.model';
 import {LocalStorageService} from '../../services/local-storage.service';
+import * as hl from '../../../../node_modules/highlight.js/';
+
 
 @Component({
   selector: 'app-endpoints-view',
@@ -69,26 +71,32 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   clickTest(request, template) {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);
     this.swaggerService.testEndpoint(requestInitiator).subscribe( res => {
-      console.log(res);
-      this.result['url'] = res.url;
-      this.result['responseBody'] = JSON.stringify(res.body, null, 2);
-      this.result['responseCode'] = res.status;
-
-      const keys = res.headers.keys();
-      res.headers = keys.map(key =>
-        `${key}: ${res.headers.get(key)}`);
-      this.result['responseHeader'] = JSON.stringify(res.headers, null, 2);
+      this.setRes(res, request);
       this.modalRef = this.modalService.show(template);
+      // this.highlightJS();
     }, error => {
-      console.log(error);
-      this.result['url'] = error.url;
+      this.setRes(error, request);
       this.result['responseBody'] = JSON.stringify(error.error, null, 2);
-      this.result['responseCode'] = error.status;
-      const keys = error.headers.keys();
-      error.headers = keys.map(key =>
-        `${key}: ${error.headers.get(key)}`);
-      this.result['responseHeader'] = JSON.stringify(error.headers, null, 2);
       this.modalRef = this.modalService.show(template);
+      // this.highlightJS();
     });
+  }
+  private setRes(res, request) {
+    this.result['header'] = request.endPointData.summary;
+    this.result['method'] = request.endPointData.method;
+    this.result['url'] = res.url;
+    this.result['responseBody'] = JSON.stringify(res.body, null, 2);
+    this.result['responseCode'] = res.status;
+    const keys = res.headers.keys();
+    res.headers = keys.map(key =>
+      `${key}: ${res.headers.get(key)}`);
+    this.result['responseHeader'] = JSON.stringify(res.headers, null, 2);
+  }
+  private highlightJS() {
+    const samples = document.querySelectorAll('.modal-dialog pre code');
+    for (let index = 0; index < samples.length; index++) {
+      const element = samples[index];
+      hl.highlightBlock(element);
+    }
   }
 }

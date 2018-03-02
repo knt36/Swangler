@@ -44,8 +44,7 @@
   <ng-template #template>
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center">
-          List the accounts <span class="http_method badge badge-primary">get</span>
+        <h5 class="modal-title text-center">{{this.result.header}}<span class="http_method badge badge-primary">{{this.result.method}}</span>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <svg class="svg-inline--fa fa-times fa-w-12" aria-hidden="true" data-fa-processed="" data-prefix="fal"

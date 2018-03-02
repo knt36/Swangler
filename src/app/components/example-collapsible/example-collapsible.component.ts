@@ -18,7 +18,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   public collapsed = true;
 
   ngOnInit() {
-    const samples = document.querySelectorAll('pre code');
+    const samples = document.querySelectorAll('.samples pre code');
     for (let index = 0; index < samples.length; index++) {
       const element = samples[index];
       hl.highlightBlock(element);
