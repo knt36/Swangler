@@ -77,10 +77,12 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     if ( id ) {
       const elem = document.getElementById(id);
       if (elem) {
-        this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
+        window.scrollTo(0, elem.offsetTop + 56);
+        // this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, elem.offsetTop);
       }
     } else {
-      this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, 0);
+      window.scrollTo(0, 0 + 56);
+      // this.smoothScroll(document.documentElement.scrollTop || document.body.scrollTop, 0);
     }
   }
 
@@ -111,7 +113,10 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
       }, 15);
 
     }
+  }
 
+  populateBody(event) {
+    this.parameterFields['body'].value = event;
   }
 
   private initSelectedResponse() {
