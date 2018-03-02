@@ -8,7 +8,7 @@ import { AuthComponent } from './components/authComponent/authComponent.controll
 import { LocalStorageService } from './services/local-storage.service';
 import { FormsModule } from '@angular/forms';
 
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import {BsDatepickerModule, ModalModule} from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
@@ -56,10 +56,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ModalModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     BrowserAnimationsModule
   ],
   providers: [SwaggerService, LocalStorageService, EndpointsSharedService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [HttpResModalComponent]
 })
 export class AppModule { }

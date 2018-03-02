@@ -1,7 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output, AfterViewChecked, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core';
 import {AppEndPoint} from '../../models/endpoint/endpoint.model';
 import {AppClickedSampleRes} from '../../models/endpoint/clicked-sample-res';
 import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {SwaggerService} from '../../services/swagger.service';
 import { EndpointsSharedService } from '../../services/endpoints-shared.service';
 
 
@@ -28,7 +30,6 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   /* Inputed values from user for each parameter otherwise go default */
   public parameterFields = {};
   public Object = Object;
-
   isExamplesHidden;
 
   constructor(
@@ -123,6 +124,6 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     this.selectedResponse = this.endpointData.produces.length !== 0 ? this.endpointData.produces[0] : null;
   }
   public clickTestEndPointButton() {
-    return({'selectedResponse': this.selectedResponse, 'parameterFields': this.parameterFields});
+    return({'endPointData': this.endpointData, 'selectedResponse': this.selectedResponse, 'parameterFields': this.parameterFields});
   }
 }
