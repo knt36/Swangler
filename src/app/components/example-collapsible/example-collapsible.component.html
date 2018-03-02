@@ -10,6 +10,11 @@
     <nav [ngStyle]="{display:this.collapsed ? 'none' : 'block'}" class="collapsable-nav-body nav flex-column sub_menu">
       <div *ngIf="this.type?.toLowerCase() == 'schema'">
         <app-param-console [schema]="this.schema"></app-param-console>
+
+        <div *ngFor="let p of this.Object.keys(this.schema.properties)">
+          <app-param-console *ngIf="this.schema.properties[p].type == 'object'" [schema]="this.schema.properties[p]"></app-param-console>
+        </div>
+
       </div>
 
       <div *ngIf="this.type?.toLowerCase() == 'sample'">
