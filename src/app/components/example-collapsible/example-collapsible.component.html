@@ -1,4 +1,3 @@
-
 <div style="padding: 0px 20px 0px 20px">
   <hr>
   <nav id="resources_nav" class="nav flex-column parent_menu" [ngClass]="{'expanded' : !collapsed}">
@@ -14,7 +13,7 @@
       </div>
 
       <div *ngIf="this.type?.toLowerCase() == 'sample'">
-         <pre (click)="this.clickedSample.emit(this.generateSampleFromSchema(this.schema))">
+        <pre (click)="this.clickedSample.emit(this.generateSampleFromSchema(this.schema))">
           <code class="hljs json" id="sample79815">{{this.generateSampleFromSchema(this.schema)}}</code>
         </pre>
       </div>
@@ -22,5 +21,3 @@
   </nav>
   <hr>
 </div>
-
-
