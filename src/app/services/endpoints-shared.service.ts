@@ -13,6 +13,5 @@ export class EndpointsSharedService {
 
   endpointsExamplesToggle(value: boolean) {
     this.isExamplesHidden = !this.isExamplesHidden;
-    console.log(this.isExamplesHidden);
   }
 }

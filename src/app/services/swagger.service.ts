@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import { Subject } from 'rxjs/Subject';
+import { NotificationsService } from 'angular2-notifications';
+
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
@@ -13,7 +15,8 @@ export class SwaggerService {
   private endpointsSubject: BehaviorSubject<any>;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public notify: NotificationsService
   ) {
     this.apiDataSubject = new BehaviorSubject(null);
     this.endpointsSubject = new BehaviorSubject(null);
@@ -157,6 +160,9 @@ export class SwaggerService {
         this.setApiData(apiData);
         this.setSortedEndpoints(this.sortApiEndpointsByTags(apiData.spec.paths));
       })
-      .catch( err => console.error(err) );
+      .catch( err => {
+        console.error(err);
+        this.notify.error('Error', 'Swagger spec JSON was not loaded');
+      });
   }
 }
