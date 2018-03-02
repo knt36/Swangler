@@ -6,13 +6,14 @@ import 'rxjs/add/operator/first';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {RequestInitiator} from '../models/endpoint/endpoint.model';
+import {Config} from 'codelyzer/index';
 
 @Injectable()
 export class SwaggerService {
   private apiDataSubject: BehaviorSubject<any>;
   private endpointsSubject: BehaviorSubject<any>;
   private specUrl = 'http://forge.local/openapi/spec.json';
-  private specHost = 'http://forge.local';
+  public specHost = 'http://forge.local';
 
   constructor(
     private http: HttpClient
@@ -69,8 +70,7 @@ export class SwaggerService {
   }
 
   testEndpoint(callData: RequestInitiator): Observable<any> {
-    const options = {};
-
+    const options = { observe: 'response' };
     if (callData.headers) {
       options['headers'] = new HttpHeaders();
 
@@ -93,9 +93,9 @@ export class SwaggerService {
     }
 
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
-      return this.http[callData.method](this.specHost + callData.url, callData.body, options);
+      return this.http[callData.method]<Config>(this.specHost + callData.url, callData.body, options);
     } else {
-      return this.http[callData.method](this.specHost + callData.url, options);
+      return this.http[callData.method]<Config>(this.specHost + callData.url, options);
     }
 
   }

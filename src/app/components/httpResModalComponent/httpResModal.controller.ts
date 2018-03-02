@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 
 @Component({
@@ -7,7 +7,8 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./httpResModal.component.scss'],
 })
 
-export class HttpResModalComponent {
+export class HttpResModalComponent implements OnInit {
+
   public mockTextData = {
     title: 'Update an account',
     methodType: 'Post',
@@ -30,8 +31,10 @@ export class HttpResModalComponent {
   };
   @Input ('data') data = this.mockTextData;
    constructor() {
-
   }
+
+  ngOnInit(): void {
+   }
 }
 
 

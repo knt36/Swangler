@@ -20,7 +20,8 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   private paramSubscription: Subscription;
   sortedApiData: Observable<any> = this.swaggerService.getEndpointsSortedByTags();
   apiData;
-  private testModalRef = null;
+  private modalRef = null;
+  public result = {};
 
   constructor(private route: ActivatedRoute,
               private swaggerService: SwaggerService,
@@ -115,12 +116,29 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
 }*/
 
 
-  clickTest(request) {
+  clickTest(request, template) {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);
     this.swaggerService.testEndpoint(requestInitiator).subscribe( res => {
       console.log(res);
+      this.result['url'] = res.url;
+      this.result['responseBody'] = JSON.stringify(res.body, null, 2);
+      this.result['responseCode'] = res.status;
+
+      const keys = res.headers.keys();
+      res.headers = keys.map(key =>
+        `${key}: ${res.headers.get(key)}`);
+      this.result['responseHeader'] = JSON.stringify(res.headers, null, 2);
+      this.modalRef = this.modalService.show(template);
     }, error => {
       console.log(error);
+      this.result['url'] = error.url;
+      this.result['responseBody'] = JSON.stringify(error.error, null, 2);
+      this.result['responseCode'] = error.status;
+      const keys = error.headers.keys();
+      error.headers = keys.map(key =>
+        `${key}: ${error.headers.get(key)}`);
+      this.result['responseHeader'] = JSON.stringify(error.headers, null, 2);
+      this.modalRef = this.modalService.show(template);
     });
   }
 }
