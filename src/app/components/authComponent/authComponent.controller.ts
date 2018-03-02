@@ -22,7 +22,16 @@ export class AuthComponent {
     this.Object = Object;
     this.localStorageService.securityDefinitions.subscribe(res => {
       this.securityDefinitions = res as SecurityDefinition;
-      console.log(res);
+
+      for (const sd in this.securityDefinitions) {
+        if (this.securityDefinitions.hasOwnProperty(sd)) {
+          const sdObj = this.securityDefinitions[sd];
+          const localStorageVal = this.localStorageService.getStorageVar(sdObj.name);
+          if (localStorageVal) {
+            this.inputFields[sd] = localStorageVal;
+          }
+        }
+      }
     });
   }
   public clickApplyButton() {
