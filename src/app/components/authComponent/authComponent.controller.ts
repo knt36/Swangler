@@ -40,7 +40,7 @@ export class AuthComponent {
         this.localStorageService.setStorageVar(i, this.inputFields[i]);
       }
     }
-    this.notify.success(this.APPLIED_AUTH_MSG);
+    this.notify.success('Success', this.APPLIED_AUTH_MSG);
   }
 }
 

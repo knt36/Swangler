@@ -17,11 +17,11 @@ export class AppComponent implements OnInit {
 
   public appEndPoint: AppEndPoint = AppEndPoint.MOCK_DATA;
   public options = {
-    timeOut: 1000,
+    timeOut: 3000,
     showProgressBar: false,
     pauseOnHover: false,
     clickToClose: false,
-    position: ['bottom', 'left']
+    position: ['bottom', 'right']
 };
 
   constructor(private swaggerService: SwaggerService) {
