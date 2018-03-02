@@ -1,19 +1,14 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {LocalStorageService} from '../../services/local-storage.service';
+import {Component, Input, OnInit} from '@angular/core';
 
 
 @Component({
   selector: 'app-http-res-modal',
   templateUrl : './httpResModal.component.html',
   styleUrls: ['./httpResModal.component.scss'],
-  encapsulation: ViewEncapsulation.None
-
 })
 
+export class HttpResModalComponent implements OnInit {
 
-
-
-export class HttpResModalComponent {
   public mockTextData = {
     title: 'Update an account',
     methodType: 'Post',
@@ -35,15 +30,11 @@ export class HttpResModalComponent {
     ]
   };
   @Input ('data') data = this.mockTextData;
-
-  public mockObject = {
-    header: 'content'
-  };
-
-
    constructor() {
-
   }
+
+  ngOnInit(): void {
+   }
 }
 
 

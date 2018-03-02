@@ -1,17 +1,34 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title text-center">
+      List the accounts <span class="http_method badge badge-primary">get</span>
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <svg class="svg-inline--fa fa-times fa-w-12" aria-hidden="true" data-fa-processed="" data-prefix="fal" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z"></path></svg><!-- <i class="fal fa-times"></i> -->
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="response">
+      <small class="text-uppercase">Request URL</small>
+      <div class="mt-2 mb-3 request_url"><pre><code class="hljs rounded">http://forge.local/accounts/?page_number=1&amp;page_size=20</code></pre></div>
 
-<div id="headerContainer73174">
-  <h5 id="modalHeader79817">{{this.data.title}}</h5>
-  <span id="badgeContainer73107">
-      <h6 id="badge883071"><span [ngClass]="this.data.methodType.toLowerCase()" class="badge badge-default">{{this.data.methodType}}</span></h6>
-  </span>
-</div>
-<hr>
-<div id="fieldsContainer863871">
-  <div *ngFor="let field of this.data.fields">
-    <h6 id="fieldName73209">{{field.fieldName}}</h6>
-    <pre id="textBox561"><code class="hljs">{{field.fieldValue}}</code></pre>
+      <small class="text-uppercase">Response Body</small>
+      <div class="mt-2 mb-3 response_body"><pre class="json"><code class="rounded hljs">
+  <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Access denied."</span>
+</code></pre></div>
+
+      <small class="text-uppercase">Response Code</small>
+      <div class="mt-2 mb-3 response_code"><pre><code class="hljs rounded">403</code></pre></div>
+
+      <small class="text-uppercase">Response Headers</small>
+      <div class="mt-2 response_headers"><pre clas="json"><code class="hljs rounded json">
+  <span class="hljs-attr">"access-control-allow-origin"</span>: <span class="hljs-string">"*"</span>,
+  <span class="hljs-attr">"date"</span>: <span class="hljs-string">"Thu, 01 Mar 2018 20:10:58 GMT"</span>,
+  <span class="hljs-attr">"server"</span>: <span class="hljs-string">"nginx/1.13.8"</span>,
+  <span class="hljs-attr">"connection"</span>: <span class="hljs-string">"keep-alive"</span>,
+  <span class="hljs-attr">"content-length"</span>: <span class="hljs-string">"26"</span>,
+  <span class="hljs-attr">"content-type"</span>: <span class="hljs-string">"application/json"</span>
+</code></pre></div>
+    </div>
   </div>
 </div>
-
-
-
