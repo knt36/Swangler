@@ -1,9 +1,9 @@
-import {Component, OnInit, OnDestroy, TemplateRef} from '@angular/core';
+import {Component, OnInit, OnDestroy, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {SwaggerService} from '../../services/swagger.service';
 import {Observable} from 'rxjs/Observable';
-import {BsModalService} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap';
 import {HttpResModalComponent} from '../../components/httpResModalComponent/httpResModal.controller';
 import {RequestInitiator} from '../../models/endpoint/endpoint.model';
 import {LocalStorageService} from '../../services/local-storage.service';
@@ -26,12 +26,18 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   private modalRef = null;
   public result = {};
 
+  @ViewChild(ModalDirective) modal: ModalDirective;
+
+  onModalShown(type: string, $event: ModalDirective) {
+    this.highlightJS();
+  }
+
+
 
   constructor(
     private route: ActivatedRoute,
     private swaggerService: SwaggerService,
     private localDataService: LocalStorageService,
-    private modalService: BsModalService
   ) {}
 
   ngOnInit() {
@@ -72,13 +78,11 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);
     this.swaggerService.testEndpoint(requestInitiator).subscribe( res => {
       this.setRes(res, request);
-      this.modalRef = this.modalService.show(template);
-      // this.highlightJS();
+      this.modal.show();
     }, error => {
       this.setRes(error, request);
       this.result['responseBody'] = JSON.stringify(error.error, null, 2);
-      this.modalRef = this.modalService.show(template);
-      // this.highlightJS();
+      this.modal.show();
     });
   }
   private setRes(res, request) {
