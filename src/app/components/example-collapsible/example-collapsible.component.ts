@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ResponseProperty,
   Schema
 } from '../../models/endpoint/endpoint.model';
+import * as hl from '../../../../node_modules/highlight.js/';
 
 @Component({
   selector: 'app-example-collapsible',
@@ -17,6 +18,11 @@ export class ExampleCollapsibleComponent implements OnInit {
   public collapsed = true;
 
   ngOnInit() {
+    const samples = document.querySelectorAll('pre code');
+    for (let index = 0; index < samples.length; index++) {
+      const element = samples[index];
+      hl.highlightBlock(element);
+    }
   }
 
 
