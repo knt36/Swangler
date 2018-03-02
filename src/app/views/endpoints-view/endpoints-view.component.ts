@@ -36,15 +36,14 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.queryParamSubscription = this.route.queryParams.subscribe(queryParams => {
+      if (queryParams.enpt) {
+        this.scrollToId = queryParams.enpt;
+      }
+    });
+
     this.paramSubscription = this.route.params.subscribe(params => {
       this.endpointTag = params['endpointTag'];
-
-      this.queryParamSubscription = this.route.queryParams.subscribe(queryParams => {
-        if (queryParams.enpt) {
-          this.scrollToId = queryParams.enpt;
-        }
-      });
-
       this.updateEndpoints();
     });
 
