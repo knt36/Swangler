@@ -40,28 +40,34 @@ export class ExampleCollapsibleComponent implements OnInit {
   toggleCollapse() {
     this.collapsed = !this.collapsed;
     if (!this.collapsed) {
-      this.generateSampleFromSchema(this.schema, 0);
+      this.setSampleFromSchema(this.schema);
+    }
+  }
+  public setSampleFromSchema(schema) {
+    if (!this.generatedSample) {
+      const temp = this.generateSampleFromSchema(schema, 0);
+      this.generatedSample = {};
+      this.generatedSample['highlight'] = hl.highlight('json', temp).value;
+      this.generatedSample['json'] = temp;
     }
   }
 
-  generateSampleFromSchema(schema, level: number = 0) {
-    if (this.generatedSample) {
-      console.log('sample loaded from cache');
-      return (this.generatedSample);
-    } else {
-      console.log('sample generated from raw');
+  private generateSampleFromSchema(schema, level: number = 0) {
+      console.log('generated sample');
+      console.log(schema);
       const spacing = ' '.repeat(level);
       const spacingAttr = spacing + ' '.repeat(5);
-      if (schema.properties && Object.keys(schema.properties).length === 0) {
-        if (schema.example != null ) {
-          Object.keys(schema.example).forEach( exampleName => {
-            schema.properties[exampleName] = {
-              'example': schema.example[exampleName]
-            };
-          });
-        }
+      if (!schema.properties) {
+        schema.properties = {};
       }
-      if (schema.properties != null) {
+      if (schema.example) {
+          Object.keys(schema.example).forEach(exampleName => {
+            if (!schema.properties[exampleName]) {
+              schema.properties[exampleName] = {};
+            }
+            schema.properties[exampleName]['example'] = schema.example[exampleName];
+          });
+      }
         let temp = spacing + '{ \n';
         const keys = Object.keys(schema.properties);
         for (let i = 0 ; i < keys.length; i ++) {
@@ -81,10 +87,7 @@ export class ExampleCollapsibleComponent implements OnInit {
           }
         }
         temp = temp + spacing + '}';
-        this.generatedSample = temp;
         return (temp);
-      }
-    }
   }
 }
 
