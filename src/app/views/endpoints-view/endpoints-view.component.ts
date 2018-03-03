@@ -28,12 +28,6 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
 
   @ViewChild(ModalDirective) modal: ModalDirective;
 
-  onModalShown(type: string, $event: ModalDirective) {
-    this.highlightJS();
-  }
-
-
-
   constructor(
     private route: ActivatedRoute,
     private swaggerService: SwaggerService,
@@ -74,14 +68,14 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     this.paramSubscription.unsubscribe();
   }
 
-  clickTest(request, template) {
+  clickTest(request) {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);
     this.swaggerService.testEndpoint(requestInitiator).subscribe( res => {
       this.setRes(res, request);
       this.modal.show();
     }, error => {
       this.setRes(error, request);
-      this.result['responseBody'] = JSON.stringify(error.error, null, 2);
+      this.result['responseBody'] = this.highlightJSInJson(error.error);
       this.modal.show();
     });
   }
@@ -89,18 +83,16 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     this.result['header'] = request.endPointData.summary;
     this.result['method'] = request.endPointData.method;
     this.result['url'] = res.url;
-    this.result['responseBody'] = JSON.stringify(res.body, null, 2);
+    this.result['responseBody'] = this.highlightJSInJson(res.body);
     this.result['responseCode'] = res.status;
     const keys = res.headers.keys();
     res.headers = keys.map(key =>
       `${key}: ${res.headers.get(key)}`);
-    this.result['responseHeader'] = JSON.stringify(res.headers, null, 2);
+    this.result['responseHeader'] = this.highlightJSInJson(res.headers);
   }
-  private highlightJS() {
-    const samples = document.querySelectorAll('.modal-dialog pre code');
-    for (let index = 0; index < samples.length; index++) {
-      const element = samples[index];
-      hl.highlightBlock(element);
+  private highlightJSInJson(obj): string {
+    if (obj) {
+      return(hl.highlight('json', JSON.stringify(obj, null, 2)).value);
     }
   }
 }
