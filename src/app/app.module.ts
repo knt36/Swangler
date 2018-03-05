@@ -19,7 +19,6 @@ import {AppRoutingModule} from './app-routing.module';
 import { CollapsableNavComponent } from './components/collapsable-nav/collapsable-nav.component';
 
 import { ContactComponent } from './components/contact/contact.component';
-import { HttpResModalComponent } from './components/httpResModalComponent/httpResModal.controller';
 import { ParamConsoleComponent } from './components/param-console/param-console.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import {MainViewComponent} from './views/main/main.component';
@@ -36,7 +35,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ContactComponent,
     AuthComponent,
     SampleViewComponent,
-    HttpResModalComponent,
     AppComponent,
     CollapsableNavComponent,
     SidebarNavComponent,
@@ -61,7 +59,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   providers: [SwaggerService, LocalStorageService, EndpointsSharedService],
-  bootstrap: [AppComponent],
-  entryComponents: [HttpResModalComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
