@@ -56,7 +56,7 @@
                       <div class="col-lg-9 col-xl-10">
                         <div *ngIf="parm['in'].toLowerCase() == 'body'">
                           <textarea placeholder="{{parm.required == true ? '(required)' : ''}}" [required]='parm.required' [(ngModel)]='this.parameterFields[parm.name].value'
-                            class="form-control" id="exampleTextarea" rows="3" name='parm.name'></textarea>
+                            class="form-control" id="exampleTextarea" rows="3" [name]='parm.name'></textarea>
 
                           <div *ngIf="this.parm?.schema !== null || this.Object.keys(this.parm?.schema)?.length !== 0" class="parameter-content-type">
                             <div>
@@ -74,7 +74,7 @@
                         </div>
                         <div *ngIf="parm['in'].toLowerCase() !== 'body'">
                           <input class="parameter form-control " minlength="0" placeholder="{{parm.required == true ? '(required)' : ''}}" [required]='parm.required'
-                            [(ngModel)]='this.parameterFields[parm.name].value' type="string" name='parm.name'>
+                            [(ngModel)]='this.parameterFields[parm.name].value' type="string" [name]='parm.name'>
                         </div>
                         <div class="parameter-content-type"></div>
                         <div class="small-description media mt-2">

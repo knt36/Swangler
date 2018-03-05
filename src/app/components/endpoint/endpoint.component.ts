@@ -119,9 +119,18 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   tryEndpointRequest(endpointForm) {
+    const invalidFields = [];
+    for (const key in endpointForm.controls) {
+      if (endpointForm.controls.hasOwnProperty(key)) {
+        const element = endpointForm.controls[key];
+        if (element.invalid) {
+          invalidFields.push(key);
+        }
+      }
+    }
 
     if (endpointForm.invalid) {
-      this.notify.error('Error', 'A Required Field Is Empty');
+      this.notify.error('Error', invalidFields.join(', ') + ' invalid!');
     }
 
     this.clickedTestEndPoint.emit(this.clickTestEndPointButton());
