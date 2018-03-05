@@ -58,7 +58,7 @@
                           <textarea placeholder="{{parm.required == true ? '(required)' : ''}}" [required]='parm.required' [(ngModel)]='this.parameterFields[parm.name].value'
                             class="form-control" id="exampleTextarea" rows="3" [name]='parm.name'></textarea>
 
-                          <div *ngIf="this.parm?.schema !== null || this.Object.keys(this.parm?.schema)?.length !== 0" class="parameter-content-type">
+                          <div *ngIf="this.parm?.schema && this.Object.keys(this.parm?.schema).length !== 0" class="parameter-content-type">
                             <div>
                               <div class="media mt-2">
                                 <label class="align-self-center mb-0 mr-3" for="parameterContentType">Content type:</label>

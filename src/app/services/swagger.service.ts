@@ -13,7 +13,7 @@ export class SwaggerService {
   private apiDataSubject: BehaviorSubject<any>;
   private endpointsSubject: BehaviorSubject<any>;
   private specUrl = 'http://forge.local/openapi/spec.json';
-  public specHost = 'http://forge.local';
+  private specHost = '';
 
   constructor(
     private http: HttpClient,
@@ -78,7 +78,9 @@ export class SwaggerService {
       for (const headerName in callData.headers) {
         if (callData.headers.hasOwnProperty(headerName)) {
           const headerValue = callData.headers[headerName];
-          options['headers'] = options['headers'].append(headerName, headerValue);
+          if (headerValue) {
+            options['headers'] = options['headers'].append(headerName, headerValue);
+          }
         }
       }
     }
@@ -164,10 +166,10 @@ export class SwaggerService {
   }
   private setHostUrl(apiData) {
     if ( apiData) {
-      if (apiData.host) {
-        this.specHost = apiData.host;
+      if (apiData.spec && apiData.spec.host) {
+        this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0] + (apiData.spec.basePath ? apiData.spec.basePath : '');
       } else if (apiData.url) {
-        this.specHost = this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0];
+        this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0];
       }
     }
   }
