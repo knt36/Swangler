@@ -94,7 +94,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   }
   private highlightJSInJson(obj): string {
     if (obj) {
-      return(hl.highlight('json', JSON.stringify(obj, null, 2)).value);
+      return(hl.highlight('json', JSON.stringify(obj, null, 4)).value);
     }
   }
 }
