@@ -101,7 +101,9 @@ export class SwaggerService {
   private substitutePath(path, pathObject): string {
     if (pathObject) {
       Object.keys(pathObject).forEach( key => {
-        path = path.replace('{' + key + '}', pathObject[key]);
+        if (pathObject[key]) {
+          path = path.replace('{' + key + '}', pathObject[key]);
+        }
       });
     }
     return(path);
