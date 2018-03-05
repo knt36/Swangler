@@ -28,7 +28,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   }
   private initLazySampleGenrator() {
     if (!this.collapsed && !this.generatedSample) {
-      this.generateSampleFromSchema(this.schema, 0);
+      this.setSampleFromSchema(this.schema);
     }
     this.swaggerService.getApiData().subscribe( res => {
       // If the swagger service reinitializes, then regeneration of the generated samples are required.
@@ -45,18 +45,36 @@ export class ExampleCollapsibleComponent implements OnInit {
   }
   public setSampleFromSchema(schema) {
     if (!this.generatedSample) {
-      const temp = this.generateSampleFromSchema(schema, 0);
+      let temp = this.generateSample(schema);
+      temp = JSON.stringify(JSON.parse(temp), null, 4);
       this.generatedSample = {};
       this.generatedSample['highlight'] = hl.highlight('json', temp).value;
       this.generatedSample['json'] = temp;
     }
   }
 
-  private generateSampleFromSchema(schema, level: number = 0) {
-      console.log('generated sample');
-      console.log(schema);
-      const spacing = ' '.repeat(level);
-      const spacingAttr = spacing + ' '.repeat(5);
+  private generateSample(schema) {
+    if (schema.type === 'object') {
+      return (this.generateSampleFromObject(schema));
+    } else if (schema.type === 'array') {
+      return (this.generateSampleFromArray(schema));
+    }
+  }
+  private generateSampleFromArray(schema) {
+    let temp = '[';
+    if (schema.items) {
+     if ( schema.items.type.toLowerCase() === 'object' || schema.items.type.toLowerCase() === 'array') {
+       temp = temp + '\n';
+       temp = temp + this.generateSample(schema.items);
+     } else {
+       temp = temp + `"${schema.items.type}"`;
+     }
+   }
+    temp = temp + ']';
+    return (temp);
+  }
+
+  private generateSampleFromObject(schema) {
       if (!schema.properties) {
         schema.properties = {};
       }
@@ -68,14 +86,15 @@ export class ExampleCollapsibleComponent implements OnInit {
             schema.properties[exampleName]['example'] = schema.example[exampleName];
           });
       }
-        let temp = spacing + '{ \n';
+        let temp = '{ \n';
         const keys = Object.keys(schema.properties);
         for (let i = 0 ; i < keys.length; i ++) {
           if (schema.properties.hasOwnProperty(keys[i])) {
-            temp = `${temp}${spacingAttr}"${keys[i]}"`;
-            if (schema.properties[keys[i]].type != null && schema.properties[keys[i]].type.toLowerCase() === 'object') {
+            temp = `${temp}"${keys[i]}"`;
+            if (schema.properties[keys[i]].type != null && (schema.properties[keys[i]].type.toLowerCase() === 'object' ||
+                schema.properties[keys[i]].type.toLowerCase() === 'array')) {
               const schema2 = schema.properties[keys[i]];
-              temp = temp + ' : ' + this.generateSampleFromSchema(schema2, level + 2);
+              temp = temp + ' : ' + this.generateSample(schema2);
             } else {
               const property: ResponseProperty = schema.properties[keys[i]];
               temp = `${temp}: "${property.example}"`;
@@ -83,10 +102,9 @@ export class ExampleCollapsibleComponent implements OnInit {
             if ( i < keys.length - 1 ) {
               temp = temp + ',';
             }
-            temp = temp + '\n';
           }
         }
-        temp = temp + spacing + '}';
+        temp = temp + '}';
         return (temp);
   }
 }
