@@ -93,11 +93,20 @@ export class SwaggerService {
     }
 
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
-      return this.http[callData.method]<Config>(this.specHost + callData.url, callData.body, options);
+      return this.http[callData.method]<Config>(this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
     } else {
-      return this.http[callData.method]<Config>(this.specHost + callData.url, options);
+      return this.http[callData.method]<Config>(this.specHost + this.substitutePath(callData.url, callData.path), options);
     }
 
+  }
+
+  private substitutePath(path, pathObject): string {
+    if (pathObject) {
+      Object.keys(pathObject).forEach( key => {
+        path = path.replace('{' + key + '}', pathObject[key]);
+      });
+    }
+    return(path);
   }
 
   private setApiData(apiData) {
