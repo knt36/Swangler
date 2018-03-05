@@ -20,7 +20,7 @@ export class ExampleSideBarComponent implements OnInit {
         }
       });
     }
-    if ( this.endpoint.responses !== null && this.endpoint.responses['200'] !== null && this.endpoint.responses['200'].schema !== null) {
+    if ( this.endpoint.responses && this.endpoint.responses['200'] && this.endpoint.responses['200'].schema) {
       this.responseSchema = this.endpoint.responses['200'].schema;
     }
   }

@@ -7,7 +7,8 @@
       class="objectNameText" *ngIf="this.schema.$$ref == null">NO REFERENCE NAME
     </span>
   </span>
-  <div class="schema-property" *ngFor="let p of this.Object.keys(this.schema.properties)">
+
+  <div class="schema-property" *ngFor="let p of (this.schema.properties ? this.Object.keys(this.schema.properties) : [])">
     <span class="propLabels">
       <span class="propName propOpt">
         {{p}}
@@ -22,10 +23,13 @@
     <span class="propDesc">{{this.schema.properties[p].description}}
     </span>
   </div>
+
+
+
 </div>
 
 
-<div *ngFor="let p of this.Object.keys(this.schema.properties)">
+<div *ngFor="let p of (this.schema.properties ? this.Object.keys(this.schema.properties) : [])">
   <app-param-console *ngIf="this.schema.properties[p].type == 'object'" [schema]="this.schema.properties[p]"></app-param-console>
 </div>
 
