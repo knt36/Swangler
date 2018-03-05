@@ -85,9 +85,11 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     this.result['url'] = decodeURIComponent(res.url);
     this.result['responseBody'] = this.highlightJSInJson(res.body);
     this.result['responseCode'] = res.status;
-    const keys = res.headers.keys();
-    res.headers = keys.map(key =>
-      `${key}: ${res.headers.get(key)}`);
+    if (res.headers && res.headers.keys) {
+      const keys = res.headers.keys();
+      res.headers = keys.map(key =>
+        `${key}: ${res.headers.get(key)}`);
+    }
     this.result['responseHeader'] = this.highlightJSInJson(res.headers);
   }
   private highlightJSInJson(obj): string {
