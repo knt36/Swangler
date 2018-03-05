@@ -6,7 +6,6 @@ import 'rxjs/add/operator/first';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {RequestInitiator} from '../models/endpoint/endpoint.model';
-import {Config} from 'codelyzer/index';
 
 @Injectable()
 export class SwaggerService {
@@ -93,9 +92,9 @@ export class SwaggerService {
     }
 
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
-      return this.http[callData.method]<Config>(this.specHost + callData.url, callData.body, options);
+      return this.http[callData.method](this.specHost + callData.url, callData.body, options);
     } else {
-      return this.http[callData.method]<Config>(this.specHost + callData.url, options);
+      return this.http[callData.method](this.specHost + callData.url, options);
     }
 
   }

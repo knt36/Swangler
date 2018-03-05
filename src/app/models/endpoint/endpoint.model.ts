@@ -222,7 +222,7 @@ export class RequestInitiator {
   public url: string;
   public headers: RequestEntry = {};
   public method: string;
-  [httpPart: string]: RequestEntry;
+  [httpPart: string]: RequestEntry | any;
   constructor(request, public localDataService: LocalStorageService) {
     console.log(request);
     this.method = request.endPointData.method;
