@@ -1,3 +1,5 @@
+import {LocalStorageService} from '../../services/local-storage.service';
+
 export class AppEndPoint {
 
   public static MOCK_DATA =
@@ -214,4 +216,50 @@ export class ResponseProperty {
 
 export class ResponseProperties {
   [name: string]: ResponseProperty | Schema;
+}
+
+export class RequestInitiator {
+  public url: string;
+  public headers: RequestEntry = {};
+  public method: string;
+  [httpPart: string]: RequestEntry | any;
+  constructor(request, localDataService: LocalStorageService) {
+    console.log(request);
+    this.method = request.endPointData.method;
+    this.url = request.endPointData.url;
+    request.endPointData.security.forEach( item => {
+      if ( item ) {
+        Object.keys(item).forEach(secRequirement => {
+          this.addHeader(secRequirement, localDataService.getStorageVar(secRequirement));
+        });
+      }
+    });
+
+    if (request.selectedResponse) {
+      this.setContentType(request.selectedResponse);
+    }
+    if (request.parameterFields) {
+      Object.keys(request.parameterFields).forEach(entry => {
+        if (!this[request.parameterFields[entry].in]) {
+          this[request.parameterFields[entry].in] = {};
+        }
+        if (entry.toLowerCase() === 'body') {
+          this[request.parameterFields[entry].in] = request.parameterFields[entry].value;
+        } else {
+          this[request.parameterFields[entry].in][entry] = request.parameterFields[entry].value;
+        }
+      });
+    }
+  }
+  public setContentType(contentType: string) {
+    this.headers['Content-Type'] = contentType;
+  }
+
+  public addHeader(headerKey: string, headerValue: string) {
+    this.headers[headerKey] = headerValue;
+  }
+}
+
+export class RequestEntry {
+  [entryName: string]: string;
 }

@@ -13,8 +13,8 @@
       </div>
 
       <div *ngIf="this.type?.toLowerCase() == 'sample'">
-        <pre (click)="this.clickedSample.emit(this.generateSampleFromSchema(this.schema))">
-          <code class="hljs json" id="sample79815">{{this.generateSampleFromSchema(this.schema)}}</code>
+        <pre (click)="this.clickedSample.emit(this.generatedSample.json)">
+          <code [innerHTML] = 'this.generatedSample?.highlight' class="hljs json" id="sample79815"></code>
         </pre>
       </div>
     </nav>
