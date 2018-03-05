@@ -82,13 +82,15 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   private setRes(res, request) {
     this.result['header'] = request.endPointData.summary;
     this.result['method'] = request.endPointData.method;
-    this.result['url'] = decodeURIComponent(res.url);
-    this.result['responseBody'] = this.highlightJSInJson(res.body);
-    this.result['responseCode'] = res.status;
-    const keys = res.headers.keys();
-    res.headers = keys.map(key =>
-      `${key}: ${res.headers.get(key)}`);
-    this.result['responseHeader'] = this.highlightJSInJson(res.headers);
+    this.result['url'] = res.url ? decodeURIComponent(res.url) : 'No URL Present';
+    this.result['responseBody'] = res.body ? this.highlightJSInJson(res.body) : this.highlightJSInJson(res);
+    this.result['responseCode'] = res.status || 'No code Present';
+    if (res.headers && res.headers.keys) {
+      const keys = res.headers.keys();
+      res.headers = keys.map(key =>
+        `${key}: ${res.headers.get(key)}`);
+    }
+    this.result['responseHeader'] = this.highlightJSInJson(res.headers) || 'No Headers Present';
   }
   private highlightJSInJson(obj): string {
     if (obj) {
