@@ -82,7 +82,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   private setRes(res, request) {
     this.result['header'] = request.endPointData.summary;
     this.result['method'] = request.endPointData.method;
-    this.result['url'] = res.url;
+    this.result['url'] = decodeURIComponent(res.url);
     this.result['responseBody'] = this.highlightJSInJson(res.body);
     this.result['responseCode'] = res.status;
     const keys = res.headers.keys();
