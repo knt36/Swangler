@@ -223,14 +223,14 @@ export class RequestInitiator {
   public headers: RequestEntry = {};
   public method: string;
   [httpPart: string]: RequestEntry | any;
-  constructor(request, public localDataService: LocalStorageService) {
+  constructor(request, localDataService: LocalStorageService) {
     console.log(request);
     this.method = request.endPointData.method;
     this.url = request.endPointData.url;
     request.endPointData.security.forEach( item => {
       if ( item ) {
         Object.keys(item).forEach(secRequirement => {
-          this.addHeader(secRequirement, this.localDataService.getStorageVar(secRequirement));
+          this.addHeader(secRequirement, localDataService.getStorageVar(secRequirement));
         });
       }
     });

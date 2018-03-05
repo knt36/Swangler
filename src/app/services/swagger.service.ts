@@ -163,7 +163,7 @@ export class SwaggerService {
       if (apiData.host) {
         this.specHost = apiData.host;
       } else if (apiData.url) {
-        this.specHost = this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*\\/)')[0];
+        this.specHost = this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0];
       }
     }
   }
