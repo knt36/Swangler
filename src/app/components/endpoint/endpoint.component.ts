@@ -130,7 +130,7 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     if (endpointForm.invalid) {
-      this.notify.error('Error', invalidFields.join(', ') + ' invalid!');
+      this.notify.error('Error', invalidFields.join(', ') + ' required!');
     }
 
     this.clickedTestEndPoint.emit(this.clickTestEndPointButton());
