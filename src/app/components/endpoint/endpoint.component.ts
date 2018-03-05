@@ -5,6 +5,7 @@ import {AppClickedTestRes} from '../../models/endpoint/clicked-test-res';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {SwaggerService} from '../../services/swagger.service';
 import { EndpointsSharedService } from '../../services/endpoints-shared.service';
+import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   isExamplesHidden;
 
   constructor(
-    public endpointsSharedService: EndpointsSharedService
+    public endpointsSharedService: EndpointsSharedService,
+    public notify: NotificationsService
   ) {
   }
 
@@ -116,6 +118,24 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
+  tryEndpointRequest(endpointForm) {
+    const invalidFields = [];
+    for (const key in endpointForm.controls) {
+      if (endpointForm.controls.hasOwnProperty(key)) {
+        const element = endpointForm.controls[key];
+        if (element.invalid) {
+          invalidFields.push(key);
+        }
+      }
+    }
+
+    if (endpointForm.invalid) {
+      this.notify.error('Error', invalidFields.join(', ') + ' required!');
+    }
+
+    this.clickedTestEndPoint.emit(this.clickTestEndPointButton());
+  }
+
   populateBody(event) {
     this.parameterFields['body'].value = event;
   }
@@ -124,6 +144,6 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
     this.selectedResponse = this.endpointData.produces.length !== 0 ? this.endpointData.produces[0] : null;
   }
   public clickTestEndPointButton() {
-    return({'endPointData': this.endpointData, 'selectedResponse': this.selectedResponse, 'parameterFields': this.parameterFields});
+    return ( new AppClickedTestRes(this.endpointData, this.selectedResponse, this.parameterFields));
   }
 }

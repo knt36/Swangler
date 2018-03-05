@@ -1,4 +1,5 @@
-import {Parameter} from './endpoint.model';
+import {Parameter, AppEndPoint} from './endpoint.model';
+import { AnimationStyleMetadata } from '@angular/animations';
 
 export class AppClickedTestRes {
   public static MOCK_DATA = {
@@ -13,8 +14,15 @@ export class AppClickedTestRes {
     }
   };
 
-  public selectedResponse?: string;
-  public parameterFields?: Parameter [];
+  public selectedResponse?: any;
+  public parameterFields?: any;
+  public endPointData?: AppEndPoint;
+
+  constructor(endPointData: AppEndPoint, selectedResponse, parameterFields) {
+    this.selectedResponse = selectedResponse;
+    this.parameterFields = parameterFields;
+    this.endPointData = endPointData;
+  }
 }
 
 
