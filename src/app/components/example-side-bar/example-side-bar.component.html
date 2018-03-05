@@ -4,4 +4,4 @@
 <app-example-collapsible *ngIf="this.responseSchema" [header]="'Response Sample'" [type]="'sample'" [schema]="this.responseSchema"></app-example-collapsible>
 <app-example-collapsible *ngIf="this.responseSchema" [header]="'Response Schema'" [type]="'schema'" [schema]="this.responseSchema"></app-example-collapsible>
 
-<h5 *ngIf="!this.responseSchema && !this.bodySchema" class="no-samples">No Samples</h5>
+<h5 *ngIf="!this.responseSchema && !this.bodySchema" class="no-samples text-muted">No Samples</h5>
