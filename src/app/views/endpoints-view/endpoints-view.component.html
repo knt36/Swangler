@@ -42,8 +42,7 @@
   </div>
 
 
-  <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
-    (onShown)="onModalShown('onShown', $event)">
+  <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -62,22 +61,22 @@
           <div class="response">
             <small class="text-uppercase">Request URL</small>
             <div class="mt-2 mb-3 request_url">
-              <div class="hljs rounded">{{result.url}}</div>
+              <div class="hljs rounded">{{this.result.url}}</div>
             </div>
 
             <small class="text-uppercase">Response Body</small>
             <div class="mt-2 mb-3 response_body">
-              <pre class="json"><code class="rounded hljs">{{this.result.responseBody}}</code></pre>
+              <pre class="json"><code [innerHTML]='this.result.responseBody' class="rounded hljs"></code></pre>
             </div>
 
             <small class="text-uppercase">Response Code</small>
             <div class="mt-2 mb-3 response_code">
-              <pre><code class="hljs rounded">{{this.result.responseCode}}</code></pre>
+              <pre><code class="hljs rounded" [innerHTML]='this.result.responseCode'></code></pre>
             </div>
 
             <small class="text-uppercase">Response Headers</small>
             <div class="mt-2 response_headers">
-              <pre clas="json"><code class="hljs rounded json">{{this.result.responseHeader}}</code></pre>
+              <pre clas="json"><code class="hljs rounded json" [innerHTML]='this.result.responseHeader'></code></pre>
             </div>
           </div>
         </div>
