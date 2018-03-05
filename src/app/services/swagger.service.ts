@@ -6,7 +6,6 @@ import 'rxjs/add/operator/first';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {RequestInitiator} from '../models/endpoint/endpoint.model';
-import {Config} from 'codelyzer/index';
 
 @Injectable()
 export class SwaggerService {
@@ -93,11 +92,10 @@ export class SwaggerService {
     }
 
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
-      return this.http[callData.method]<Config>(this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
+      return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
     } else {
-      return this.http[callData.method]<Config>(this.specHost + this.substitutePath(callData.url, callData.path), options);
+      return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), options);
     }
-
   }
 
   private substitutePath(path, pathObject): string {
@@ -173,6 +171,7 @@ export class SwaggerService {
   private initSwagger(specUrl): Promise<any> {
     return Swagger(specUrl)
       .then( apiData => {
+        this.setHostUrl(apiData);
         this.setApiData(apiData);
         this.setSortedEndpoints(this.sortApiEndpointsByTags(apiData.spec.paths));
       })
