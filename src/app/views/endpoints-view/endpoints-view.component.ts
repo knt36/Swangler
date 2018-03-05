@@ -4,7 +4,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {SwaggerService} from '../../services/swagger.service';
 import {Observable} from 'rxjs/Observable';
 import {ModalDirective} from 'ngx-bootstrap';
-import {HttpResModalComponent} from '../../components/httpResModalComponent/httpResModal.controller';
 import {RequestInitiator} from '../../models/endpoint/endpoint.model';
 import {LocalStorageService} from '../../services/local-storage.service';
 import * as hl from '../../../../node_modules/highlight.js/';
