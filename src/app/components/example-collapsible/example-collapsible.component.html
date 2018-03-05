@@ -8,7 +8,7 @@
     </nav>
     <nav [ngStyle]="{display:this.collapsed ? 'none' : 'block'}" class="collapsable-nav-body nav flex-column sub_menu">
       <div *ngIf="this.type?.toLowerCase() == 'schema'">
-        <app-param-console [schema]="this.schema"></app-param-console>
+        <app-param-console [title]="'Parent'" [schema]="this.schema"></app-param-console>
       </div>
 
       <div *ngIf="this.type?.toLowerCase() == 'sample'">
