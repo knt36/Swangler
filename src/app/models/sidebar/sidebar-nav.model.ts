@@ -1,14 +1,12 @@
 export class SidebarNavModel {
   public static MOCK_DATA: {
-    'Accounts': [
-      {
+    'Accounts': {
         'operationId': 'Accounts.create_account',
         'summary': 'Create a new account'
       }
-    ]
   };
 
-  [name: string]: SidebarNavEntity[]
+  [name: string]: SidebarNavEntity
 }
 
 export class SidebarNavEntity {
