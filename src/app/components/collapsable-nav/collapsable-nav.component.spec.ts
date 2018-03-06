@@ -1,32 +1,49 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Location, CommonModule } from '@angular/common';
 import { CollapsableNavComponent } from './collapsable-nav.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CollapseModule } from 'ngx-bootstrap';
-import { DebugElement, SimpleChanges, SimpleChange } from '@angular/core';
+import { DebugElement, SimpleChanges, SimpleChange, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Routes, Router } from '@angular/router';
 
+@Component({
+  selector: 'app-dummy-component',
+  template: '<span></span>'
+})
+class DummyComponent {
+}
 
-describe('CollapsableNavComponent', () => {
+const routes: Routes = [
+  { path: '', component: DummyComponent },
+  { path: ':endpointTag', component: DummyComponent, },
+  { path: ':endpointTag/:endpointId', component: DummyComponent, },
+  { path: '**', component: DummyComponent }
+];
+
+fdescribe('CollapsableNavComponent', () => {
   let component: CollapsableNavComponent;
   let fixture: ComponentFixture<CollapsableNavComponent>;
   let collapsableHader: DebugElement;
+  let location: Location;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollapsableNavComponent ],
+      declarations: [ CollapsableNavComponent, DummyComponent ],
       imports: [
-        RouterTestingModule,
-        CollapseModule.forRoot()
-      ]
-    })
-    .compileComponents();
+        CollapseModule.forRoot(),
+        RouterTestingModule.withRoutes(routes)
+      ],
+    });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CollapsableNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
   });
 
   it('should create', () => {
@@ -68,4 +85,16 @@ describe('CollapsableNavComponent', () => {
     expect(component.isCollapsed).toBeFalsy();
   });
 
+
+  it('should go to given tag page', fakeAsync(() => {
+    component.tag = 'test';
+
+    fixture.detectChanges();
+
+    collapsableHader = fixture.debugElement.query(By.css('.navigate-to-tag'));
+    collapsableHader.nativeElement.click();
+
+    tick();
+    expect(location.path()).toBe('/test');
+  }));
 });
