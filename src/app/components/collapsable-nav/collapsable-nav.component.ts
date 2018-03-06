@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, AfterViewInit, AfterContentChecked, AfterContentInit } from '@angular/core';
-import { SwaggerService } from '../../services/swagger.service';
 import { CollapsableNavEndpointsModel } from '../../models/sidebar/collapsable-nav.model';
 
 @Component({
@@ -16,7 +15,7 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChan
   Object = null;
   isCollapsed = true;
 
-  constructor(private swaggerService: SwaggerService) { }
+  constructor() { }
 
   ngOnInit() {
     this.Object = Object;
@@ -41,7 +40,7 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChan
     if (changes.sectionToExpand) {
       this.isCollapsed = true;
 
-      if (this.tag === this.sectionToExpand) {
+      if (this.tag === changes.sectionToExpand.currentValue) {
         this.isCollapsed = false;
       }
     }

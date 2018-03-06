@@ -9,7 +9,7 @@
       </div>
   </nav>
   <nav class="collapsable-nav-body nav flex-column sub_menu"
-    *ngIf="isCollapsed"
+    *ngIf="!isCollapsed"
     class="card card-block card-header">
     <div *ngFor="let endpoint of Object.keys(endpoints)">
       <a class="nav-link" [routerLink]="'/' + tag"  [queryParams]="{enpt: endpoints[endpoint].operationId}">{{ endpoints[endpoint].summary }}</a>
