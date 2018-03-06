@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: '**', component: DummyComponent }
 ];
 
-fdescribe('CollapsableNavComponent', () => {
+describe('CollapsableNavComponent', () => {
   let component: CollapsableNavComponent;
   let fixture: ComponentFixture<CollapsableNavComponent>;
   let collapsableHader: DebugElement;
