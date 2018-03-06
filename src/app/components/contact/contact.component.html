@@ -2,13 +2,13 @@
   <div class="card-body">
     <h5 class="card-title">{{contactData?.title}}</h5>
     <p class="card-text"></p>
-    <p class="card-text">
-      <strong>Contact</strong>:
-      <a href="mailto:{{contactData?.contact.email}}?subject=Slyce API">{{contactData?.contact?.email}}</a>
+    <p id="emailContactContainer" *ngIf="contactData?.contact?.email" class="card-text">
+      <strong id="emailContactLabel">Contact</strong>:
+      <a id="emailContact" href="mailto:{{contactData?.contact.email}}?subject=Slyce API">{{contactData?.contact?.email}}</a>
     </p>
-    <p class="card-text">
+    <p id="versionContainer" *ngIf="contactData?.version" class="card-text">
       <span class="text-muted text-uppercase">
-        <small>api version:</small> {{contactData?.version}}
+        <small id="apiVersionLabel">api version:</small><span id="version">{{contactData?.version}}</span>
       </span>
     </p>
   </div>
