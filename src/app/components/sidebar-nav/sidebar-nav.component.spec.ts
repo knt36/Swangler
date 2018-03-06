@@ -6,7 +6,7 @@ import { SimpleChange } from '@angular/core';
 import { SidebarNavModel } from '../../models/sidebar/sidebar-nav.model';
 
 
-fdescribe('SidebarNavComponent', () => {
+describe('SidebarNavComponent', () => {
   let component: SidebarNavComponent;
   let fixture: ComponentFixture<SidebarNavComponent>;
 
