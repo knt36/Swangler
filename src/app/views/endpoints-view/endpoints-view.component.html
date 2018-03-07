@@ -1,0 +1,86 @@
+<main role="main" class="container-fluid">
+  <div id="swagger-ui-container" class="row">
+
+    <div id="swagger_sidebar" class="col-lg-3 col-xl-2 sps sps--blw">
+
+      <div id="auth_main_container" class="collapse ">
+        <div class="row">
+          <div class="col-12">
+
+            <app-auth-component [securityDefinitions]='apiData?.spec.securityDefinitions'></app-auth-component>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="sticky_nav_wrapper" class="sticky-top collapse mb-3">
+        <div id="sticky_nav" class="pt-2 pb-2">
+          <div class="row" data-navigator="">
+
+            <app-sidebar-nav [tags]='sortedApiData | async' [sectionToExpand]='endpointTag'></app-sidebar-nav>
+
+          </div>
+        </div>
+
+        <app-contact class="card d-block" [contactData]='apiData?.spec.info'></app-contact>
+      </div>
+
+
+    </div>
+
+    <div id="resources_container" class="col-lg-9 col-xl-10">
+      <div id="resources" class="">
+        <div id="resource_Accounts" class="resource">
+          <div class="endpoints" id="Accounts_endpoint_list">
+
+            <app-endpoint (clickedTestEndPoint)="this.clickTest($event, modal)" *ngFor="let endpoint of endpoints" [endpointData]="endpoint"
+              [scrollToId]='scrollToId'></app-endpoint>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xlg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center">{{this.result.header}}
+            <span class="http_method badge badge-primary">{{this.result.method}}</span>
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <svg class="svg-inline--fa fa-times fa-w-12" aria-hidden="true" data-fa-processed="" data-prefix="fal" data-icon="times"
+              role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+              <path fill="currentColor" d="M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z"></path>
+            </svg>
+            <!-- <i class="fal fa-times"></i> -->
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="response">
+            <small class="text-uppercase">Request URL</small>
+            <div class="mt-2 mb-3 request_url">
+              <div class="hljs rounded">{{this.result.url}}</div>
+            </div>
+
+            <small class="text-uppercase">Response Body</small>
+            <div class="mt-2 mb-3 response_body">
+              <pre class="json"><code [innerHTML]='this.result.responseBody' class="rounded hljs"></code></pre>
+            </div>
+
+            <small class="text-uppercase">Response Code</small>
+            <div class="mt-2 mb-3 response_code">
+              <pre><code class="hljs rounded" [innerHTML]='this.result.responseCode'></code></pre>
+            </div>
+
+            <small class="text-uppercase">Response Headers</small>
+            <div class="mt-2 response_headers">
+              <pre clas="json"><code class="hljs rounded json" [innerHTML]='this.result.responseHeader'></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

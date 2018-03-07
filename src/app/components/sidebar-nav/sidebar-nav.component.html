@@ -1,0 +1,5 @@
+<div class="col-12 d-none d-lg-block">
+  <label class="text-uppercase mt-3 mb-0">API Reference</label>
+</div>
+
+<app-collapsable-nav *ngFor="let tag of arrayOfTags" [endpoints]='tag.tagValue' [tag]="tag.tagName" [sectionToExpand]='sectionToExpand'></app-collapsable-nav>

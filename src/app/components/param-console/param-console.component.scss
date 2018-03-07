@@ -1,0 +1,30 @@
+
+
+.propLabels{
+  padding:0px 0px 0px 0px;
+}
+
+.propDesc{
+  padding:0px 0px 0px 0px;
+
+  @media (max-width: 991px) {
+    right-padding:15px;
+    padding:15px 15px 15px 15px;
+
+  }
+}
+
+.schema-description .objectName, .sample-snippet .objectName {
+  margin-left:0px;
+  margin-right:0px;
+}
+
+.schema-description > div, .sample-snippet > div{
+  margin: 0;
+}
+
+.schema-description[_ngcontent-c2] .objectName[_ngcontent-c2], .sample-snippet[_ngcontent-c2] .objectName[_ngcontent-c2]{
+  border-radius:0.25rem !important;
+}
+
+

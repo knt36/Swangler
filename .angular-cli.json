@@ -19,9 +19,20 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss",
+        "../node_modules/highlight.js/styles/default.css",
         "styles.scss"
       ],
-      "scripts": [],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          ".",
+          "./assets/scss",
+          "../node_modules/bootstrap/scss"
+        ]
+      },
+      "scripts": [
+        "../node_modules/highlight.js/lib/highlight.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

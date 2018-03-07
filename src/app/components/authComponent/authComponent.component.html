@@ -1,0 +1,15 @@
+<div id="auth_options">
+
+  <div id="apikeys" class="auth_container form-group pt-3">
+
+    <label class="auth_label text-uppercase">Authentication Header:</label>
+
+    <div *ngIf="this.securityDefinitions != null">
+      <input *ngFor="let sdName of Object.keys(this.securityDefinitions);" [(ngModel)]="inputFields[sdName]" type="text" class="form-control form-control-sm" aria-describedby="auth" placeholder="{{sdName}}">
+      <div class="input-group-append">
+        <button (click)="this.clickApplyButton()" id="applyButton1257235" type="button" class="btn btn-secondary">Apply</button>
+      </div>
+    </div>
+
+  </div>
+</div>

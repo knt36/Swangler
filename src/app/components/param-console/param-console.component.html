@@ -1,0 +1,32 @@
+<div class="schema-description rounded">
+  <span class="strong objectName">
+    <span class="bracketsIcon"></span>
+    <span class="objectNameText">{{this.title.toUpperCase()}}</span>
+  </span>
+
+  <div class="schema-property" *ngFor="let p of (this.schema.properties ? this.Object.keys(this.schema.properties) : [])">
+    <span class="propLabels">
+      <span class="propName propOpt">
+        {{p}}
+      </span>
+      <span class="propType" *ngIf="this.schema.properties[p].type" title="{{this.schema.properties[p].type}}">
+        {{this.schema.properties[p].type}}
+      </span>
+      <span class="propOptKey text-muted">
+        {{this.getFieldRequirementText(this.schema.properties[p]?.required)}}
+      </span>
+    </span>
+    <span *ngIf="this.schema.properties[p].description; else noDescr" class="propDesc">{{this.schema.properties[p].description}}</span>
+    <ng-template #noDescr>
+        <span class="propDesc text-muted">No description</span>
+    </ng-template>
+  </div>
+
+
+
+</div>
+
+
+<div *ngFor="let p of (this.schema.properties ? this.Object.keys(this.schema.properties) : [])">
+  <app-param-console [title]="p" *ngIf="this.schema.properties[p].type == 'object'" [schema]="this.schema.properties[p]"></app-param-console>
+</div>
