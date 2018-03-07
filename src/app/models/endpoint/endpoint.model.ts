@@ -133,7 +133,7 @@ export class AppEndPoint {
     };
 
   public consumes: string[];
-  public description: string;
+  public description?: string;
   public method: string;
   public operationId: string;
   public parameters: Parameter[];
@@ -163,6 +163,8 @@ export class Parameter {
 export class Schema {
   public type: string;
   public $$ref?: string;
+  public description?: string;
+  public required?: any;
 }
 
 /* APP_END_POINT */
@@ -172,6 +174,31 @@ export class SecurityRequirement {
 }
 /* REQUEST */
 export class RequestSchema extends Schema {
+  public static MOCK_DATA = {
+      'type': 'object',
+      'required': [
+        'name'
+      ],
+      'properties': {
+        'name': {
+          'type': 'string',
+          'description': 'The name of the API key',
+          'required': true,
+          'example': 'DemoAPIKey'
+        },
+        'acl': {
+          'type': 'object',
+          'properties': {},
+          'description': 'The access control list as an object with the operation as the key and the permission status as a boolean',
+          'example': {
+            'create-space': false,
+            'get-space-by-id': true
+          }
+        }
+      },
+      'name': 'body',
+      '$$ref': '#/definitions/NewAPIKeyDoc'
+    };
   public name: string;
   public required: string[];
   public properties: RequestProperties;
@@ -201,6 +228,65 @@ export class Response {
 }
 
 export class ResponseSchema extends Schema {
+  public static MOCK_DATA =  {
+    'type': 'object',
+    'required': [],
+    'properties': {
+      'topic': {
+        'type': 'string',
+        'description': '???',
+        'example': 'fg01-evt-global'
+      },
+      'msg_type': {
+        'type': 'string',
+        'description': 'The type of message',
+        'example': 'job-created'
+      },
+      'account_id': {
+        'type': 'string',
+        'description': 'The account id related to the job',
+        'example': '848c0271-d307-426b-9291-6d99f17039a3'
+      },
+      'task_id': {
+        'type': 'string',
+        'description': 'The task id'
+      },
+      'created_by': {
+        'type': 'string',
+        'description': 'Task created by',
+        'example': 'system'
+      },
+      'job_id': {
+        'type': 'string',
+        'description': 'The job id',
+        'example': 'db36cc07-6f28-421a-afd4-88288b625fee'
+      },
+      'name': {
+        'type': 'string',
+        'description': 'The name of the job',
+        'example': 'job-name'
+      },
+      'process_status': {
+        'type': 'object',
+        'required': [],
+        'properties': {
+          'status': {
+            'type': 'integer',
+            'format': 'int64',
+            'description': 'The current job status id',
+            'example': 1
+          },
+          'display': {
+            'type': 'string',
+            'description': 'The current job status text',
+            'example': 'Queued'
+          }
+        },
+        '$$ref': '#/definitions/ProcessStatusDoc'
+      }
+    },
+    '$$ref': '#/definitions/NewJobDoc'
+  };
   public required?: boolean[];
   public properties: ResponseProperties;
 
