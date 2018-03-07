@@ -10,8 +10,8 @@ import {RequestInitiator} from '../models/endpoint/endpoint.model';
 
 @Injectable()
 export class SwaggerService {
-  private apiDataSubject: BehaviorSubject<any>;
-  private endpointsSubject: BehaviorSubject<any>;
+  apiDataSubject: BehaviorSubject<any>;
+  endpointsSubject: BehaviorSubject<any>;
   private specUrl = 'http://forge.local/openapi/spec.json';
   private specHost = '';
 
@@ -95,6 +95,9 @@ export class SwaggerService {
       }
     }
 
+    console.log(callData);
+
+
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
       return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
     } else {
@@ -102,7 +105,7 @@ export class SwaggerService {
     }
   }
 
-  private substitutePath(path, pathObject): string {
+  substitutePath(path, pathObject): string {
     if (pathObject) {
       Object.keys(pathObject).forEach( key => {
         if (pathObject[key]) {
@@ -113,11 +116,11 @@ export class SwaggerService {
     return(path);
   }
 
-  private setApiData(apiData) {
+  setApiData(apiData) {
     this.apiDataSubject.next(apiData);
   }
 
-  private setSortedEndpoints(sortedEndpoints) {
+  setSortedEndpoints(sortedEndpoints) {
     this.endpointsSubject.next(sortedEndpoints);
   }
 
@@ -164,8 +167,9 @@ export class SwaggerService {
 
     return result;
   }
+
   private setHostUrl(apiData) {
-    if ( apiData) {
+    if (apiData) {
       if (apiData.spec && apiData.spec.host) {
         this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0] + (apiData.spec.basePath ? apiData.spec.basePath : '');
       } else if (apiData.url) {
