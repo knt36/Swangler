@@ -19,7 +19,7 @@ const apiData = {
   }
 };
 
-fdescribe('LocalStorageService', () => {
+describe('LocalStorageService', () => {
   let service;
 
   beforeEach(() => {
