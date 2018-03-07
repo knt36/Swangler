@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LocalStorageService {
   private storedSecurityDefinitionsSubject: BehaviorSubject<any>;
-  private tempSecurityDefinitions: Object;
+  private tempSecurityDefinitions: Object = {};
 
   // Security Definitions obj from swagger spec
   securityDefinitions: Observable<Object>;
@@ -15,17 +15,14 @@ export class LocalStorageService {
   // Security Definitions stored in localStorage with values
   storedSecurityDefinitions: Observable<Array<Object>>;
 
-  constructor(private swaggerService: SwaggerService) {
+  constructor(
+    public swaggerService: SwaggerService
+  ) {
     this.storedSecurityDefinitionsSubject = new BehaviorSubject(undefined);
     this.storedSecurityDefinitions = this.storedSecurityDefinitionsSubject.asObservable();
 
     // get securityDefinitions from swagger spec file
-    this.securityDefinitions = this.swaggerService.getApiData()
-      .map( data => {
-        if (data) {
-          return data.spec.securityDefinitions;
-        }
-      });
+    this.getSecurityDefinitions();
 
     // get storedSecurityDefinitions from localStorage if exist
     this.securityDefinitions
