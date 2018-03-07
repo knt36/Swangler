@@ -4,7 +4,7 @@ import {RequestSchema, ResponseSchema} from '../../models/endpoint/endpoint.mode
 import {By} from '@angular/platform-browser';
 function test(schema, typeMsg: string) {
   const requestSchema: ResponseSchema | RequestSchema = schema;
-  fdescribe('ParamConsoleComponent with Input ' + typeMsg, () => {
+  describe('ParamConsoleComponent with Input ' + typeMsg, () => {
     let component: ParamConsoleComponent;
     let fixture: ComponentFixture<ParamConsoleComponent>;
     beforeEach(() => {
@@ -99,7 +99,7 @@ function test(schema, typeMsg: string) {
     });
   });
 }
-fdescribe('ParamConsoleComponent', () => {
+describe('ParamConsoleComponent', () => {
   test(RequestSchema.MOCK_DATA, 'RequestSchema');
   test(ResponseSchema.MOCK_DATA, 'ResponseSchema');
 });
