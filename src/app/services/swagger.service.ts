@@ -12,8 +12,7 @@ import {RequestInitiator} from '../models/endpoint/endpoint.model';
 export class SwaggerService {
   apiDataSubject: BehaviorSubject<any>;
   endpointsSubject: BehaviorSubject<any>;
-  private specUrl = 'http://forge.local/openapi/spec.json';
-  private specHost = '';
+  specHost = '';
 
   constructor(
     private http: HttpClient,
@@ -21,9 +20,6 @@ export class SwaggerService {
   ) {
     this.apiDataSubject = new BehaviorSubject(null);
     this.endpointsSubject = new BehaviorSubject(null);
-
-
-    this.initSwagger(this.specUrl);
 
     // for testing purposes
 
@@ -95,9 +91,6 @@ export class SwaggerService {
       }
     }
 
-    console.log(callData);
-
-
     if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
       return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
     } else {
@@ -132,11 +125,11 @@ export class SwaggerService {
     return this.apiDataSubject.asObservable();
   }
 
-  setSpecUrl(url) {
+  setSpecUrl(url: string) {
     this.initSwagger(url);
   }
 
-  private sortApiEndpointsByTags(endpoints): Array<Array<Object>> {
+  sortApiEndpointsByTags(endpoints): Array<Array<Object>> {
     const result = [];
 
     for (const pathKey in endpoints) {
@@ -168,17 +161,21 @@ export class SwaggerService {
     return result;
   }
 
-  private setHostUrl(apiData) {
+  setHostUrl(apiData) {
     if (apiData) {
-      if (apiData.spec && apiData.spec.host) {
-        this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0] + (apiData.spec.basePath ? apiData.spec.basePath : '');
+      if (apiData.spec && apiData.spec.host && apiData.spec.schemes && apiData.spec.schemes.length > 0) {
+        this.specHost =
+          (apiData.spec.schemes.indexOf('https') !== -1 ? 'https' : apiData.spec.schemes[0] || 'http')
+          + '://'
+          + apiData.spec.host
+          + (apiData.spec.basePath ? apiData.spec.basePath : '');
       } else if (apiData.url) {
-        this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0];
+        this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0] + (apiData.spec.basePath ? apiData.spec.basePath : '');
       }
     }
   }
 
-  private initSwagger(specUrl): Promise<any> {
+  initSwagger(specUrl): Promise<any> {
     return Swagger(specUrl)
       .then( apiData => {
         this.setHostUrl(apiData);

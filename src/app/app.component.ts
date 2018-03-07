@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.swaggerService.getApiData().subscribe(data => {
-      console.log(data);
       this.apiData = data;
     });
   }
