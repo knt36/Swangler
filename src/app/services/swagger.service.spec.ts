@@ -1,10 +1,9 @@
-import { TestBed, inject, tick, fakeAsync, flushMicrotasks } from '@angular/core/testing';
+import { TestBed, inject, tick, fakeAsync } from '@angular/core/testing';
 
 import { SwaggerService } from './swagger.service';
-import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AppEndPoint } from '../models/endpoint/endpoint.model';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import 'rxjs/add/observable/of';
 import {Observable} from 'rxjs/Observable';
 
@@ -19,10 +18,6 @@ describe('SwaggerService', () => {
         HttpClient,
         HttpHandler,
         NotificationsService
-      ],
-      imports: [
-        HttpClientModule,
-        HttpClientTestingModule
       ]
     });
     service = TestBed.get(SwaggerService);
@@ -94,12 +89,12 @@ describe('SwaggerService', () => {
     expect(result).toBeTruthy();
   }));
 
-  it('should test endpoint', fakeAsync(inject([HttpTestingController], (backend: HttpTestingController) => {
+  it('should test endpoint', fakeAsync(() => {
     spyOn(service, 'testEndpoint').and.returnValue(Observable.of(true));
     let result;
     service.testEndpoint().subscribe(res => result = res);
     tick();
     expect(result).toBeTruthy();
-  })));
+  }));
 
 });
