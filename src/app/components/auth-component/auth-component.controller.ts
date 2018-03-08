@@ -1,24 +1,29 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {SecurityDefinition} from '../../models/auth/security-definition';
 import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-auth-component',
-  templateUrl: './authComponent.component.html',
-  styleUrls: ['./authComponent.component.scss'],
+  templateUrl: './auth-component.component.html',
+  styleUrls: ['./auth-component.component.scss'],
 })
 
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   Object = null;
   public APPLIED_AUTH_MSG = 'Authentication Applied';
   public inputFields = {};
 
   // Contains the name of the security definition as the key
   @Input('securityDefinitions') securityDefinitions: SecurityDefinition;
-  @Output('clickedApplyBut') clickedApplyBut: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public localStorageService: LocalStorageService, public notify: NotificationsService) {
+  constructor (
+    public localStorageService: LocalStorageService,
+    public notify: NotificationsService
+  ) {
+  }
+
+  ngOnInit() {
     this.Object = Object;
     this.localStorageService.securityDefinitions.subscribe(res => {
       this.securityDefinitions = res as SecurityDefinition;
@@ -34,6 +39,7 @@ export class AuthComponent {
       }
     });
   }
+
   public clickApplyButton() {
     for (const i in this.inputFields) {
       if (this.inputFields.hasOwnProperty(i)) {
