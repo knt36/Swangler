@@ -67,7 +67,18 @@ export class SwaggerService {
   }
 
   testEndpoint(callData: RequestInitiator): Observable<any> {
+    const options = this.buildEndpointOptions(callData);
+
+    if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
+      return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
+    } else {
+      return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), options);
+    }
+  }
+
+  buildEndpointOptions(callData: RequestInitiator) {
     const options = { observe: 'response' };
+
     if (callData.headers) {
       options['headers'] = new HttpHeaders();
 
@@ -91,11 +102,7 @@ export class SwaggerService {
       }
     }
 
-    if (callData.body && (callData.method === 'put' || 'patch' || 'post')) {
-      return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), callData.body, options);
-    } else {
-      return this.http[callData.method](this.specHost + this.substitutePath(callData.url, callData.path), options);
-    }
+    return options;
   }
 
   substitutePath(path, pathObject): string {
@@ -163,15 +170,23 @@ export class SwaggerService {
 
   setHostUrl(apiData) {
     if (apiData) {
-      if (apiData.spec && apiData.spec.host && apiData.spec.schemes && apiData.spec.schemes.length > 0) {
-        this.specHost =
-          (apiData.spec.schemes.indexOf('https') !== -1 ? 'https' : apiData.spec.schemes[0] || 'http')
-          + '://'
-          + apiData.spec.host
-          + (apiData.spec.basePath ? apiData.spec.basePath : '');
-      } else if (apiData.url) {
-        this.specHost = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0] + (apiData.spec.basePath ? apiData.spec.basePath : '');
+      let protocol;
+      let host;
+      let basePath;
+
+      if (apiData.spec && apiData.spec.host) {
+        host = apiData.spec.host;
+        if (apiData.spec.schemes) {
+          protocol = (apiData.spec.schemes.indexOf('https') !== -1 ? 'https' : apiData.spec.schemes[0] || 'http') + '://';
+        }
+      } else {
+        host = apiData.url.match('(https*:\\/\\/[^\\/]*)')[0];
+        protocol = '';
       }
+
+      basePath = apiData.spec && apiData.spec.basePath ? apiData.spec.basePath : '';
+
+      this.specHost = protocol + host + basePath;
     }
   }
 
