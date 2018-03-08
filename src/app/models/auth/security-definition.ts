@@ -10,7 +10,7 @@ export class SecurityDefinition {
     },
     'test2': {
       type: 'apiKey',
-      name: 'test',
+      name: 'test2',
       in: 'header'
     }
   };

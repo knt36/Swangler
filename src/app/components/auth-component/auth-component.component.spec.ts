@@ -14,14 +14,18 @@ import 'rxjs/add/observable/of';
 
 const securityDefinition = SecurityDefinition.MOCK_DATA;
 
-class LocalStorageServiceStub {
-  getStorageVar (varName) {
-    return 'test';
+const storage = {};
+const LocalStorageServiceStub = {
+  getStorageVar: (varName) => {
+    return storage ? storage[varName] : null;
+  },
+  securityDefinitions: (() => {
+    return Observable.of(securityDefinition);
+  })(),
+  setStorageVar: (varName, varVal) => {
+    storage[varName] = varVal;
   }
-  // securityDefinitions: () => {
-  //   return Observable.of(securityDefinition);
-  // }
-}
+};
 
 fdescribe('AuthComponent', () => {
   let component: AuthComponent;
@@ -43,8 +47,6 @@ fdescribe('AuthComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-
     component.securityDefinitions = securityDefinition;
     fixture.detectChanges();
   });
@@ -53,35 +55,45 @@ fdescribe('AuthComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should loop trough imported security defenitions', () => {
-  //   const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
-  //   expect(inputs.length).toEqual(2);
-  // });
+  it('should loop trough imported security defenitions', () => {
+    const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
+    fixture.detectChanges();
+    expect(inputs.length).toEqual(2);
+  });
 
-  // it('should call clickApplyButton', fakeAsync(() => {
-  //   spyOn(component, 'clickApplyButton');
-  //   const button = fixture.debugElement.query(By.css('.apply-security-definitions')).nativeElement;
+  it('should call clickApplyButton on button click', () => {
+    spyOn(component, 'clickApplyButton');
+    const button = fixture.debugElement.query(By.css('.apply-security-definitions')).nativeElement;
 
-  //   button.click();
-  //   expect(component.clickApplyButton).toHaveBeenCalled();
-  // }));
+    button.click();
+    expect(component.clickApplyButton).toHaveBeenCalled();
+  });
 
-  // fit('should call apply security definitions', fakeAsync(() => {
-  //   spyOn(component.notify, 'success');
+  it('should apply security definitions', () => {
+    spyOn(component.notify, 'success');
+    const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
 
-  //   const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
+    fixture.detectChanges();
 
-  //   for (const i in component.inputFields) {
-  //     if (component.inputFields.hasOwnProperty(i)) {
-  //       component.inputFields[i] = 'test';
-  //     }
-  //   }
+    component.inputFields['test1'] = 'test';
+    component.inputFields['test2'] = 'test';
 
-  //   component.clickApplyButton();
+    component.clickApplyButton();
 
-  //   expect(component.notify.success).toHaveBeenCalled();
-  //   expect(component.localStorageService.setStorageVar).toHaveBeenCalled();
-  // }));
+    expect(component.notify.success).toHaveBeenCalled();
+
+    expect(component.localStorageService.getStorageVar('test1')).toEqual('test');
+    expect(component.localStorageService.getStorageVar('test2')).toEqual('test');
+  });
+
+  it('should init component', () => {
+    spyOn(component.localStorageService, 'getStorageVar');
+    component.localStorageService.setStorageVar('test1', 'test');
+    component.localStorageService.setStorageVar('test2', 'test');
+    component.ngOnInit();
+    expect(component.localStorageService.getStorageVar).toHaveBeenCalled();
+    expect(component.inputFields).toEqual({'test1': 'test', 'test2': 'test'});
+  });
 
 });
 
