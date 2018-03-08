@@ -11,7 +11,7 @@ export class EndpointsSharedService {
   constructor() {
   }
 
-  endpointsExamplesToggle(value: boolean) {
+  endpointsExamplesToggle() {
     this.isExamplesHidden = !this.isExamplesHidden;
   }
 }
