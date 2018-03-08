@@ -26,7 +26,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   ngOnInit() {
     this.initLazySampleGenrator();
   }
-  private initLazySampleGenrator() {
+  initLazySampleGenrator() {
     if (!this.collapsed && !this.generatedSample) {
       this.setSampleFromSchema(this.schema);
     }
@@ -53,14 +53,15 @@ export class ExampleCollapsibleComponent implements OnInit {
     }
   }
 
-  private generateSample(schema) {
+  generateSample(schema) {
     if (schema.type === 'object') {
       return (this.generateSampleFromObject(schema));
     } else if (schema.type === 'array') {
       return (this.generateSampleFromArray(schema));
     }
   }
-  private generateSampleFromArray(schema) {
+
+  generateSampleFromArray(schema) {
     let temp = '[';
     if (schema.items) {
      if ( schema.items.type.toLowerCase() === 'object' || schema.items.type.toLowerCase() === 'array') {
@@ -74,7 +75,7 @@ export class ExampleCollapsibleComponent implements OnInit {
     return (temp);
   }
 
-  private generateSampleFromObject(schema) {
+  generateSampleFromObject(schema) {
       if (!schema.properties) {
         schema.properties = {};
       }

@@ -161,6 +161,29 @@ export class Parameter {
 }
 
 export class Schema {
+  public static MOCK_DATA = {
+    'type': 'object',
+    'required': [
+      'id',
+      'name'
+    ],
+    'properties': {
+      'id': {
+        'type': 'string',
+        'description': 'The url safe id for the account (this cannot be changed).',
+        'required': true,
+        'example': 'test_inc'
+      },
+      'name': {
+        'type': 'string',
+        'description': 'The name of the account (this can be changed).',
+        'required': true,
+        'example': 'Test, Inc.'
+      }
+    },
+    'name': 'body',
+    '$$ref': '#/definitions/NewAccountDoc'
+  };
   public type: string;
   public $$ref?: string;
   public description?: string;
