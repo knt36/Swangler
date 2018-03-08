@@ -26,22 +26,25 @@ export class LocalStorageService {
 
     // get storedSecurityDefinitions from localStorage if exist
     this.securityDefinitions
-      .map(data => {
+      .subscribe(data => {
         if (data) {
-          const securityDefinitionsDict: Object = {};
-          for (const securityDefinition in data) {
-            if (data.hasOwnProperty(securityDefinition)) {
-              const securityDefinitionVal = this.getStorageVar(securityDefinition);
-              if (securityDefinitionVal) {
-                securityDefinitionsDict[securityDefinition] = securityDefinitionVal;
-              }
-            }
-          }
-          this.tempSecurityDefinitions = securityDefinitionsDict;
-          this.storedSecurityDefinitionsSubject.next(securityDefinitionsDict);
+          this.getSecurityDefinitionsValuesFromStorage(data);
         }
-      }).subscribe();
+      });
+  }
 
+  getSecurityDefinitionsValuesFromStorage(securityDefinitionObj) {
+    const securityDefinitionsDict: Object = {};
+    for (const securityDefinition in securityDefinitionObj) {
+      if (securityDefinitionObj.hasOwnProperty(securityDefinition)) {
+        const securityDefinitionVal = this.getStorageVar(securityDefinition);
+        if (securityDefinitionVal) {
+          securityDefinitionsDict[securityDefinition] = securityDefinitionVal;
+        }
+      }
+    }
+    this.tempSecurityDefinitions = securityDefinitionsDict;
+    this.storedSecurityDefinitionsSubject.next(securityDefinitionsDict);
   }
 
   getSecurityDefinitions() {
