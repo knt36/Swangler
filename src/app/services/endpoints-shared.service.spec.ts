@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { EndpointsSharedService } from './endpoints-shared.service';
 
-fdescribe('EndpointsSharedService', () => {
+describe('EndpointsSharedService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [EndpointsSharedService]
