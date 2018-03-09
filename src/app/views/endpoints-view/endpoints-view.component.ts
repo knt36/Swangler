@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {SwaggerService} from '../../services/swagger.service';
 import {Observable} from 'rxjs/Observable';
-import {ModalDirective} from 'ngx-bootstrap';
 import {RequestInitiator} from '../../models/endpoint/endpoint.model';
 import {LocalStorageService} from '../../services/local-storage.service';
 import * as hl from '../../../../node_modules/highlight.js/';
@@ -20,18 +19,15 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   endpointTag: string;
   endpoints;
   scrollToId: string = null;
-  private paramSubscription: Subscription;
-  private queryParamSubscription: Subscription;
+  paramSubscription: Subscription;
+  queryParamSubscription: Subscription;
   sortedApiData: Observable < any > = this.swaggerService.getEndpointsSortedByTags();
   apiData;
-  private modalRef = null;
   public result = {};
-
-  @ViewChild(ModalDirective) modal: ModalDirective;
 
   constructor(
     private route: ActivatedRoute,
-    private swaggerService: SwaggerService,
+    public swaggerService: SwaggerService,
     private localDataService: LocalStorageService,
     public notify: NotificationsService
   ) {}
@@ -78,18 +74,19 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     this.paramSubscription.unsubscribe();
   }
 
-  clickTest(request) {
+  clickTest(request, modal) {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);
     this.swaggerService.testEndpoint(requestInitiator).subscribe( res => {
       this.setRes(res, request);
-      this.modal.show();
+      modal.show();
     }, error => {
       this.setRes(error, request);
       this.result['responseBody'] = this.highlightJSInJson(error.error);
-      this.modal.show();
+      modal.show();
     });
   }
-  private setRes(res, request) {
+
+  setRes(res, request) {
     this.result['header'] = request.endPointData.summary;
     this.result['method'] = request.endPointData.method;
     this.result['url'] = res.url ? decodeURIComponent(res.url) : 'No URL Present';
@@ -102,7 +99,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     }
     this.result['responseHeader'] = this.highlightJSInJson(res.headers) || 'No Headers Present';
   }
-  private highlightJSInJson(obj): string {
+  highlightJSInJson(obj): string {
     if (obj) {
       return(hl.highlight('json', JSON.stringify(obj, null, 4)).value);
     }
