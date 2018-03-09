@@ -1,4 +1,3 @@
-///<reference path="../../../../node_modules/@angular/core/testing/src/component_fixture.d.ts"/>
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EndpointComponent } from './endpoint.component';
@@ -63,7 +62,7 @@ describe('EndpointComponent', () => {
     (component.endpointData).parameters.forEach( parm => {
       if (component.parameterFields[parm.name]) {
         if (parm.example) {
-          if (!component.parameterFields[parm.name] === parm.example) {
+          if (!(component.parameterFields[parm.name] === parm.example)) {
             fail();
           }
         }
