@@ -30,6 +30,8 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.swaggerService.initSwagger('http://forge.local/openapi/spec.json');
+
     this.queryParamSubscription = this.route.queryParams.subscribe(queryParams => {
       if (queryParams.enpt) {
         this.scrollToId = queryParams.enpt;
