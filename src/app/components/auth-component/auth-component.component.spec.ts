@@ -27,7 +27,7 @@ const LocalStorageServiceStub = {
   }
 };
 
-describe('AuthComponent', () => {
+fdescribe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
 
@@ -41,7 +41,7 @@ describe('AuthComponent', () => {
         { provide: LocalStorageService, useValue: LocalStorageServiceStub },
         NotificationsService
       ]
-    });
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -57,8 +57,41 @@ describe('AuthComponent', () => {
 
   it('should loop trough imported security defenitions', () => {
     const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
+
+    for (let index = 0; index < inputs.length; index++) {
+      const element = inputs[index].nativeElement;
+      element.value = 'test';
+      element.dispatchEvent(new Event('input'));
+    }
     fixture.detectChanges();
     expect(inputs.length).toEqual(2);
+    expect(component.inputFields['test1']).toEqual('test');
+    expect(component.inputFields['test2']).toEqual('test');
+
+    expect(inputs[0].nativeElement.placeholder).toEqual('test1');
+    expect(inputs[1].nativeElement.placeholder).toEqual('test2');
+  });
+
+  it('should create inputs object with appropriate key names', () => {
+    const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
+
+    for (let index = 0; index < inputs.length; index++) {
+      const element = inputs[index].nativeElement;
+      element.value = 'test';
+      element.dispatchEvent(new Event('input'));
+    }
+    fixture.detectChanges();
+    expect(component.inputFields['test1']).toEqual('test');
+    expect(component.inputFields['test2']).toEqual('test');
+  });
+
+  it('should apply appropriate data to created inputs', () => {
+    const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
+
+    fixture.detectChanges();
+
+    expect(inputs[0].nativeElement.placeholder).toEqual('test1');
+    expect(inputs[1].nativeElement.placeholder).toEqual('test2');
   });
 
   it('should call clickApplyButton on button click', () => {
@@ -71,9 +104,6 @@ describe('AuthComponent', () => {
 
   it('should apply security definitions', () => {
     spyOn(component.notify, 'success');
-    const inputs = fixture.debugElement.queryAll(By.css('.security-definition-input'));
-
-    fixture.detectChanges();
 
     component.inputFields['test1'] = 'test';
     component.inputFields['test2'] = 'test';
