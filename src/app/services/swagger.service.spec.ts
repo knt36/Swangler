@@ -173,7 +173,7 @@ const requestMockData = {
   }
 };
 
-fdescribe('SwaggerService', () => {
+describe('SwaggerService', () => {
   let service: SwaggerService;
   let localStorageService: LocalStorageService;
   beforeEach(() => {
