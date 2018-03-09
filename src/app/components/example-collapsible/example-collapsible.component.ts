@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ResponseProperty,
+import {
+  RequestSchema,
+  ResponseProperty, ResponseSchema,
   Schema
 } from '../../models/endpoint/endpoint.model';
 import * as hl from '../../../../node_modules/highlight.js/';
@@ -13,7 +15,7 @@ import {SwaggerService} from '../../services/swagger.service';
 export class ExampleCollapsibleComponent implements OnInit {
   @Input('header') header;
   @Input('type') type: string; // sample or schema
-  @Input('schema') schema: Schema;
+  @Input('schema') schema: Schema | ResponseSchema | RequestSchema;
   /* Returns JSON of Sample*/
   @Output('clickedSample') clickedSample: EventEmitter<any> = new EventEmitter();
   public collapsed = true;
@@ -26,7 +28,7 @@ export class ExampleCollapsibleComponent implements OnInit {
   ngOnInit() {
     this.initLazySampleGenrator();
   }
-  private initLazySampleGenrator() {
+  initLazySampleGenrator() {
     if (!this.collapsed && !this.generatedSample) {
       this.setSampleFromSchema(this.schema);
     }
@@ -53,14 +55,17 @@ export class ExampleCollapsibleComponent implements OnInit {
     }
   }
 
-  private generateSample(schema) {
+  generateSample(schema) {
     if (schema.type === 'object') {
-      return (this.generateSampleFromObject(schema));
+      const s1 = this.generateSampleFromObject(schema);
+      return (s1);
     } else if (schema.type === 'array') {
-      return (this.generateSampleFromArray(schema));
+      const s2 = this.generateSampleFromArray(schema);
+      return (s2);
     }
   }
-  private generateSampleFromArray(schema) {
+
+  generateSampleFromArray(schema) {
     let temp = '[';
     if (schema.items) {
      if ( schema.items.type.toLowerCase() === 'object' || schema.items.type.toLowerCase() === 'array') {
@@ -74,7 +79,7 @@ export class ExampleCollapsibleComponent implements OnInit {
     return (temp);
   }
 
-  private generateSampleFromObject(schema) {
+  generateSampleFromObject(schema) {
       if (!schema.properties) {
         schema.properties = {};
       }
