@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 import {Component, Input} from '@angular/core';
 import {NotificationsService} from 'angular2-notifications';
 import {SwaggerService} from './services/swagger.service';
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   const MockSwaggerService = {
     'getEndpointsSortedByTags': function() {
       return (null);
