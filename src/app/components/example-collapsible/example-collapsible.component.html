@@ -12,7 +12,7 @@
       </div>
 
       <div *ngIf="this.type?.toLowerCase() == 'sample'">
-        <pre (click)="this.clickedSample.emit(this.generatedSample.json)">
+        <pre class="sample-body" (click)="this.clickedSample.emit(this.generatedSample.json)">
           <code [innerHTML] = 'this.generatedSample?.highlight' class="hljs json" id="sample79815"></code>
         </pre>
       </div>
