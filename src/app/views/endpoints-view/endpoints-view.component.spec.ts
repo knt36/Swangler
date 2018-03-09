@@ -104,7 +104,7 @@ class MockEndpointComponent {
   @Output() clickedTestEndPoint: EventEmitter<any> = new EventEmitter();
 }
 
-fdescribe('EndpointsViewComponent', () => {
+describe('EndpointsViewComponent', () => {
   let component: EndpointsViewComponent;
   let fixture: ComponentFixture<EndpointsViewComponent>;
 
