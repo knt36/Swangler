@@ -161,7 +161,7 @@ export class Parameter {
 }
 
 export class Schema {
-  public static MOCK_DATA = {
+  public static MOCK_DATA?: any = {
     'type': 'object',
     'required': [
       'id',
@@ -197,7 +197,7 @@ export class SecurityRequirement {
 }
 /* REQUEST */
 export class RequestSchema extends Schema {
-  public static MOCK_DATA = {
+  public static MOCK_DATA: any = {
       'type': 'object',
       'required': [
         'name'
@@ -211,7 +211,7 @@ export class RequestSchema extends Schema {
         },
         'acl': {
           'type': 'object',
-          'properties': {},
+          'properties': null,
           'description': 'The access control list as an object with the operation as the key and the permission status as a boolean',
           'example': {
             'create-space': false,
@@ -253,62 +253,85 @@ export class Response {
 export class ResponseSchema extends Schema {
   public static MOCK_DATA =  {
     'type': 'object',
-    'required': [],
     'properties': {
-      'topic': {
-        'type': 'string',
-        'description': '???',
-        'example': 'fg01-evt-global'
+      'sampleItems': {
+        'type': 'array',
+        'items': {
+          'type': 'string',
+          'required': []
+        }
       },
-      'msg_type': {
-        'type': 'string',
-        'description': 'The type of message',
-        'example': 'job-created'
-      },
-      'account_id': {
-        'type': 'string',
-        'description': 'The account id related to the job',
-        'example': '848c0271-d307-426b-9291-6d99f17039a3'
-      },
-      'task_id': {
-        'type': 'string',
-        'description': 'The task id'
-      },
-      'created_by': {
-        'type': 'string',
-        'description': 'Task created by',
-        'example': 'system'
-      },
-      'job_id': {
-        'type': 'string',
-        'description': 'The job id',
-        'example': 'db36cc07-6f28-421a-afd4-88288b625fee'
-      },
-      'name': {
-        'type': 'string',
-        'description': 'The name of the job',
-        'example': 'job-name'
-      },
-      'process_status': {
-        'type': 'object',
-        'required': [],
-        'properties': {
-          'status': {
-            'type': 'integer',
-            'format': 'int64',
-            'description': 'The current job status id',
-            'example': 1
+      'items': {
+        'type': 'array',
+        'items': {
+          'type': 'object',
+          'required': [],
+          'properties': {
+            'created_at': {
+              'type': 'string',
+              'format': 'date-time',
+              'description': 'The timestamp the item was created',
+              'example': '2018-01-04T20:13:55.373557+0000'
+            },
+            'created_by': {
+              'type': 'string',
+              'description': 'The user that created the item',
+              'example': 'system'
+            },
+            'updated_at': {
+              'type': 'string',
+              'format': 'date-time',
+              'description': 'The timestamp the item was last updated',
+              'example': '2018-01-04T20:13:55.373557+0000'
+            },
+            'updated_by': {
+              'type': 'string',
+              'description': 'The user that last updated the item',
+              'example': 'system'
+            },
+            'id': {
+              'type': 'string',
+              'description': 'The account id',
+              'example': 'test_inc'
+            },
+            'name': {
+              'type': 'string',
+              'description': 'The name of the account',
+              'example': 'Test, Inc.'
+            },
+            'is_active': {
+              'type': 'boolean',
+              'description': 'Whether an account is active or not.'
+            }
           },
-          'display': {
-            'type': 'string',
-            'description': 'The current job status text',
-            'example': 'Queued'
-          }
-        },
-        '$$ref': '#/definitions/ProcessStatusDoc'
+          '$$ref': '#/definitions/AccountDoc'
+        }
+      },
+      'page_number': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The current page number',
+        'example': 1
+      },
+      'page_size': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The number of items returned',
+        'example': 20
+      },
+      'total_pages': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The total number of pages available',
+        'example': 1
+      },
+      'total_items': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The total number of items available',
+        'example': 1
       }
-    },
-    '$$ref': '#/definitions/NewJobDoc'
+    }
   };
   public required?: boolean[];
   public properties: ResponseProperties;
