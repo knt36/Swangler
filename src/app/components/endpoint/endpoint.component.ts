@@ -146,4 +146,7 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   public clickTestEndPointButton() {
     return ( new AppClickedTestRes(this.endpointData, this.selectedResponse, this.parameterFields));
   }
+  public clickedToggleExamples() {
+    this.endpointsSharedService.endpointsExamplesToggle();
+  }
 }
