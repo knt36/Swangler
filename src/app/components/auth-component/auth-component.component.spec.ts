@@ -27,7 +27,7 @@ const LocalStorageServiceStub = {
   }
 };
 
-fdescribe('AuthComponent', () => {
+describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
 
