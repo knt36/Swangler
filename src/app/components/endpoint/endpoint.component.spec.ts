@@ -36,13 +36,13 @@ describe('EndpointComponent', () => {
         NotificationsService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EndpointComponent);
     component = fixture.componentInstance;
-    component.endpointData = AppEndPoint.MOCK_DATA;
+    component.endpointData = JSON.parse(JSON.stringify(AppEndPoint.MOCK_DATA));
     this.endpointsSharedService = TestBed.get(EndpointsSharedService);
     fixture.detectChanges();
   });
@@ -77,7 +77,7 @@ describe('EndpointComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should populate .param-property with data from endpointData.parameters ', () => {
-    component.endpointData = AppEndPoint.MOCK_DATA;
+    component.endpointData = JSON.parse(JSON.stringify(AppEndPoint.MOCK_DATA));
     fixture.detectChanges();
     component.endpointData.parameters.forEach( parm => {
       const element = fixture.debugElement.query(By.css(`#${parm.name}`));
