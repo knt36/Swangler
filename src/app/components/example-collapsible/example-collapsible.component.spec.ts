@@ -15,7 +15,7 @@ const SwaggerServiceStub: Partial<SwaggerService> = {
   }
 };
 
-fdescribe('ExampleCollapsibleComponent', () => {
+describe('ExampleCollapsibleComponent', () => {
   let component: ExampleCollapsibleComponent;
   let fixture: ComponentFixture<ExampleCollapsibleComponent>;
 
