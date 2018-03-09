@@ -33,7 +33,6 @@
         <div id="resource_Accounts" class="resource">
           <h5 *ngIf="this.wrongTag" class="no-endpoint-data">No data for {{this.endpointTag}}</h5>
           <div *ngIf="!this.wrongTag" class="endpoints" id="Accounts_endpoint_list">
-
             <app-endpoint (clickedTestEndPoint)="this.clickTest($event, modal)" *ngFor="let endpoint of endpoints" [endpointData]="endpoint"
               [scrollToId]='scrollToId'></app-endpoint>
           </div>

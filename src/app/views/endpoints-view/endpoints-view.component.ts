@@ -61,6 +61,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
         if (this.endpointTag) {
           if (data[this.endpointTag]) {
             this.endpoints = data[this.endpointTag];
+            this.wrongTag = false;
           } else {
             this.wrongTag = true;
             this.notify.error('Error', 'No data for ' + this.endpointTag);
