@@ -17,8 +17,8 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   endpointTag: string;
   endpoints;
   scrollToId: string = null;
-  private paramSubscription: Subscription;
-  private queryParamSubscription: Subscription;
+  paramSubscription: Subscription;
+  queryParamSubscription: Subscription;
   sortedApiData: Observable < any > = this.swaggerService.getEndpointsSortedByTags();
   apiData;
   public result = {};
@@ -76,6 +76,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
       modal.show();
     });
   }
+
   setRes(res, request) {
     this.result['header'] = request.endPointData.summary;
     this.result['method'] = request.endPointData.method;
@@ -89,7 +90,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     }
     this.result['responseHeader'] = this.highlightJSInJson(res.headers) || 'No Headers Present';
   }
-  private highlightJSInJson(obj): string {
+  highlightJSInJson(obj): string {
     if (obj) {
       return(hl.highlight('json', JSON.stringify(obj, null, 4)).value);
     }

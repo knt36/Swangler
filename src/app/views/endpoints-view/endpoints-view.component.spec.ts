@@ -12,7 +12,14 @@ import { SecurityDefinition } from '../../models/auth/security-definition';
 import { ApiData } from '../../models/apidata.model';
 import { ModalDirective } from 'ngx-bootstrap';
 import { By } from '@angular/platform-browser';
-import { AppEndPoint } from '../../models/endpoint/endpoint.model';
+import { AppEndPoint, RequestInitiator } from '../../models/endpoint/endpoint.model';
+import { HttpHeaders } from '@angular/common/http';
+
+const modalMock = {
+  show: () => {
+    return true;
+  }
+};
 
 const storage = {};
 const LocalStorageServiceStub: Partial<LocalStorageService> = {
@@ -27,7 +34,6 @@ const LocalStorageServiceStub: Partial<LocalStorageService> = {
   }
 };
 
-
 const groupedEndpointsMock = [];
 groupedEndpointsMock['test'] = [];
 groupedEndpointsMock['test'].push(AppEndPoint.MOCK_DATA);
@@ -41,6 +47,9 @@ const SwaggerServiceStub: Partial<SwaggerService> = {
   },
   testEndpoint: () => {
     return Observable.of(null);
+  },
+  initSwagger: () => {
+    return Promise.resolve(true);
   }
 };
 
@@ -146,7 +155,7 @@ fdescribe('EndpointsViewComponent', () => {
       expect(component.swaggerService.getEndpointsSortedByTags).toHaveBeenCalled();
     }));
 
-    it('should not set any endpoints as there is no tag "foo" in mock', fakeAsync(() => {
+    it('should not set any endpoints if unknown tag is passed', fakeAsync(() => {
       component.endpointTag = 'foo';
       component.updateEndpoints();
       tick();
@@ -162,21 +171,80 @@ fdescribe('EndpointsViewComponent', () => {
   });
 
   describe('method clickTest()', () => {
-
     it('should call swaggerService.testEndpoint', () => {
-      spyOn(component.swaggerService, 'testEndpoint').and.returnValue(Observable.of('f'));
+      spyOn(component.swaggerService, 'testEndpoint').and.returnValue(Observable.of(true));
       spyOn(component, 'setRes').and.returnValue(true);
-      component.clickTest('test', 'test');
+      component.clickTest(RequestInitiator.MOCK_DATA, modalMock);
       expect(component.swaggerService.testEndpoint).toHaveBeenCalled();
     });
 
+    it('should call swaggerService.testEndpoint and return error', () => {
+      spyOn(component.swaggerService, 'testEndpoint').and.returnValue(Observable.create(e => e.error({error: 'failed'})));
+      spyOn(component, 'setRes').and.returnValue(true);
+      component.clickTest(RequestInitiator.MOCK_DATA, modalMock);
+      expect(component.swaggerService.testEndpoint).toHaveBeenCalled();
+      expect(component.result['responseBody']).toEqual('<span class="hljs-string">"failed"</span>');
+    });
   });
 
 
+  describe('method setRes()', () => {
+    it('should populate result object with default values', () => {
+      component.setRes({}, RequestInitiator.MOCK_DATA);
+
+      expect(component.result['url']).toEqual('No URL Present');
+      expect(component.result['responseCode']).toEqual('No code Present');
+      expect(component.result['responseHeader']).toEqual('No Headers Present');
+      expect(component.result['responseBody']).toEqual('{}');
+    });
+
+    it('should create response headers string from object', () => {
+      component.setRes({headers: {test: 'test'}}, RequestInitiator.MOCK_DATA);
+
+      expect(component.result['responseHeader'].replace(/(\r\n\t|\n|\r\t|\s\s\s\s)/gm, ''))
+        .toEqual('{<span class="hljs-attr">"test"</span>: <span class="hljs-string">"test"</span>}');
+    });
+
+    it('should create response headers', () => {
+      let headers = new HttpHeaders();
+      headers = headers.set('content-type', 'application/json');
+      component.setRes({ headers: headers }, RequestInitiator.MOCK_DATA);
+
+      expect(component.result['responseHeader'].replace(/(\r\n\t|\n|\r\t|\s\s\s\s)/gm, ''))
+        .toEqual('[<span class="hljs-string">"content-type: application/json"</span>]');
+    });
+  });
 
 
-  // it('should MODALLLL', () => {
-  //   const modal = fixture.debugElement.query(By.css('[bsModal]')).nativeElement;
-  //   expect(component).toBeTruthy();
-  // });
+  describe('modal window', () => {
+    it('should show default values', () => {
+      component.setRes({}, RequestInitiator.MOCK_DATA);
+      fixture.detectChanges();
+
+      const responselUrl = fixture.debugElement.query(By.css('[bsModal] .request_url > div')).nativeElement;
+      expect(responselUrl.innerText).toEqual('No URL Present');
+
+      const responseBody = fixture.debugElement.query(By.css('[bsModal] .response_body code')).nativeElement;
+      expect(responseBody.innerText).toEqual('{}');
+
+      const responseHeaders = fixture.debugElement.query(By.css('[bsModal] .response_headers code')).nativeElement;
+      expect(responseHeaders.innerText).toEqual('No Headers Present');
+    });
+
+    it('should show change values', () => {
+      component.setRes({}, RequestInitiator.MOCK_DATA);
+      fixture.detectChanges();
+      const responseHeaders = fixture.debugElement.query(By.css('[bsModal] .response_headers code')).nativeElement;
+
+      expect(responseHeaders.innerText).toEqual('No Headers Present');
+
+      let headers = new HttpHeaders();
+      headers = headers.set('content-type', 'application/json');
+      component.setRes({ headers: headers }, RequestInitiator.MOCK_DATA);
+      fixture.detectChanges();
+
+      expect(responseHeaders.innerText.replace(/(\r\n\t|\n|\r\t|\s\s\s\s)/gm, ''))
+        .toEqual('["content-type: application/json"]');
+    });
+  });
 });
