@@ -310,7 +310,7 @@ export class RequestInitiator {
   public method: string;
   [httpPart: string]: RequestEntry | any;
   constructor(request, localDataService: LocalStorageService) {
-    console.log(request);
+    // console.log(request);
     this.method = request.endPointData.method;
     this.url = request.endPointData.url;
     request.endPointData.security.forEach( item => {
