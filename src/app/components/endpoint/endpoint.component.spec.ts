@@ -9,7 +9,7 @@ import {EndpointsSharedService} from '../../services/endpoints-shared.service';
 import {NotificationsService} from 'angular2-notifications';
 import {By} from '@angular/platform-browser';
 
-fdescribe('EndpointComponent', () => {
+describe('EndpointComponent', () => {
 
   @Component({
     selector: 'app-example-side-bar',
