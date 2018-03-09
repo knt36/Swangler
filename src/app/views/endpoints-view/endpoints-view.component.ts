@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {SwaggerService} from '../../services/swagger.service';
 import {Observable} from 'rxjs/Observable';
-import {ModalDirective} from 'ngx-bootstrap';
 import {RequestInitiator} from '../../models/endpoint/endpoint.model';
 import {LocalStorageService} from '../../services/local-storage.service';
 import * as hl from '../../../../node_modules/highlight.js/';
@@ -22,14 +21,11 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   private queryParamSubscription: Subscription;
   sortedApiData: Observable < any > = this.swaggerService.getEndpointsSortedByTags();
   apiData;
-  private modalRef = null;
   public result = {};
-
-  @ViewChild(ModalDirective) modal: ModalDirective;
 
   constructor(
     private route: ActivatedRoute,
-    private swaggerService: SwaggerService,
+    public swaggerService: SwaggerService,
     private localDataService: LocalStorageService,
   ) {}
 
@@ -67,18 +63,18 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     this.paramSubscription.unsubscribe();
   }
 
-  clickTest(request) {
+  clickTest(request, modal) {
     const requestInitiator: RequestInitiator = new RequestInitiator(request, this.localDataService);
     this.swaggerService.testEndpoint(requestInitiator).subscribe( res => {
       this.setRes(res, request);
-      this.modal.show();
+      modal.show();
     }, error => {
       this.setRes(error, request);
       this.result['responseBody'] = this.highlightJSInJson(error.error);
-      this.modal.show();
+      modal.show();
     });
   }
-  private setRes(res, request) {
+  setRes(res, request) {
     this.result['header'] = request.endPointData.summary;
     this.result['method'] = request.endPointData.method;
     this.result['url'] = res.url ? decodeURIComponent(res.url) : 'No URL Present';
