@@ -140,6 +140,15 @@ fdescribe('EndpointsViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should call clickTest on clickedTestEndPoint', () => {
+    spyOn(component, 'clickTest').and.returnValue(true);
+    component.ngOnInit();
+    fixture.detectChanges();
+    const appEndpoint = fixture.debugElement.query(By.css('app-endpoint')).nativeElement;
+    appEndpoint.dispatchEvent(new Event('clickedTestEndPoint'));
+    expect(component.clickTest).toHaveBeenCalled();
+  });
+
   describe('method updateEndpoints()', () => {
     it('should set enpoints with tag test', fakeAsync(() => {
       component.endpointTag = 'test';
