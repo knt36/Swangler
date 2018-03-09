@@ -194,6 +194,13 @@ describe('EndpointsViewComponent', () => {
       expect(component.swaggerService.testEndpoint).toHaveBeenCalled();
       expect(component.result['responseBody']).toEqual('<span class="hljs-string">"failed"</span>');
     });
+
+    it('should call setRes with given params', () => {
+      spyOn(component.swaggerService, 'testEndpoint').and.returnValue(Observable.of(true));
+      spyOn(component, 'setRes').and.returnValue(true);
+      component.clickTest(RequestInitiator.MOCK_DATA, modalMock);
+      expect(component.setRes).toHaveBeenCalledWith(true, RequestInitiator.MOCK_DATA);
+    });
   });
 
 
