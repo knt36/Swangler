@@ -10,6 +10,7 @@ describe('AppComponent', () => {
     }
   };
   @Component({
+    /* tslint:disable-next-line */
     selector: 'router-outlet',
     template: '<span></span>'
   })
@@ -17,6 +18,7 @@ describe('AppComponent', () => {
   }
 
   @Component({
+    /* tslint:disable-next-line */
     selector: 'simple-notifications',
     template: '<span></span>'
   })
