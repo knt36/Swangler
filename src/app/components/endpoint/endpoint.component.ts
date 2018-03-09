@@ -141,7 +141,7 @@ export class EndpointComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private initSelectedResponse() {
-    this.selectedResponse = this.endpointData.produces.length !== 0 ? this.endpointData.produces[0] : null;
+    this.selectedResponse = this.endpointData.produces ? this.endpointData.produces[0] : null;
   }
   public clickTestEndPointButton() {
     return ( new AppClickedTestRes(this.endpointData, this.selectedResponse, this.parameterFields));

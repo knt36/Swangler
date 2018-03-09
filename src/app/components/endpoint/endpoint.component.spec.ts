@@ -46,7 +46,33 @@ fdescribe('EndpointComponent', () => {
     this.endpointsSharedService = TestBed.get(EndpointsSharedService);
     fixture.detectChanges();
   });
-
+  it('should check if smoothScroll is called without failure', () => {
+    component.smoothScroll(1, 1000);
+    component.smoothScroll(1000, 1);
+  });
+  it('should initSelectedResponse with data from endpointData', () => {
+    component.ngOnInit();
+    try {
+      expect(component.selectedResponse).toEqual(component.endpointData.produces[0]);
+    } catch ( e ) {
+      fail('endpointData.produces array is empty');
+    }
+  });
+  it('should initParameterFields with endpointData', () => {
+    component.ngOnInit();
+    (component.endpointData).parameters.forEach( parm => {
+      if (component.parameterFields[parm.name]) {
+        if (parm.example) {
+          if (!component.parameterFields[parm.name] === parm.example) {
+            fail();
+          }
+        }
+      } else {
+        fail();
+      }
+    });
+    expect().nothing();
+  });
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -184,5 +210,11 @@ fdescribe('EndpointComponent', () => {
     } catch (e) {
       fail('crashed due to endpointData.parameters == undefined');
     }
+  });
+  it('should initSelectedResponse with null if data from endpointData produces is null', () => {
+    component.endpointData.produces = undefined;
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.selectedResponse).toEqual(null);
   });
 });
