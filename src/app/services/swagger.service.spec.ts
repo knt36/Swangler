@@ -73,8 +73,6 @@ describe('SwaggerService', () => {
     service.setSortedEndpoints('test');
     expect(service.endpointsSubject.getValue()).toEqual('test');
   });
-
-
   it('should sort endpoints by tags', () => {
     const res = service.sortApiEndpointsByTags(endpointsMockData);
 
@@ -83,6 +81,18 @@ describe('SwaggerService', () => {
 
     // meaning this is an array
     expect(res['API Keys'].length).toEqual(1);
+  });
+  it('should sort endpoints by tags even if endpoint has no tags -> default to NO_TAGS', () => {
+    const endpointsMockDataClone = JSON.parse(JSON.stringify(endpointsMockData));
+    endpointsMockDataClone[0].test.tags = undefined;
+    console.log(endpointsMockDataClone);
+    const res = service.sortApiEndpointsByTags(endpointsMockDataClone);
+    console.log(res);
+    // tag from AppEndPoint.MOCK_DATA.tags property
+    expect(Object.keys(res)[0]).toEqual('NO_TAG');
+
+    // meaning this is an array
+    expect(res['NO_TAG'].length).toEqual(1);
   });
 
   it('should set host URL', () => {
