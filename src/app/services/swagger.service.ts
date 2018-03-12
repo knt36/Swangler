@@ -147,18 +147,26 @@ export class SwaggerService {
           if (path.hasOwnProperty(methodKey)) {
             const method = path[methodKey];
 
-            method.tags.filter( tag => {
+            if ( method.tags ) {
+              method.tags.filter( tag => {
 
-              if (!result[tag]) {
-                result[tag] = [];
+                if (!result[tag]) {
+                  result[tag] = [];
+                }
+
+                method.url = pathKey;
+                method.method = methodKey;
+                result[tag].push(method);
+
+              });
+            } else {
+              if (!result['NO_TAG']) {
+                result['NO_TAG'] = [];
               }
-
               method.url = pathKey;
               method.method = methodKey;
-              result[tag].push(method);
-
-            });
-
+              result['NO_TAG'].push(method);
+            }
           }
         }
 

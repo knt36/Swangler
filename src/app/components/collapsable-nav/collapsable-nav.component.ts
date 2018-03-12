@@ -45,4 +45,15 @@ export class CollapsableNavComponent implements OnInit, AfterContentInit, OnChan
       }
     }
   }
+  getNavLinkName(endpointObj) {
+    if (endpointObj.summary) {
+      return(endpointObj.summary);
+    } else if (endpointObj.operationId) {
+      return (endpointObj.operationId);
+    } else if (endpointObj.url) {
+      return(endpointObj.url);
+    } else {
+      return('No Name');
+    }
+  }
 }

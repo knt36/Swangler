@@ -23,7 +23,7 @@
           </div>
 
           <h6>
-            Parameters
+            <span *ngIf="this.endpointData.parameters && this.endpointData.parameters.length > 0"> Parameters </span>
             <span id="toggle-examples" class="toggle-examples" (click)="this.clickedToggleExamples()">
               <small class="text">
                 <span class="sampleState" *ngIf="endpointsSharedService.isExamplesHidden">Show Samples</span>
@@ -117,6 +117,13 @@
             </h6>
             <div class="card">
               <ul class="list-group list-group-flush">
+                <li *ngIf="!this.endpointData.responses || Object.keys(this.endpointData.responses).length < 1" class="list-group-item">
+                  <div>
+                    <span style="padding-right:2em;">
+                      No Status Codes Available
+                    </span>
+                  </div>
+                </li>
                 <li *ngFor="let s of this.Object.keys(this.endpointData.responses)" class="list-group-item">
                   <div>
                     <span style="padding-right:2em;">
