@@ -6,6 +6,7 @@ import { CollapseModule } from 'ngx-bootstrap';
 import { DebugElement, SimpleChanges, SimpleChange, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Routes, Router } from '@angular/router';
+import {CollapsableNavEndpointsModel} from '../../models/sidebar/collapsable-nav.model';
 
 @Component({
   selector: 'app-dummy-component',
@@ -13,6 +14,33 @@ import { Routes, Router } from '@angular/router';
 })
 class DummyComponent {
 }
+
+const MOCK_ENDPOINT_NO_SUMMARY = {
+  'operationId': 'weld_highlighter',
+  'consumes': [
+    'application/json'
+  ],
+  'produces': [
+    'application/json'
+  ],
+  'parameters': [],
+  'responses': {
+    '200': {
+      'description': 'Successful Operation'
+    }
+  },
+  'security': [
+    {
+      'slyce-account-id': []
+    },
+    {
+      'slyce-api-key': []
+    }
+  ],
+  '__originalOperationId': 'weld_highlighter',
+  'url': '/weld_highlighter',
+  'method': 'get'
+};
 
 const routes: Routes = [
   { path: '', component: DummyComponent },
@@ -96,5 +124,19 @@ describe('CollapsableNavComponent', () => {
 
     tick();
     expect(location.path()).toBe('/test');
+  }));
+
+  it('should set link names for endpoints that has no summary field', fakeAsync(() => {
+    component.tag = 'test';
+    component.endpoints = new Array<CollapsableNavEndpointsModel>();
+    component.isCollapsed = false;
+    component.endpoints.push(MOCK_ENDPOINT_NO_SUMMARY);
+    fixture.detectChanges();
+    const collasableEntry = fixture.debugElement.query(By.css('#navLink' + 0));
+    expect(collasableEntry.nativeElement.textContent).toEqual(component.endpoints[0].operationId);
+  }));
+
+  it('should return operation id if summary is not available', fakeAsync(() => {
+    expect(component.getNavLinkName(MOCK_ENDPOINT_NO_SUMMARY)).toEqual(MOCK_ENDPOINT_NO_SUMMARY.operationId);
   }));
 });

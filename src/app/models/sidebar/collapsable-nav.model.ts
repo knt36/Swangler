@@ -1,7 +1,8 @@
 
 export class CollapsableNavEndpointsModel {
-  summary: string;
-  operationId: string;
+  public summary?: string;
+  public operationId: string;
+  [key: string]: any;
 }
 
 
