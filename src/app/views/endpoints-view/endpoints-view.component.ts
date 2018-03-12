@@ -23,8 +23,14 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
   queryParamSubscription: Subscription;
   sortedApiData: Observable < any > = this.swaggerService.getEndpointsSortedByTags();
   apiData;
-  public result = {};
-
+  public result = {
+    'header' : '',
+    'method' : '',
+    'url' : '',
+    'responseBody' : '',
+    'responseCode' : '',
+    'responseHeader' : ''
+  };
   constructor(
     private route: ActivatedRoute,
     public swaggerService: SwaggerService,
