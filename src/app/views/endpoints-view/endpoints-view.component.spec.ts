@@ -14,6 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { By } from '@angular/platform-browser';
 import { AppEndPoint, RequestInitiator } from '../../models/endpoint/endpoint.model';
 import { HttpHeaders } from '@angular/common/http';
+import { NotificationsService } from 'angular2-notifications';
 
 const modalMock = {
   show: () => {
@@ -119,6 +120,7 @@ describe('EndpointsViewComponent', () => {
         MockBsModalDirective
       ],
       providers: [
+        NotificationsService,
         { provide: ActivatedRoute, useValue: ActivatedRouteStub },
         { provide: LocalStorageService, useValue: LocalStorageServiceStub },
         { provide: SwaggerService, useValue: SwaggerServiceStub },
@@ -165,10 +167,24 @@ describe('EndpointsViewComponent', () => {
     }));
 
     it('should not set any endpoints if unknown tag is passed', fakeAsync(() => {
+      component.endpoints = null;
       component.endpointTag = 'foo';
       component.updateEndpoints();
       tick();
       expect(component.endpoints).toBeFalsy();
+    }));
+
+    it('should show error message if unknown tag is passed', fakeAsync(() => {
+      spyOn(component.notify, 'error');
+      component.endpoints = null;
+      component.endpointTag = 'foo';
+      component.updateEndpoints();
+      tick();
+      fixture.detectChanges();
+      const error_header = fixture.debugElement.query(By.css('.no-endpoint-data')).nativeElement;
+      expect(component.wrongTag).toBeTruthy();
+      expect(error_header).toBeTruthy();
+      expect(component.notify.error).toHaveBeenCalled();
     }));
 
     it('should set first available endpoint if no tag provided', fakeAsync(() => {

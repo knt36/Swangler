@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {RequestInitiator} from '../../models/endpoint/endpoint.model';
 import {LocalStorageService} from '../../services/local-storage.service';
 import * as hl from '../../../../node_modules/highlight.js/';
+import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
@@ -14,6 +15,7 @@ import * as hl from '../../../../node_modules/highlight.js/';
   styleUrls: ['./endpoints-view.component.scss']
 })
 export class EndpointsViewComponent implements OnInit, OnDestroy {
+  wrongTag = false;
   endpointTag: string;
   endpoints;
   scrollToId: string = null;
@@ -27,6 +29,7 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public swaggerService: SwaggerService,
     private localDataService: LocalStorageService,
+    public notify: NotificationsService
   ) {}
 
   ngOnInit() {
@@ -52,7 +55,13 @@ export class EndpointsViewComponent implements OnInit, OnDestroy {
     this.swaggerService.getEndpointsSortedByTags().subscribe(data => {
       if (data) {
         if (this.endpointTag) {
-          this.endpoints = data[this.endpointTag];
+          if (data[this.endpointTag]) {
+            this.endpoints = data[this.endpointTag];
+            this.wrongTag = false;
+          } else {
+            this.wrongTag = true;
+            this.notify.error('Error', 'No data for ' + this.endpointTag);
+          }
         } else {
           this.endpoints = data[Object.keys(data)[0]];
         }
