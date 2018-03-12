@@ -133,7 +133,7 @@ export class AppEndPoint {
     };
 
   public consumes: string[];
-  public description: string;
+  public description?: string;
   public method: string;
   public operationId: string;
   public parameters: Parameter[];
@@ -161,8 +161,33 @@ export class Parameter {
 }
 
 export class Schema {
+  public static MOCK_DATA?: any = {
+    'type': 'object',
+    'required': [
+      'id',
+      'name'
+    ],
+    'properties': {
+      'id': {
+        'type': 'string',
+        'description': 'The url safe id for the account (this cannot be changed).',
+        'required': true,
+        'example': 'test_inc'
+      },
+      'name': {
+        'type': 'string',
+        'description': 'The name of the account (this can be changed).',
+        'required': true,
+        'example': 'Test, Inc.'
+      }
+    },
+    'name': 'body',
+    '$$ref': '#/definitions/NewAccountDoc'
+  };
   public type: string;
   public $$ref?: string;
+  public description?: string;
+  public required?: any;
 }
 
 /* APP_END_POINT */
@@ -172,6 +197,31 @@ export class SecurityRequirement {
 }
 /* REQUEST */
 export class RequestSchema extends Schema {
+  public static MOCK_DATA: any = {
+      'type': 'object',
+      'required': [
+        'name'
+      ],
+      'properties': {
+        'name': {
+          'type': 'string',
+          'description': 'The name of the API key',
+          'required': true,
+          'example': 'DemoAPIKey'
+        },
+        'acl': {
+          'type': 'object',
+          'properties': null,
+          'description': 'The access control list as an object with the operation as the key and the permission status as a boolean',
+          'example': {
+            'create-space': false,
+            'get-space-by-id': true
+          }
+        }
+      },
+      'name': 'body',
+      '$$ref': '#/definitions/NewAPIKeyDoc'
+    };
   public name: string;
   public required: string[];
   public properties: RequestProperties;
@@ -201,6 +251,88 @@ export class Response {
 }
 
 export class ResponseSchema extends Schema {
+  public static MOCK_DATA =  {
+    'type': 'object',
+    'properties': {
+      'sampleItems': {
+        'type': 'array',
+        'items': {
+          'type': 'string',
+          'required': []
+        }
+      },
+      'items': {
+        'type': 'array',
+        'items': {
+          'type': 'object',
+          'required': [],
+          'properties': {
+            'created_at': {
+              'type': 'string',
+              'format': 'date-time',
+              'description': 'The timestamp the item was created',
+              'example': '2018-01-04T20:13:55.373557+0000'
+            },
+            'created_by': {
+              'type': 'string',
+              'description': 'The user that created the item',
+              'example': 'system'
+            },
+            'updated_at': {
+              'type': 'string',
+              'format': 'date-time',
+              'description': 'The timestamp the item was last updated',
+              'example': '2018-01-04T20:13:55.373557+0000'
+            },
+            'updated_by': {
+              'type': 'string',
+              'description': 'The user that last updated the item',
+              'example': 'system'
+            },
+            'id': {
+              'type': 'string',
+              'description': 'The account id',
+              'example': 'test_inc'
+            },
+            'name': {
+              'type': 'string',
+              'description': 'The name of the account',
+              'example': 'Test, Inc.'
+            },
+            'is_active': {
+              'type': 'boolean',
+              'description': 'Whether an account is active or not.'
+            }
+          },
+          '$$ref': '#/definitions/AccountDoc'
+        }
+      },
+      'page_number': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The current page number',
+        'example': 1
+      },
+      'page_size': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The number of items returned',
+        'example': 20
+      },
+      'total_pages': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The total number of pages available',
+        'example': 1
+      },
+      'total_items': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The total number of items available',
+        'example': 1
+      }
+    }
+  };
   public required?: boolean[];
   public properties: ResponseProperties;
 
@@ -219,12 +351,169 @@ export class ResponseProperties {
 }
 
 export class RequestInitiator {
+  public static MOCK_DATA?: any = {
+    'selectedResponse': 'application/json',
+    'parameterFields': {
+      'page_number': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The page number to get',
+        'default': 1,
+        'example': 1,
+        'required': false,
+        'in': 'query',
+        'name': 'page_number',
+        'value': 1
+      },
+      'page_size': {
+        'type': 'integer',
+        'format': 'int64',
+        'description': 'The number of items to return',
+        'default': 20,
+        'example': 20,
+        'required': false,
+        'in': 'query',
+        'name': 'page_size',
+        'value': 20
+      }
+    },
+    'endPointData': {
+      'operationId': 'Accounts_create_account2',
+      'summary': 'List the accounts',
+      'description': 'Get a list of all accounts in the system.',
+      'consumes': [
+        'application/json'
+      ],
+      'produces': [
+        'application/json'
+      ],
+      'tags': [
+        'Accounts'
+      ],
+      'parameters': [
+        {
+          'type': 'integer',
+          'format': 'int64',
+          'description': 'The page number to get',
+          'default': 1,
+          'example': 1,
+          'required': false,
+          'in': 'query',
+          'name': 'page_number',
+          'value': 1
+        },
+        {
+          'type': 'integer',
+          'format': 'int64',
+          'description': 'The number of items to return',
+          'default': 20,
+          'example': 20,
+          'required': false,
+          'in': 'query',
+          'name': 'page_size',
+          'value': 20
+        }
+      ],
+      'responses': {
+        '200': {
+          'description': 'Successful Operation',
+          'schema': {
+            'type': 'object',
+            'properties': {
+              'items': {
+                'type': 'array',
+                'items': {
+                  'type': 'object',
+                  'required': [],
+                  'properties': {
+                    'created_at': {
+                      'type': 'string',
+                      'format': 'date-time',
+                      'description': 'The timestamp the item was created',
+                      'example': '2018-01-04T20:13:55.373557+0000'
+                    },
+                    'created_by': {
+                      'type': 'string',
+                      'description': 'The user that created the item',
+                      'example': 'system'
+                    },
+                    'updated_at': {
+                      'type': 'string',
+                      'format': 'date-time',
+                      'description': 'The timestamp the item was last updated',
+                      'example': '2018-01-04T20:13:55.373557+0000'
+                    },
+                    'updated_by': {
+                      'type': 'string',
+                      'description': 'The user that last updated the item',
+                      'example': 'system'
+                    },
+                    'id': {
+                      'type': 'string',
+                      'description': 'The account id',
+                      'example': 'test_inc'
+                    },
+                    'name': {
+                      'type': 'string',
+                      'description': 'The name of the account',
+                      'example': 'Test, Inc.'
+                    },
+                    'is_active': {
+                      'type': 'boolean',
+                      'description': 'Whether an account is active or not.'
+                    }
+                  },
+                  '$$ref': '#/definitions/AccountDoc'
+                }
+              },
+              'page_number': {
+                'type': 'integer',
+                'format': 'int64',
+                'description': 'The current page number',
+                'example': 1
+              },
+              'page_size': {
+                'type': 'integer',
+                'format': 'int64',
+                'description': 'The number of items returned',
+                'example': 20
+              },
+              'total_pages': {
+                'type': 'integer',
+                'format': 'int64',
+                'description': 'The total number of pages available',
+                'example': 1
+              },
+              'total_items': {
+                'type': 'integer',
+                'format': 'int64',
+                'description': 'The total number of items available',
+                'example': 1
+              }
+            }
+          }
+        }
+      },
+      'security': [
+        {
+          'slyce-account-id': []
+        },
+        {
+          'slyce-api-key': []
+        }
+      ],
+      '__originalOperationId': 'Accounts.create_account',
+      'url': '/accounts/',
+      'method': 'get'
+    }
+  };
+
   public url: string;
   public headers: RequestEntry = {};
   public method: string;
   [httpPart: string]: RequestEntry | any;
   constructor(request, localDataService: LocalStorageService) {
-    console.log(request);
+    // console.log(request);
     this.method = request.endPointData.method;
     this.url = request.endPointData.url;
     request.endPointData.security.forEach( item => {

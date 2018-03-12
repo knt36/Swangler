@@ -4,7 +4,7 @@
     <span class="objectNameText">{{this.title.toUpperCase()}}</span>
   </span>
 
-  <div class="schema-property" *ngFor="let p of (this.schema.properties ? this.Object.keys(this.schema.properties) : [])">
+  <div [id]="p" class="schema-property" *ngFor="let p of (this.schema.properties ? this.Object.keys(this.schema.properties) : [])">
     <span class="propLabels">
       <span class="propName propOpt">
         {{p}}
