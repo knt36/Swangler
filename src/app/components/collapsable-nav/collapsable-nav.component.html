@@ -11,8 +11,8 @@
   <nav class="collapsable-nav-body nav flex-column sub_menu"
     *ngIf="!isCollapsed"
     class="card card-block card-header">
-    <div *ngFor="let endpoint of Object.keys(endpoints)">
-      <a class="nav-link" [routerLink]="'/' + tag"  [queryParams]="{enpt: endpoints[endpoint].operationId}">{{ endpoints[endpoint].summary }}</a>
+    <div *ngFor="let endpoint of endpoints; let i = index">
+      <a [id]="'navLink' + i" class="nav-link no-tag-link" [routerLink]="'/' + tag"  [queryParams]="{enpt: endpoint.operationId}">{{this.getNavLinkName(endpoint)}}</a>
     </div>
   </nav>
 </nav>

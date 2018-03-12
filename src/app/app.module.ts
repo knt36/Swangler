@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SwaggerService } from './services/swagger.service';
 
-import { AuthComponent } from './components/authComponent/authComponent.controller';
+import { AuthComponent } from './components/auth-component/auth-component.controller';
 import { LocalStorageService } from './services/local-storage.service';
 import { FormsModule } from '@angular/forms';
 

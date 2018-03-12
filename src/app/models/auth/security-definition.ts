@@ -3,9 +3,14 @@
 
 export class SecurityDefinition {
   public static MOCK_DATA = {
-    'slyce-account-id': {
+    'test1': {
       type: 'apiKey',
-      name: 'slyce-account-id',
+      name: 'test1',
+      in: 'header'
+    },
+    'test2': {
+      type: 'apiKey',
+      name: 'test2',
       in: 'header'
     }
   };

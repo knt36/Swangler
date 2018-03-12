@@ -2,32 +2,32 @@
   <div class="operations">
     <div class="get operation">
       <div class="row">
-        <div class="content pt-3 pb-3" [ngClass]="endpointsSharedService.isExamplesHidden ? 'col-lg-9 col-xl-9' : 'col-lg-6 col-xl-6'">
+        <div id='gridChange' class="content pt-3 pb-3" [ngClass]="endpointsSharedService.isExamplesHidden ? 'col-lg-9 col-xl-9' : 'col-lg-6 col-xl-6'">
           <h4>
-            {{this.endpointData.summary}}
+            {{this.endpointData?.summary}}
           </h4>
 
 
           <div class="d-lg-flex align-items-center">
             <div class="mr-auto">
               <h5>
-                <span class="http_method badge badge-primary">{{this.endpointData.method}}</span>
-                <span class="path text-muted">{{this.endpointData.url}}</span>
+                <span *ngIf="this.endpointData.method" id='methodBadge' class="http_method badge badge-primary">{{this.endpointData.method}}</span>
+                <span *ngIf="this.endpointData.url" id='url' class="path text-muted">{{this.endpointData.url}}</span>
               </h5>
             </div>
           </div>
 
 
-          <div *ngIf="endpointData?.description" class="markdown action-summary">
+          <div id="description" *ngIf="endpointData?.description" class="markdown action-summary">
             <p>{{this?.endpointData?.description}}</p>
           </div>
 
           <h6>
-            Parameters
-            <span class="toggle-examples" (click)="endpointsSharedService.endpointsExamplesToggle()">
+            <span *ngIf="this.endpointData.parameters && this.endpointData.parameters.length > 0"> Parameters </span>
+            <span id="toggle-examples" class="toggle-examples" (click)="this.clickedToggleExamples()">
               <small class="text">
-                <span *ngIf="endpointsSharedService.isExamplesHidden">Show Samples</span>
-                <span *ngIf="!endpointsSharedService.isExamplesHidden">Hide Samples</span>
+                <span class="sampleState" *ngIf="endpointsSharedService.isExamplesHidden">Show Samples</span>
+                <span class="sampleState" *ngIf="!endpointsSharedService.isExamplesHidden">Hide Samples</span>
               </small>
               <svg style="height:1em; width:1em;" class="svg-inline--fa fa-code fa-w-18" aria-hidden="true" data-fa-processed="" data-prefix="fal"
                 data-icon="code" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -40,12 +40,12 @@
 
             <div class="parameter-item">
               <form #endpointForm="ngForm">
-                <div class="form-group row">
-                  <div style="padding:10px;width:100%;" *ngFor="let parm of this.endpointData?.parameters">
+                <div id="parameters" class="form-group row">
+                  <div id="{{parm.name}}" style="padding:10px;width:100%;" *ngFor="let parm of this.endpointData?.parameters">
                     <div class="row">
                       <div class="col-lg-3 col-xl-2">
                         <label class="param-property text-nowrap col-form-label">
-                          {{parm.name}}:
+                          <span>{{parm.name}}:</span>
                           <br>
                           <small class="text-muted">
                             <em>{{parm?.in}}</em>
@@ -61,7 +61,7 @@
                           <div *ngIf="this.parm?.schema && this.Object.keys(this.parm?.schema).length !== 0" class="parameter-content-type">
                             <div>
                               <div class="media mt-2">
-                                <label class="align-self-center mb-0 mr-3" for="parameterContentType">Content type:</label>
+                                <label class="align-self-center mb-0 mr-3">Content type:</label>
                                 <div class="media-body">
                                   <select class="parameter form-control form-control-sm" name="responseContentType">
                                     <option [(ngValue)]="this.parameterFields[parm.name]['contentType']" *ngFor="let option of this.endpointData.consumes" value="option">{{option}}</option>
@@ -117,6 +117,13 @@
             </h6>
             <div class="card">
               <ul class="list-group list-group-flush">
+                <li *ngIf="!this.endpointData.responses || Object.keys(this.endpointData.responses).length < 1" class="list-group-item">
+                  <div>
+                    <span style="padding-right:2em;">
+                      No Status Codes Available
+                    </span>
+                  </div>
+                </li>
                 <li *ngFor="let s of this.Object.keys(this.endpointData.responses)" class="list-group-item">
                   <div>
                     <span style="padding-right:2em;">
