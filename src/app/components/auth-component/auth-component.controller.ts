@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {SecurityDefinition} from '../../models/auth/security-definition';
 import {NotificationsService} from 'angular2-notifications';
+import {SwaggerService} from '../../services/swagger.service';
 
 @Component({
   selector: 'app-auth-component',
@@ -19,7 +20,8 @@ export class AuthComponent implements OnInit {
 
   constructor (
     public localStorageService: LocalStorageService,
-    public notify: NotificationsService
+    public notify: NotificationsService,
+    public swaggerService: SwaggerService
   ) {
   }
 
@@ -39,14 +41,18 @@ export class AuthComponent implements OnInit {
       }
     });
   }
-
   public clickApplyButton() {
     for (const i in this.inputFields) {
       if (this.inputFields.hasOwnProperty(i)) {
         this.localStorageService.setStorageVar(i, this.inputFields[i]);
       }
     }
-    this.notify.success('Success', this.APPLIED_AUTH_MSG);
+    this.reapplyPermissionsAccess(this.localStorageService.getSecurityDefinition()).then(() => {
+      this.notify.success('Success', this.APPLIED_AUTH_MSG);
+    });
+  }
+  public reapplyPermissionsAccess(securityDef: SecurityDefinition): Promise<any> {
+    return this.swaggerService.reInitSwagger(securityDef);
   }
 }
 

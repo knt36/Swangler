@@ -3,6 +3,7 @@ import { SwaggerService } from './swagger.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {SecurityDefinition, SecurityEntity} from '../models/auth/security-definition';
 
 @Injectable()
 export class LocalStorageService {
@@ -64,5 +65,15 @@ export class LocalStorageService {
 
   getStorageVar(varName) {
     return window.localStorage.getItem(varName);
+  }
+  getSecurityDefinition(): SecurityDefinition {
+    const securitydef = new SecurityDefinition();
+    if (this.tempSecurityDefinitions ) {
+      Object.keys( this.tempSecurityDefinitions ).forEach( def => {
+        securitydef.push(new SecurityEntity(def, this.tempSecurityDefinitions[def]));
+      });
+      return(securitydef);
+    }
+    return(securitydef);
   }
 }

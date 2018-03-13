@@ -27,6 +27,12 @@ const LocalStorageServiceStub = {
   }
 };
 
+const SwaggerServiceStub = {
+  reInitSwagger: () => {
+    return Promise.resolve();
+  }
+};
+
 describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
@@ -39,6 +45,7 @@ describe('AuthComponent', () => {
       ],
       providers: [
         { provide: LocalStorageService, useValue: LocalStorageServiceStub },
+        { provide: SwaggerService, useValue: SwaggerServiceStub },
         NotificationsService
       ]
     }).compileComponents();
@@ -124,6 +131,20 @@ describe('AuthComponent', () => {
     expect(component.localStorageService.getStorageVar).toHaveBeenCalled();
     expect(component.inputFields).toEqual({'test1': 'test', 'test2': 'test'});
   });
+
+  it('should call reapplyPermissionsAccess() on clickApplyButton()', () => {
+    spyOn(component, 'reapplyPermissionsAccess');
+    component.clickApplyButton();
+    expect(component.reapplyPermissionsAccess).toHaveBeenCalled();
+  });
+
+  it('should call swaggerService.reInitSwagger', () => {
+    spyOn(component, 'reapplyPermissionsAccess');
+    component.reapplyPermissionsAccess(null);
+    expect(component.reapplyPermissionsAccess).toHaveBeenCalled();
+  });
+
+
 
 });
 

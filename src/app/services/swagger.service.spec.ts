@@ -150,7 +150,7 @@ fdescribe('SwaggerService', () => {
     const sampleEndPointAccesses = new EndpointAccesses();
     sampleEndPointAccesses.push(new Access('/accounts/', 'get', false));
     sampleEndPointAccesses.push(new Access('/accounts/', 'post', false));
-    const appliedData = SwaggerService.applyEndpointAccesses(JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA)), sampleEndPointAccesses);
+    const appliedData = SwaggerService.getEndpointAccesses(JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA)), sampleEndPointAccesses);
     expect(appliedData.spec.paths['/accounts/']['get']).toBeUndefined();
     expect(appliedData.spec.paths['/accounts/']['post']).toBeUndefined();
   });
@@ -160,7 +160,7 @@ fdescribe('SwaggerService', () => {
     const sampleEndPointAccesses = new EndpointAccesses();
     sampleEndPointAccesses.push(new Access('/accounts/', 'get', true));
     sampleEndPointAccesses.push(new Access('/accounts/', 'post', false));
-    const appliedData = SwaggerService.applyEndpointAccesses(JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA)), sampleEndPointAccesses);
+    const appliedData = SwaggerService.getEndpointAccesses(JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA)), sampleEndPointAccesses);
     expect(appliedData.spec.paths['/accounts/']['get']).toBeDefined();
     expect(appliedData.spec.paths['/accounts/']['post']).toBeUndefined();
   });
@@ -169,7 +169,7 @@ fdescribe('SwaggerService', () => {
     ' apis from the json recieved from swagger service if no EndpointAccess Entries', () => {
     const sampleEndPointAccesses = new EndpointAccesses();
     const startData = JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA));
-    const appliedData = SwaggerService.applyEndpointAccesses(startData, sampleEndPointAccesses);
+    const appliedData = SwaggerService.getEndpointAccesses(startData, sampleEndPointAccesses);
     expect(appliedData.spec.paths['/accounts/']['get']).toBeDefined();
     expect(appliedData.spec.paths['/accounts/']['post']).toBeDefined();
   });

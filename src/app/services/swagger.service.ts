@@ -8,14 +8,16 @@ import { NotificationsService } from 'angular2-notifications';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {RequestInitiator} from '../models/endpoint/endpoint.model';
 import {EndpointAccesses} from '../models/endpointAccess/endpoint-access.model';
+import {SecurityDefinition} from '../models/auth/security-definition';
 
 @Injectable()
 export class SwaggerService {
   apiDataSubject: BehaviorSubject<any>;
   endpointsSubject: BehaviorSubject<any>;
   specHost = '';
+  specURL = null;
 
-  public static applyEndpointAccesses(apiData, endpointAccesses: EndpointAccesses) {
+  public static getEndpointAccesses(apiData, endpointAccesses: EndpointAccesses) {
     if (!endpointAccesses) {
       return apiData;
     }
@@ -221,13 +223,49 @@ export class SwaggerService {
     }
   }
 
-  initSwagger(specUrl): Promise<any> {
+  /**
+   * FUNCTION STUB - when endpoint is available to get endpoint accesses, implemenet this stub to get data
+   * and transform the data into object EndpointAccesses to be passedback in the promise.
+   * @param authInfo
+   * @returns {Promise<EndpointAccesses>}
+   */
+  getPermissionData(secDef: SecurityDefinition): Promise<EndpointAccesses> {
+    return( new Promise<any>((resolve, reject) => {
+      if (!secDef) {
+        resolve(null);
+      } else {
+        resolve(null);
+        /*GET PERMISSION DATA*/
+      }
+    }));
+  }
+
+  /**
+   * reinitializes swagger on the specURL of the previous initialization
+   * @param authFields -optional if authFields provided, then filter endpoints that are only accessible to the user
+   * @returns {Promise<any>}
+   */
+  reInitSwagger(secDef?: SecurityDefinition): Promise<any> {
+    return(this.initSwagger(this.specURL, secDef));
+  }
+
+  /**
+   * Takes the spec url to obtain the swagger JSON spec file.
+   * Initializes the hostURL, apiData, endpoint tags and removes any data the user doesn't have access to.
+   * @param {string} specUrl
+   * @param authInfo
+   * @returns {Promise<any>}
+   */
+  initSwagger(specUrl?: string, secDef?: SecurityDefinition): Promise<any> {
     return Swagger(specUrl)
       .then( apiData => {
-        apiData = SwaggerService.applyEndpointAccesses(apiData, null);
-        this.setHostUrl(apiData);
-        this.setApiData(apiData);
-        this.setSortedEndpoints(this.sortApiEndpointsByTags(apiData.spec.paths));
+        this.specURL = specUrl;
+        this.getPermissionData(secDef).then( endpointAccesses => {
+          apiData = SwaggerService.getEndpointAccesses(apiData, endpointAccesses);
+          this.setHostUrl(apiData);
+          this.setApiData(apiData);
+          this.setSortedEndpoints(this.sortApiEndpointsByTags(apiData.spec.paths));
+        });
       })
       .catch( err => {
         console.error(err);
