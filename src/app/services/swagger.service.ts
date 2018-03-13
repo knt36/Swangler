@@ -7,12 +7,35 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {RequestInitiator} from '../models/endpoint/endpoint.model';
+import {EndpointAccesses} from '../models/endpointAccess/endpoint-access.model';
 
 @Injectable()
 export class SwaggerService {
   apiDataSubject: BehaviorSubject<any>;
   endpointsSubject: BehaviorSubject<any>;
   specHost = '';
+
+  public static applyEndpointAccesses(apiData, endpointAccesses: EndpointAccesses) {
+    if (!endpointAccesses) {
+      return apiData;
+    }
+    const newApiData = JSON.parse(JSON.stringify(apiData));
+    if (newApiData && newApiData.spec && newApiData.spec.paths) {
+      const paths = newApiData.spec.paths;
+      Object.keys(paths).forEach( pathName => {
+        const path = paths[pathName];
+        if (path) {
+          Object.keys(path).forEach( methodName => {
+            if (endpointAccesses[pathName] && endpointAccesses[pathName][methodName] &&
+              (!endpointAccesses[pathName][methodName].isAvailable)) {
+              delete path[methodName];
+            }
+          });
+        }
+      });
+    }
+    return newApiData;
+  }
 
   constructor(
     private http: HttpClient,
@@ -201,6 +224,7 @@ export class SwaggerService {
   initSwagger(specUrl): Promise<any> {
     return Swagger(specUrl)
       .then( apiData => {
+        apiData = SwaggerService.applyEndpointAccesses(apiData, null);
         this.setHostUrl(apiData);
         this.setApiData(apiData);
         this.setSortedEndpoints(this.sortApiEndpointsByTags(apiData.spec.paths));

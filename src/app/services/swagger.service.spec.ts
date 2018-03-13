@@ -7,6 +7,8 @@ import { AppEndPoint, RequestInitiator } from '../models/endpoint/endpoint.model
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { LocalStorageService } from './local-storage.service';
+import {Access, EndpointAccesses} from '../models/endpointAccess/endpoint-access.model';
+import {ApiData} from '../models/apidata.model';
 
 const endpointsMockData = [{ 'test': AppEndPoint.MOCK_DATA }];
 
@@ -16,9 +18,10 @@ const LocalStorageServiceStub: Partial<LocalStorageService> = {
   }
 };
 
+
 const requestMockData = RequestInitiator.MOCK_DATA;
 
-describe('SwaggerService', () => {
+fdescribe('SwaggerService', () => {
   let service: SwaggerService;
   let localStorageService: LocalStorageService;
   beforeEach(() => {
@@ -85,7 +88,6 @@ describe('SwaggerService', () => {
   it('should sort endpoints by tags even if endpoint has no tags -> default to NO_TAGS', () => {
     const endpointsMockDataClone = JSON.parse(JSON.stringify(endpointsMockData));
     endpointsMockDataClone[0].test.tags = undefined;
-    console.log(endpointsMockDataClone);
     const res = service.sortApiEndpointsByTags(endpointsMockDataClone);
     console.log(res);
     // tag from AppEndPoint.MOCK_DATA.tags property
@@ -144,5 +146,32 @@ describe('SwaggerService', () => {
     tick();
     expect(result).toBeTruthy();
   }));
+  it('should apply the endpointAccesses criteria and remove the available apis from the json recieved from swagger service', () => {
+    const sampleEndPointAccesses = new EndpointAccesses();
+    sampleEndPointAccesses.push(new Access('/accounts/', 'get', false));
+    sampleEndPointAccesses.push(new Access('/accounts/', 'post', false));
+    const appliedData = SwaggerService.applyEndpointAccesses(JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA)), sampleEndPointAccesses);
+    expect(appliedData.spec.paths['/accounts/']['get']).toBeUndefined();
+    expect(appliedData.spec.paths['/accounts/']['post']).toBeUndefined();
+  });
+
+  it('should apply the endpointAccesses criteria and not remove on true from the' +
+    ' available apis from the json recieved from swagger service', () => {
+    const sampleEndPointAccesses = new EndpointAccesses();
+    sampleEndPointAccesses.push(new Access('/accounts/', 'get', true));
+    sampleEndPointAccesses.push(new Access('/accounts/', 'post', false));
+    const appliedData = SwaggerService.applyEndpointAccesses(JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA)), sampleEndPointAccesses);
+    expect(appliedData.spec.paths['/accounts/']['get']).toBeDefined();
+    expect(appliedData.spec.paths['/accounts/']['post']).toBeUndefined();
+  });
+
+  it('should not apply the endpointAccesses criteria and remove the available' +
+    ' apis from the json recieved from swagger service if no EndpointAccess Entries', () => {
+    const sampleEndPointAccesses = new EndpointAccesses();
+    const startData = JSON.parse(JSON.stringify(ApiData.MOCK_RAW_DATA));
+    const appliedData = SwaggerService.applyEndpointAccesses(startData, sampleEndPointAccesses);
+    expect(appliedData.spec.paths['/accounts/']['get']).toBeDefined();
+    expect(appliedData.spec.paths['/accounts/']['post']).toBeDefined();
+  });
 
 });

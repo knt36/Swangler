@@ -1,5 +1,335 @@
 /* tslint:disable */
 export class ApiData {
+  public static MOCK_RAW_DATA ={
+    "url": "http://forge.local/openapi/spec.json",
+    "spec": {
+      "swagger": "2.0",
+      "info": {
+        "version": "1.0.0",
+        "title": "Slyce API",
+        "description": "",
+        "termsOfService": "Use with caution!",
+        "contact": {
+          "email": "admin@slyce.it"
+        },
+        "license": {
+          "email": null,
+          "url": null
+        }
+      },
+      "host": null,
+      "basePath": null,
+      "schemes": [
+        null
+      ],
+      "securityDefinitions": {
+        "slyce-account-id": {
+          "type": "apiKey",
+          "name": "slyce-account-id",
+          "in": "header"
+        }
+      },
+      "tags": [
+        "Accounts",
+        "Analytics"
+      ],
+      "paths": {
+        "/accounts/": {
+          "post": {
+            "operationId": "Accounts_create_account1",
+            "summary": "Create a new account",
+            "description": "Create a new account.",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "tags": [
+              "Accounts"
+            ],
+            "parameters": [
+              {
+                "type": "object",
+                "name": "body",
+                "required": true,
+                "in": "body",
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The url safe id for the account (this cannot be changed).",
+                      "required": true,
+                      "example": "test_inc"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the account (this can be changed).",
+                      "required": true,
+                      "example": "Test, Inc."
+                    }
+                  },
+                  "name": "body",
+                  "$$ref": "#/definitions/NewAccountDoc"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful Operation",
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "topic": {
+                      "type": "string",
+                      "description": "???",
+                      "example": "fg01-evt-global"
+                    },
+                    "msg_type": {
+                      "type": "string",
+                      "description": "The type of message",
+                      "example": "job-created"
+                    },
+                    "account_id": {
+                      "type": "string",
+                      "description": "The account id related to the job",
+                      "example": "test_inc"
+                    },
+                    "task_id": {
+                      "type": "string",
+                      "description": "The task id"
+                    },
+                    "created_by": {
+                      "type": "string",
+                      "description": "Task created by",
+                      "example": "system"
+                    },
+                    "job_id": {
+                      "type": "string",
+                      "description": "The job id",
+                      "example": "XyGHrrSB9GqrMfvzQdJShA"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the job",
+                      "example": "job-name"
+                    },
+                    "process_status": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "status": {
+                          "type": "integer",
+                          "format": "int64",
+                          "description": "The current job status id",
+                          "example": 1
+                        },
+                        "display": {
+                          "type": "string",
+                          "description": "The current job status text",
+                          "example": "Queued"
+                        }
+                      },
+                      "$$ref": "#/definitions/ProcessStatusDoc"
+                    }
+                  },
+                  "$$ref": "#/definitions/NewJobDoc"
+                }
+              },
+              "202": {
+                "description": "Processing request."
+              },
+              "400": {
+                "description": "Bad request."
+              },
+              "409": {
+                "description": "An account with that name already exists."
+              }
+            },
+            "security": [
+              {
+                "slyce-account-id": []
+              },
+              {
+                "slyce-api-key": []
+              }
+            ],
+            "__originalOperationId": "Accounts.create_account",
+            "url": "/accounts/",
+            "method": "post"
+          },
+          "get": {
+            "operationId": "Accounts_create_account2",
+            "summary": "List the accounts",
+            "description": "Get a list of all accounts in the system.",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "tags": [
+              "Accounts"
+            ],
+            "parameters": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "The page number to get",
+                "default": 1,
+                "example": 1,
+                "required": false,
+                "in": "query",
+                "name": "page_number",
+                "value": 1
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "The number of items to return",
+                "default": 20,
+                "example": 20,
+                "required": false,
+                "in": "query",
+                "name": "page_size",
+                "value": 20
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful Operation",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [],
+                        "properties": {
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "The timestamp the item was created",
+                            "example": "2018-01-04T20:13:55.373557+0000"
+                          },
+                          "created_by": {
+                            "type": "string",
+                            "description": "The user that created the item",
+                            "example": "system"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "The timestamp the item was last updated",
+                            "example": "2018-01-04T20:13:55.373557+0000"
+                          },
+                          "updated_by": {
+                            "type": "string",
+                            "description": "The user that last updated the item",
+                            "example": "system"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The account id",
+                            "example": "test_inc"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "The name of the account",
+                            "example": "Test, Inc."
+                          },
+                          "is_active": {
+                            "type": "boolean",
+                            "description": "Whether an account is active or not."
+                          }
+                        },
+                        "$$ref": "#/definitions/AccountDoc"
+                      }
+                    },
+                    "page_number": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The current page number",
+                      "example": 1
+                    },
+                    "page_size": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The number of items returned",
+                      "example": 20
+                    },
+                    "total_pages": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The total number of pages available",
+                      "example": 1
+                    },
+                    "total_items": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The total number of items available",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "slyce-account-id": []
+              },
+              {
+                "slyce-api-key": []
+              }
+            ],
+            "__originalOperationId": "Accounts.create_account",
+            "url": "/accounts/",
+            "method": "get"
+          }
+        },
+        "/weld_highlighter": {
+          "get": {
+            "operationId": "weld_highlighter",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [],
+            "responses": {
+              "200": {
+                "description": "Successful Operation"
+              }
+            },
+            "security": [
+              {
+                "slyce-account-id": []
+              },
+              {
+                "slyce-api-key": []
+              }
+            ],
+            "__originalOperationId": "weld_highlighter",
+            "url": "/weld_highlighter",
+            "method": "get"
+          }
+        }
+      }
+    },
+    "errors": [],
+    "apis": {
+      "Accounts": {},
+      "Analytics": {}
+    }
+  }
   public static MOCK_DATA = {
     "url": "http://forge.local/openapi/spec.json",
     "spec": {
